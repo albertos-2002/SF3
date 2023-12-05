@@ -1,0 +1,19 @@
+R1 = 815.60 scala 1000K
+C1 = 1.03 uF scala 10uF
+C2 = 1.03 uF scala 10uF
+outB Vgs
+outC Vds
+
+con Vgs = 2.4504v scala 10V DC
+Qpoint = 0.79687mA scala 1000uA  misura in DC
+con Vds = 6.0310V scala 10v DC
+
+1.2 misura lambda
+
+Vds = 8.0010V scala 10V DC
+Nuova I_d = 0.80590uA scala 1000uA
+
+riportiamo la Vds = 6.0367V scala 10V DC
+Vgs = 2.6368V scala 10V DC
+
+I_d = 1.0598mA 10mA DC
