@@ -1,0 +1,46 @@
+esperienza_6::verifica_linearità
+
+tempi: microsecondi		tensione out max: millivolt		scala tensioni: millivolt
+2							142.8							20
+4							282.0							50
+6							408.0  							100
+8							544.0							100
+10							672.0							100
+
+
+esperienza_6::tempo_caratteristico
+tempo offset = 5 microsecondi
+scala tensioni = 50 millivolt
+scala tempi = 50 microsecondi
+
+tempi: microsecondi		tensione out : millivolt 
+36							275
+86							204
+114							172
+138							148
+166							124
+202							100
+242							78
+276							62
+310							50
+
+esperienza_6::analisi_bode
+
+tensione ingresso = 1 volt
+
+frequenza: kilohertz	tensione: volt		scala tenisone: volt
+0.01						12.0				2
+0.0215						12.0				2
+0.0464						12.0				2
+0.1							12.0				2
+0.215						11.6				2
+0.464						10.6				2
+1							8.00				2
+2.15						4.68				1
+4.64						2.32				0.5
+10							1.11				0.2
+21.5						0.520				0.1
+46.4						0.250				0.05
+100							0.117				0.02
+215							0.056				0.02
+464							0.0272				0.02
