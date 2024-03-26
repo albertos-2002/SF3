@@ -9,6 +9,7 @@
 #include "TGraph.h"
 #include "TGraphErrors.h"
 #include "TF1.h"
+#include "TH2F.h"
 
 #ifndef LABNUC
 #define LABNUC
@@ -30,7 +31,7 @@ int plotSignal(bragg_signal sig, int same, int npts, TH2F *nullo) {
   TGraph *g = new TGraph(npts,x,y); // crea il grafico
   g->SetMarkerStyle(7); // imposta alcuni attributi
   g->SetLineColor(4);
-  g->SetLineWidth(2);
+  g->SetLineWidth(1);
 
   TCanvas *csig = (TCanvas*)gROOT->FindObject("csig"); // cerca l'oggetto "csig" (canvas)
   if (!csig) { 

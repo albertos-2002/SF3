@@ -130,11 +130,11 @@ int AnaBragg(const char *filename="", int blto=60, int intfrom=100, int intto=20
 	}
 	
 	float m_l = (signal.s[lbound+1] - signal.s[lbound])*1.0;
-	float q_l = signal.s[lbound]*1.0 - m_l*(lbound*1.0);
+	float q_l = (signal.s[lbound]*1.0 -bl) - m_l*(lbound*1.0);
 	float lbound_def = (vmax*3.0/10.0 - q_l)/m_l;
 
 	float m_r = (signal.s[rbound-1] - signal.s[rbound])*1.0;
-	float q_r = signal.s[rbound]*1.0 - m_r*(rbound*1.0);
+	float q_r = (signal.s[rbound]*1.0 -bl) - m_r*(rbound*1.0);
 	float rbound_def = (vmax*3.0/10.0 - q_r)/m_r;
 
 	width = rbound_def - lbound_def;
