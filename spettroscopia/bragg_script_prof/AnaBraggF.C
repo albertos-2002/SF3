@@ -109,7 +109,7 @@ int AnaBragg(const char *filename="", int blto=60, int intfrom=100, int intto=20
 			pos_max = j;
 		}
 	}
-	integral += gRandom->Rndm();
+	//integral += gRandom->Rndm();
 
 	// DA IMPLEMENTARE:
 	// CALCOLO DELLA LARGHEZZA DEL SEGNALE A UNA CERTA PERCENTUALE DEL VMAX
