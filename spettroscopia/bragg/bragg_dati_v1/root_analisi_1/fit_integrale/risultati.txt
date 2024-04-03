@@ -26,14 +26,10 @@ fit_alto->Draw("same")
 ----------
 
 root [10] TF1* fit_basso = new TF1("fit_basso", "gaus", 4900, 5300)
-(TF1 *) 0x55b6f9396000
 root [11] TF1* fit_medio = new TF1("fit_medio", "gaus", 5800, 6025)
-(TF1 *) 0x55b6f922da70
 root [12] TF1* fit_alto = new TF1("fit_alto", "gaus", 6150, 6400)
-(TF1 *) 0x55b6f9263510	
   
 root [14] histo_integral->Fit(fit_basso, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=14.9514 FROM MIGRAD    STATUS=CONVERGED      70 CALLS          71 TOTAL
                      EDM=9.44566e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -41,10 +37,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     8.77998e+00   1.12807e+00   1.70243e-03  -2.87425e-04
    2  Mean         5.11845e+03   1.20664e+01   2.28178e-02   9.52627e-05
    3  Sigma        1.01966e+02   1.07931e+01   5.65262e-05  -1.87723e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 root [15] histo_integral->Fit(fit_medio, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=10.5148 FROM MIGRAD    STATUS=CONVERGED      80 CALLS          81 TOTAL
                      EDM=9.37924e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -52,10 +46,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     6.92541e+01   4.34529e+00   4.89901e-03   1.08510e-04
    2  Mean         5.93146e+03   4.60111e+00   7.33783e-03  -6.03238e-08
    3  Sigma        7.70811e+01   6.54768e+00   3.67263e-05   1.89213e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 root [16] histo_integral->Fit(fit_alto, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=10.4194 FROM MIGRAD    STATUS=CONVERGED      80 CALLS          81 TOTAL
                      EDM=1.13604e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -63,7 +55,6 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     5.63839e+01   3.73530e+00   4.50437e-03  -7.96590e-06
    2  Mean         6.27799e+03   4.38340e+00   7.14436e-03   1.58244e-06
    3  Sigma        7.04457e+01   5.10942e+00   3.31181e-05   8.23201e-04
-(TFitResultPtr) <nullptr TFitResult>
 
 ----------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
@@ -71,14 +62,10 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
 ----------
 
 root [7] TF1* fit_basso = new TF1("fit_basso", "gaus", 4900, 5350)
-(TF1 *) 0x55889b70f3f0
 root [8] TF1* fit_medio = new TF1("fit_medio", "gaus", 5700, 6050)
-(TF1 *) 0x55889b8afae0
 root [9] TF1* fit_alto = new TF1("fit_alto", "gaus", 6100, 6400)
-(TF1 *) 0x55889b73dc50
 
 root [10] histo_integral->Fit(fit_basso, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=10.4341 FROM MIGRAD    STATUS=CONVERGED      69 CALLS          70 TOTAL
                      EDM=1.96441e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -86,10 +73,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     8.71280e+00   1.24876e+00   1.59272e-03   2.85047e-05
    2  Mean         5.13361e+03   1.07063e+01   1.71090e-02   3.42756e-06
    3  Sigma        8.30102e+01   9.61377e+00   4.92070e-05  -3.05493e-04
-(TFitResultPtr) <nullptr TFitResult>
 
 root [11] histo_integral->Fit(fit_medio, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=48.9364 FROM MIGRAD    STATUS=CONVERGED      69 CALLS          70 TOTAL
                      EDM=1.15381e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -97,10 +82,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     5.55140e+01   3.32009e+00   8.43831e-03   1.90718e-04
    2  Mean         5.90769e+03   4.10475e+00   1.36050e-02  -3.55172e-05
    3  Sigma        8.09202e+01   3.89811e+00   4.18591e-05   2.07009e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 root [12] histo_integral->Fit(fit_alto, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=13.9107 FROM MIGRAD    STATUS=CONVERGED      69 CALLS          70 TOTAL
                      EDM=3.25144e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -108,7 +91,6 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     4.27233e+01   3.07464e+00   4.22186e-03  -2.73042e-05
    2  Mean         6.25958e+03   4.65118e+00   8.65927e-03  -5.15751e-05
    3  Sigma        7.57197e+01   4.94037e+00   3.20502e-05  -1.56429e-03
-(TFitResultPtr) <nullptr TFitResult>
 
 ----------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
@@ -119,14 +101,10 @@ root [0]
 Attaching file anabragg_bragg2000_600_th15.root as _file0...
 
 root [3] TF1* fit_basso = new TF1("fit_", "gaus", 4900, 5350)
-(TF1 *) 0x5623ff6fdd20
 root [4] TF1* fit_medio = new TF1("fit_", "gaus", 5700, 6100)
-(TF1 *) 0x5623ffca1950
 root [5] TF1* fit_alto = new TF1("fit_", "gaus", 6100, 6450)
-(TF1 *) 0x5623fd825490
  
 root [6] histo_integral->Fit(fit_basso, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=31.1286 FROM MIGRAD    STATUS=CONVERGED      79 CALLS          80 TOTAL
                      EDM=2.55347e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -134,10 +112,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     8.85754e+00   1.22374e+00   2.40668e-03   2.21939e-04
    2  Mean         5.12954e+03   1.39160e+01   3.11872e-02   1.04601e-05
    3  Sigma        1.02316e+02   1.25508e+01   7.30171e-05   6.51912e-03
-(TFitResultPtr) <nullptr TFitResult>
  
 root [7] histo_integral->Fit(fit_medio, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=17.5793 FROM MIGRAD    STATUS=CONVERGED      61 CALLS          62 TOTAL
                      EDM=1.05082e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -145,10 +121,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     7.25927e+01   3.64779e+00   5.74736e-03   4.44973e-04
    2  Mean         5.91140e+03   3.31615e+00   6.97967e-03  -1.39764e-04
    3  Sigma        8.29945e+01   3.11242e+00   2.02900e-05   1.34027e-01
-(TFitResultPtr) <nullptr TFitResult>
 
 root [8] histo_integral->Fit(fit_alto, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=23.3491 FROM MIGRAD    STATUS=CONVERGED      63 CALLS          64 TOTAL
                      EDM=1.1615e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -156,7 +130,6 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     5.64053e+01   3.37872e+00   6.32060e-03   3.96660e-06
    2  Mean         6.25014e+03   4.00240e+00   8.32717e-03   9.23051e-05
    3  Sigma        6.99812e+01   3.03149e+00   2.46299e-05  -1.14690e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 ----------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
@@ -167,14 +140,10 @@ root [0]
 Attaching file anabragg_bragg2000_550_th15.root as _file0...
 
 root [3] TF1* fit_basso = new TF1("fit_", "gaus", 4900, 5350)
-(TF1 *) 0x55e0cc9e1860
 root [4] TF1* fit_medio = new TF1("fit_", "gaus", 5650, 6050)
-(TF1 *) 0x55e0ccdaaf80
 root [5] TF1* fit_alto = new TF1("fit_", "gaus", 6050, 6400)
-(TF1 *) 0x55e0cc5a0610
 
 root [6] histo_integral->Fit(fit_basso, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=16.4471 FROM MIGRAD    STATUS=CONVERGED      69 CALLS          70 TOTAL
                      EDM=1.52792e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -182,10 +151,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     1.02404e+01   1.32010e+00   1.94277e-03   2.04062e-04
    2  Mean         5.12461e+03   9.95358e+00   1.97679e-02   4.07158e-05
    3  Sigma        9.67158e+01   9.98926e+00   5.13033e-05   1.73233e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 root [7] histo_integral->Fit(fit_medio, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=30.528 FROM MIGRAD    STATUS=CONVERGED      70 CALLS          71 TOTAL
                      EDM=1.76743e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -193,10 +160,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     7.20214e+01   3.85867e+00   7.50388e-03  -1.75833e-05
    2  Mean         5.88909e+03   3.37861e+00   9.23607e-03   1.73026e-05
    3  Sigma        8.26082e+01   3.57676e+00   2.87227e-05   8.70766e-03
-(TFitResultPtr) <nullptr TFitResult>
 
 root [8] histo_integral->Fit(fit_alto, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=12.9228 FROM MIGRAD    STATUS=CONVERGED      64 CALLS          65 TOTAL
                      EDM=6.27762e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -204,7 +169,6 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     6.02823e+01   3.46989e+00   4.77058e-03   2.15404e-04
    2  Mean         6.21925e+03   3.69840e+00   6.51313e-03   2.60480e-04
    3  Sigma        7.56314e+01   3.38065e+00   2.09704e-05   6.57122e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 ----------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
@@ -215,14 +179,10 @@ root [0]
 Attaching file anabragg_bragg2000_500_th15.root as _file0...
 
 root [3] TF1* fit_basso = new TF1("fit_", "gaus", 4850, 5250)
-(TF1 *) 0x561bfcd53800
 root [4] TF1* fit_medio = new TF1("fit_", "gaus", 5600, 6000)
-(TF1 *) 0x561bfcfa2620
 root [5] TF1* fit_alto = new TF1("fit_", "gaus", 6050, 6350)
-(TF1 *) 0x561bfac63df0
 
 root [6] histo_integral->Fit(fit_basso, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=22.8152 FROM MIGRAD    STATUS=CONVERGED      69 CALLS          70 TOTAL
                      EDM=1.13123e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -230,10 +190,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     1.10618e+01   1.36500e+00   2.43420e-03  -8.99949e-04
    2  Mean         5.08024e+03   9.77148e+00   2.23736e-02   5.36604e-05
    3  Sigma        9.19918e+01   9.00633e+00   5.83448e-05   1.29543e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 root [7] histo_integral->Fit(fit_medio, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=41.7225 FROM MIGRAD    STATUS=CONVERGED      71 CALLS          72 TOTAL
                      EDM=9.37314e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -241,10 +199,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     7.21491e+01   3.86006e+00   8.78184e-03  -1.09736e-04
    2  Mean         5.85366e+03   3.62782e+00   1.13963e-02  -9.89754e-05
    3  Sigma        8.41669e+01   3.93869e+00   3.71377e-05   6.24943e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 root [8] histo_integral->Fit(fit_alto, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=25.1874 FROM MIGRAD    STATUS=CONVERGED      71 CALLS          72 TOTAL
                      EDM=1.00916e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -252,7 +208,6 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     5.81119e+01   3.37837e+00   6.55470e-03   3.49838e-06
    2  Mean         6.17339e+03   5.18833e+00   9.98512e-03   1.10304e-04
    3  Sigma        7.59051e+01   4.16583e+00   3.16940e-05   1.46578e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 ----------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
@@ -263,14 +218,10 @@ root [0]
 Attaching file anabragg_bragg2000_450_th15.root as _file0...
 
 root [3] TF1* fit_basso = new TF1("fit_", "gaus", 4900, 5250)
-(TF1 *) 0x556be0d6cd40
 root [4] TF1* fit_medio = new TF1("fit_", "gaus", 5650, 5950)
-(TF1 *) 0x556be1014a30
 root [5] TF1* fit_alto = new TF1("fit_", "gaus", 6000, 6300)
-(TF1 *) 0x556be0c2fd80
 
 root [6] histo_integral->Fit(fit_basso, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=9.19237 FROM MIGRAD    STATUS=CONVERGED      61 CALLS          62 TOTAL
                      EDM=8.22732e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -278,10 +229,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     1.35817e+01   1.62330e+00   1.86491e-03   5.91449e-04
    2  Mean         5.06935e+03   7.71928e+00   1.18891e-02   1.20604e-04
    3  Sigma        7.84221e+01   7.70371e+00   3.92818e-05   3.85731e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 root [7] histo_integral->Fit(fit_medio, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=12.6426 FROM MIGRAD    STATUS=CONVERGED      69 CALLS          70 TOTAL
                      EDM=1.53501e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -289,10 +238,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     8.08794e+01   3.78993e+00   5.32864e-03  -1.16033e-05
    2  Mean         5.79538e+03   3.14879e+00   5.64129e-03   1.19458e-05
    3  Sigma        7.67595e+01   2.80775e+00   1.81152e-05  -1.32426e-04
-(TFitResultPtr) <nullptr TFitResult>
 
 root [8] histo_integral->Fit(fit_alto, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=11.865 FROM MIGRAD    STATUS=CONVERGED      67 CALLS          68 TOTAL
                      EDM=1.31275e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -300,7 +247,6 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     6.07074e+01   3.44593e+00   4.96174e-03  -2.80612e-06
    2  Mean         6.12201e+03   3.42640e+00   5.44097e-03  -4.35725e-06
    3  Sigma        6.19498e+01   2.38928e+00   1.77030e-05  -4.90181e-04
-(TFitResultPtr) <nullptr TFitResult>
 
 ----------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------
@@ -311,14 +257,10 @@ root [0]
 Attaching file anabragg_bragg2000_350_th15.root as _file0...
 
 root [3] TF1* fit_basso = new TF1("fit_basso", "gaus", 2500, 3550)
-(TF1 *) 0x55a014650370
 root [4] TF1* fit_medio = new TF1("fit_medio", "gaus", 4400, 4900)
-(TF1 *) 0x55a0147961c0
 root [5] TF1* fit_alto = new TF1("fit_alto", "gaus", 4900, 5500)
-(TF1 *) 0x55a014710d60
 
 root [6] histo_integral->Fit(fit_basso, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=45.9182 FROM MIGRAD    STATUS=CONVERGED      81 CALLS          82 TOTAL
                      EDM=1.35179e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -326,10 +268,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     1.86318e+01   1.19984e+00   3.10028e-03   7.96172e-04
    2  Mean         2.97769e+03   3.62214e+01   1.19595e-01  -3.82763e-05
    3  Sigma        4.51690e+02   4.71690e+01   1.16449e-04   1.55243e-02
-(TFitResultPtr) <nullptr TFitResult>
 
 root [7] histo_integral->Fit(fit_medio, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=35.0604 FROM MIGRAD    STATUS=CONVERGED      73 CALLS          74 TOTAL
                      EDM=1.25148e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -337,10 +277,8 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     7.51794e+01   4.17604e+00   8.88248e-03  -4.93547e-06
    2  Mean         4.66951e+03   7.10394e+00   1.93767e-02   9.99988e-08
    3  Sigma        1.39349e+02   7.44539e+00   3.89617e-05  -1.02515e-03
-(TFitResultPtr) <nullptr TFitResult>
 
 root [8] histo_integral->Fit(fit_alto, "R")
-Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  FCN=10.8329 FROM MIGRAD    STATUS=CONVERGED      67 CALLS          68 TOTAL
                      EDM=2.83004e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
   EXT PARAMETER                                   STEP         FIRST   
@@ -348,6 +286,5 @@ Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit
    1  Constant     9.48612e+01   4.05159e+00   5.63298e-03   4.54534e-06
    2  Mean         5.07594e+03   7.53948e+00   1.02562e-02   1.06671e-04
    3  Sigma        1.48638e+02   5.58946e+00   1.60230e-05   7.62700e-03
-(TFitResultPtr) <nullptr TFitResult>
 
 ----------------------------------------------------------------------------------------------------------------
