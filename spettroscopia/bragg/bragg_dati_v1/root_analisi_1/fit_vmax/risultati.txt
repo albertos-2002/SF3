@@ -1,26 +1,177 @@
-TH1F* histo_integral = new TH1F ("histo_integral", "integral (2000 - 6000)", 100, 2000, 6000)
-nt->Draw("integral>>histo_integral")
+TH1F* histo_vmax = new TH1F ("histo_vmax", "vmax (120 - 160) 450mb", 50, 120, 160)
+nt->Draw("vmax>>histo_vmax")
 
 -- TF1* fit_ = new TF1("fit_", "gaus", 0, 0)
 
-TF1* fit_basso = new TF1("fit_basso", "gaus", 2500, 3550)
-TF1* fit_medio = new TF1("fit_medio", "gaus", 4400, 4900)
-TF1* fit_alto = new TF1("fit_alto", "gaus", 4900, 5500)
+TF1* fit = new TF1("fit", "gaus", 137, 154)
 
--- histo_integral->Fit(fit_, "R")
+-- histo_vmax->Fit(fit_, "R")
 
-histo_integral->Fit(fit_basso, "R")
-histo_integral->Fit(fit_medio, "R")
-histo_integral->Fit(fit_alto, "R")
+histo_vmax->Fit(fit, "R")
 
--- fit_->Draw("same")
 
-fit_basso->Draw("same")
-fit_medio->Draw("same")
-fit_alto->Draw("same")
 
 ---------------------------------------------------------------------------------------------------------------
- |
+ 650th15 |
 ----------
+
+root [0] 
+Attaching file anabragg_bragg2000_650_th15.root as _file0...
+(TFile *) 0x55d1346ffca0
+root [1] TH1F* histo_vmax = new TH1F ("histo_vmax", "vmax (160 - 200) 650mb", 50, 160, 200)
+(TH1F *) 0x55d1343543f0
+root [2] nt->Draw("vmax>>histo_vmax")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [3] TF1* fit = new TF1("fit", "gaus", 170, 187)
+(TF1 *) 0x55d136694a30
+root [4] histo_vmax->Fit(fit, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=54.1012 FROM MIGRAD    STATUS=CONVERGED      72 CALLS          73 TOTAL
+                     EDM=4.15334e-11    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.35323e+02   4.60112e+00   1.39972e-02   6.52369e-08
+   2  Mean         1.78286e+02   8.50251e-02   3.03936e-04   7.21230e-05
+   3  Sigma        2.90284e+00   5.49511e-02   1.89689e-05   9.47291e-04
+(TFitResultPtr) <nullptr TFitResult>
+
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 650th14 |
+----------
+
+root [0] 
+Attaching file anabragg_bragg2000_650_th14.root as _file0...
+(TFile *) 0x558604cdb5a0
+root [1] TH1F* histo_vmax = new TH1F ("histo_vmax", "vmax (160 - 200) 650mb", 50, 160, 200)
+(TH1F *) 0x5586045791e0
+root [2] nt->Draw("vmax>>histo_vmax")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [3] TF1* fit = new TF1("fit", "gaus", 170, 187)
+(TF1 *) 0x5586067332b0
+root [4] histo_vmax->Fit(fit, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=23.5131 FROM MIGRAD    STATUS=CONVERGED      64 CALLS          65 TOTAL
+                     EDM=4.36014e-11    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.17829e+02   4.57746e+00   8.70657e-03   4.58875e-07
+   2  Mean         1.78895e+02   9.34053e-02   2.24362e-04   9.72683e-05
+   3  Sigma        2.92654e+00   7.55582e-02   1.64911e-05   2.26998e-04
+(TFitResultPtr) <nullptr TFitResult>
+
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 600     |
+----------
+
+root [0] 
+Attaching file anabragg_bragg2000_600_th15.root as _file0...
+(TFile *) 0x561fc687d330
+root [1] TH1F* histo_vmax = new TH1F ("histo_vmax", "vmax (160 - 190) 600mb", 50, 160, 190)
+(TH1F *) 0x561fc5cb43e0
+root [2] nt->Draw("vmax>>histo_vmax")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [3] TF1* fit = new TF1("fit", "gaus", 165, 180)
+(TF1 *) 0x561fc838f2c0
+root [4] histo_vmax->Fit(fit, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=42.8006 FROM MIGRAD    STATUS=CONVERGED      63 CALLS          64 TOTAL
+                     EDM=4.89121e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.19419e+02   4.21595e+00   1.06342e-02   2.00724e-04
+   2  Mean         1.72538e+02   7.73807e-02   2.41253e-04  -9.69532e-03
+   3  Sigma        2.65291e+00   6.11879e-02   1.89695e-05   1.13264e-01
+(TFitResultPtr) <nullptr TFitResult>
+
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 550     |
+----------
+
+root [0] 
+Attaching file anabragg_bragg2000_550_th15.root as _file0...
+(TFile *) 0x5574bfe34b50
+root [1] TH1F* histo_vmax = new TH1F ("histo_vmax", "vmax (150 - 190) 600mb", 50, 150, 190)
+(TH1F *) 0x5574bfa893f0
+root [2] nt->Draw("vmax>>histo_vmax")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [3] TF1* fit = new TF1("fit", "gaus", 158, 175)
+(TF1 *) 0x5574bfa83490
+root [4] histo_vmax->Fit(fit, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=38.4343 FROM MIGRAD    STATUS=CONVERGED      63 CALLS          64 TOTAL
+                     EDM=1.04052e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.53963e+02   5.27951e+00   1.26836e-02  -2.32995e-05
+   2  Mean         1.65713e+02   8.14234e-02   2.42330e-04   1.01763e-03
+   3  Sigma        2.88500e+00   6.40812e-02   1.75906e-05   1.82428e-03
+(TFitResultPtr) <nullptr TFitResult>
+
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 500     |
+----------
+
+root [0] 
+Attaching file anabragg_bragg2000_500_th15.root as _file0...
+(TFile *) 0x55803fc7a540
+root [1] TH1F* histo_vmax = new TH1F ("histo_vmax", "vmax (140 - 180) 500mb", 50, 140, 180)
+(TH1F *) 0x55803f4dd3f0
+root [2] nt->Draw("vmax>>histo_vmax")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [3] TF1* fit = new TF1("fit", "gaus", 145, 165)
+(TF1 *) 0x5580415d7410
+root [4] histo_vmax->Fit(fit, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=90.5368 FROM MIGRAD    STATUS=CONVERGED      72 CALLS          73 TOTAL
+                     EDM=2.41535e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.49908e+02   5.31815e+00   1.82262e-02   4.12750e-06
+   2  Mean         1.55938e+02   8.60831e-02   3.87873e-04   1.30731e-04
+   3  Sigma        3.15159e+00   7.76664e-02   2.65228e-05   9.78006e-04
+(TFitResultPtr) <nullptr TFitResult>
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 450     |
+----------
+
+root [0] 
+Attaching file anabragg_bragg2000_450_th15.root as _file0...
+(TFile *) 0x55bd35ea7370
+root [1] TH1F* histo_vmax = new TH1F ("histo_vmax", "vmax (120 - 160) 450mb", 50, 120, 160)
+(TH1F *) 0x55bd3575f3f0
+root [2] nt->Draw("vmax>>histo_vmax")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+
+root [5] TF1* fit = new TF1("fit", "gaus", 137, 154)
+(TF1 *) 0x55bd357e9610
+root [6] histo_vmax->Fit(fit, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=64.4672 FROM MIGRAD    STATUS=CONVERGED      70 CALLS          71 TOTAL
+                     EDM=3.19471e-11    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.53057e+02   4.80737e+00   1.50587e-02   8.33304e-07
+   2  Mean         1.45569e+02   8.89308e-02   3.46621e-04  -8.03325e-05
+   3  Sigma        3.39423e+00   6.99927e-02   2.16768e-05   4.72501e-04
+(TFitResultPtr) <nullptr TFitResult>
+
+
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 350     |
+----------
+
+ci sono tre picchi abbastanza divisi, non credo sia possibile trovare una singola soluzione per il massimo
 
 ----------------------------------------------------------------------------------------------------------------
