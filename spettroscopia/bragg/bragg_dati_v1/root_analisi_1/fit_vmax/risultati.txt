@@ -1,0 +1,26 @@
+TH1F* histo_integral = new TH1F ("histo_integral", "integral (2000 - 6000)", 100, 2000, 6000)
+nt->Draw("integral>>histo_integral")
+
+-- TF1* fit_ = new TF1("fit_", "gaus", 0, 0)
+
+TF1* fit_basso = new TF1("fit_basso", "gaus", 2500, 3550)
+TF1* fit_medio = new TF1("fit_medio", "gaus", 4400, 4900)
+TF1* fit_alto = new TF1("fit_alto", "gaus", 4900, 5500)
+
+-- histo_integral->Fit(fit_, "R")
+
+histo_integral->Fit(fit_basso, "R")
+histo_integral->Fit(fit_medio, "R")
+histo_integral->Fit(fit_alto, "R")
+
+-- fit_->Draw("same")
+
+fit_basso->Draw("same")
+fit_medio->Draw("same")
+fit_alto->Draw("same")
+
+---------------------------------------------------------------------------------------------------------------
+ |
+----------
+
+----------------------------------------------------------------------------------------------------------------
