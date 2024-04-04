@@ -30,7 +30,9 @@ Tutti i dati e le analisi si trovano dentro la cartella
 	- fit integrale
 	- fit vmax
 
-	per i due punti precedenti sottolineo come l'errore inserito nel grafico per il valore medio della gaussiana fittata è quello fornito da root, non ho svolto ricerche su come vada interpretato, inoltre da qui in poi il 650mb a th14 viene scartato dato che in basso è presente un rumore elevato e le analisi vengono svolte solo per i th15
+	per i due punti precedenti sottolineo come l'errore inserito nel grafico per il valore medio della gaussiana fittata è quello fornito da root, non ho svolto ricerche su come vada interpretato, questo significa che se root mi da sia un risultato per il fit di media e sigma, come errore della media prendo quello sulla riga della media (vedere file contenente i risultati di fit)
+
+	inoltre da qui in poi il 650mb a th14 viene scartato dato che in basso è presente un rumore elevato e le analisi vengono svolte solo per i th15
 
 	- riconoscimento delle particelle (il discorso teorico si trova sotto)
 

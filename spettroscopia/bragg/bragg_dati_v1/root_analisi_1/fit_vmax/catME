@@ -1,0 +1,5 @@
+g++ -Wall $(root-config --cflags --libs) graph_creator.cc -o graph_creatore_exe
+
+esecuzione: 
+
+./graph_creatore_exe
