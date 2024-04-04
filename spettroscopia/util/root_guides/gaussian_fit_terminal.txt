@@ -36,7 +36,7 @@ NOTA: ho provato a fare il fit direttamente su una variabile della ntupla
    questo comando aprirà anche una canvas dove verrà visualizzato l'histogramma della nome_variabile
    limitato entro i bound forniti al punto 2)
    
-4) creazione degli oggetti di fit
+4) creazione degli oggetti di fit (che sono oggetti che rappresentano una funzione matematica)
    usiamo k come indice in quanto potrebbe essere necessario fittare più di una curva sugli stessi dati
    ed è una buona idea avere nomi diversi anche se basta che l'id (nome puntatore) dell'oggetto sia diverso
    (per esempio negli integral abbiamo tre picchi distinti che necessitano di essere fittati)
