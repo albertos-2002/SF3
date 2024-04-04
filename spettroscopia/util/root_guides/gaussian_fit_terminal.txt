@@ -1,0 +1,75 @@
+Il processo è stato testato sui file prodotti da:
+	AnaBragg.C - che contengono ntuple alle cui variabili è possibile accedere tramite nome
+	
+-------------------------------------------------------------------------------------------------------------------
+
+1) aprire il file che contiene i dati
+   la cosa più facile consiste nel digitare la seguente stringa su terminale
+   	root nome_file.root
+   in questo modo dopo l'avvio il file è già disponibile per l'utilizzo
+   
+NOTA: non è possibile salvare i prossimi passaggi all'interno del file
+      probabilmente perchè viene aperto in sola lettura
+      
+NOTA: ho provato a fare il fit direttamente su una variabile della ntupla
+      non so esattamente quello che si ottiene (credo un fit su tutte le entrate)
+      il procedimento seguito di seguito permette di ottenere anche un grafico in modo da poterlo poi salvare
+      
+2) creazione di un oggetto histogramma 1 dimensionale
+
+	TH1F* nome_histo = new TH1F("dispaly_name", "title", number_of_bin, lower_bound, upper_bound)
+	
+  esempio per spiegare il concetto:
+  prendiamo il caso dell'esperienza di bragg e l'histo relativo alla variabile integral
+  abbiamo un range di valori molto ampio, la zona det tre picchi, quella del rumore inferiore e qualche outliner superiore
+  per avere una visualizzazione grafica più bella restringiamo il valore del bound in modo che contengano solamente i tre picchi di interesse
+  il numero di bin, alle conoscenze attuali (chatgpt fallisce miseramente), non ho trovato il modo di metterlo automatico
+  le formule per ricavare il numero di bin solitamente non restituiscono un valore che rende l'histo gradevole alla vista
+  (notiamo che più il campione è grande più queste regole "funzionano")
+  si decide quindi di inserire un valore pseudocasuale (a occhio) fino ad ottenere un qualcosa di gradevole
+  
+3) "riempire" l'histogramma
+
+	nt -> Draw("nome_variabile >> display_name") 
+	(se non funzione usare nome_histo)
+	
+   questo comando aprirà anche una canvas dove verrà visualizzato l'histogramma della nome_variabile
+   limitato entro i bound forniti al punto 2)
+   
+4) creazione degli oggetti di fit
+   usiamo k come indice in quanto potrebbe essere necessario fittare più di una curva sugli stessi dati
+   ed è una buona idea avere nomi diversi anche se basta che l'id (nome puntatore) dell'oggetto sia diverso
+   (per esempio negli integral abbiamo tre picchi distinti che necessitano di essere fittati)
+   
+   	TF1* nome_fit_k = new TF1("dispaly_name_fit_k", "function_name", lower_range_bound, upper_range_bound)
+   	
+   non sono state sperimentate funzioni custo ma solo le built-in di root
+   per una gaussiana il nome da utilizzare è gaus
+   i limiti di range (nella pratica svolta di bragg sono stati determinati ad occhio) sono quelli che contengono la
+   sezione di dati da fittare (nel caso di bragg integral solo uno dei picchi per volta)
+   
+5) eseguire il fit 
+
+	nome_histo -> Fit(nome_fit_k, "R")
+	
+   l'utilità e il funzionamento di inserire un "R" è dattato soltanto dall'affidabilità di chatgpt, secondo essa serve
+   per dire a root di utilizzare il range fornito e non espandersi oltre
+   
+   mentre si eseguono questi fit uno ad uno (nel caso di più fit) vengono printati sul grafico, uno alla volta
+   
+   ognuna delle esecuzioni sopra printa sul terminale i risultati di fit, possono essere facilmente salvati con 
+   un semplice copia e incolla su un file (selezione e clic rotella del mouse o tasto destro)
+   
+   l'interpretazione di questi risultati non è stata approfondita
+   
+6) print di tutti i fit assieme
+
+	nome_histo -> Draw()
+	nome_fit_k -> Draw("same")
+	
+   la stampa dei risultati, anche con informazioni aggiuntive (quali chiquadro) sul grafico non è stata
+   approfondita
+   
+7) salvataggio del grafico
+
+   usare la GUI per salvare il grafico, ridimensionare la finestra a piacimento fino ad ottenere una forma accettabile
