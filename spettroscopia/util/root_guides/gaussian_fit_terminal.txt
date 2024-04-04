@@ -73,3 +73,5 @@ NOTA: ho provato a fare il fit direttamente su una variabile della ntupla
 7) salvataggio del grafico
 
    usare la GUI per salvare il grafico, ridimensionare la finestra a piacimento fino ad ottenere una forma accettabile
+   
+custumizzazioni di vario tipo non sono state approfondite
