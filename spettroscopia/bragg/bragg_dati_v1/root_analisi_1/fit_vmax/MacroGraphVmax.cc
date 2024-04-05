@@ -1,9 +1,5 @@
-/* Questo codice si occupa di prendere i risultati del fit gaussiano per le vmax
+/* Questo codice (macro) si occupa di prendere i risultati del fit gaussiano per le vmax
    ATTENZIONE: valori sono hardcoded
-   e di creare un file root che ne contiene un plot
-   Lo salviamo su un file root in modo tale da poterlo salvare
-   in base alla dimensione della finestra della gui senza impozziere
-   con le canvas fino a trovare la misura adatta per tentativi
 */
 
 // ricordiamo che per i 350mb non si è riusciti ad ottenere un singolo picco quindi non è stato inserito nel grafico
@@ -27,9 +23,6 @@ struct data_points {
 
 };
 
-
-//int main( int terminal_index, char* terminal_string[] ){
-
 void MacroGraphVmax(){
 
   //creazione di una struttura
@@ -48,9 +41,12 @@ void MacroGraphVmax(){
   scatter_of_vmax -> SetTitle("vmax - pressione");
   scatter_of_vmax -> GetXaxis() -> SetTitle("pressione (mb)");
   scatter_of_vmax -> GetYaxis() -> SetTitle("vmax (a.u.)");
+  scatter_of_vmax -> SetLineWidth(2);
+  scatter_of_vmax -> SetMarkerStyle(kFullDotLarge);
+  scatter_of_vmax -> SetMarkerSize(1);
+  scatter_of_vmax -> SetMarkerColor(kBlue-4);
   
   scatter_of_vmax -> Draw("AP");
-  //scatter_of_vmax -> Draw("P");
 
   return;
 
