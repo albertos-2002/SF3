@@ -8,12 +8,9 @@
 
 // ricordiamo che per i 350mb non si è riusciti ad ottenere un singolo picco quindi non è stato inserito nel grafico
 
-#include <TFile.h> //gestore di file
 #include <TGraphErrors.h> //grafico con errori
 #include <TAxis.h> //bho dovrebbe gestire gli assi credo
-#include <vector>
-#include <iostream>
-using namespace std;
+#include <TCanvas.h> //dovrebbe essere l'oggetto che contiene il grafico
 
 struct data_points {
   
@@ -31,10 +28,18 @@ struct data_points {
 };
 
 
-int main( int terminal_index, char* terminal_string[] ){
+//int main( int terminal_index, char* terminal_string[] ){
+
+void MacroGraphVmax(){
 
   //creazione di una struttura
   data_points data;
+  
+  //creazione della canvas
+  
+  TCanvas* canvas = new TCanvas("canvas","canvas",1);
+  
+  canvas -> SetGrid();
   
   //creazione e gestione dello scatter plot
   
@@ -44,21 +49,9 @@ int main( int terminal_index, char* terminal_string[] ){
   scatter_of_vmax -> GetXaxis() -> SetTitle("pressione (mb)");
   scatter_of_vmax -> GetYaxis() -> SetTitle("vmax (a.u.)");
   
-  scatter_of_vmax -> SetGrid();
-  
-  //apertura e gestione del file
-  
-  TFile* file_output = new TFile("grafico_vmax.root","RECREATE");
-  
-  scatter_of_vmax -> Write("scatter_vmax");
-  
-  file_output -> Close();
-  
-  //pulizia della memoria dinamica
-  
-  delete scatter_of_vmax;
-  delete file_output;
+  scatter_of_vmax -> Draw("AP");
+  //scatter_of_vmax -> Draw("P");
 
-  return 0;
+  return;
 
 }
