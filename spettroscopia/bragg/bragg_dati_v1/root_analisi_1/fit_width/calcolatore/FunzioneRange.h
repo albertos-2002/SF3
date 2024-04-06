@@ -72,17 +72,17 @@ template <typename T> void calcolatore_range( T& data, int pressione){
   cout << endl;
   cout << "Range nettunio:  " 
        << range_nettunio
-       << "\\pm"
+       << " \\pm "
        << err_range_nettunio
        << endl;
   cout << "Range americio:  " 
        << range_americio
-       << "\\pm"
+       << " \\pm "
        << err_range_americio
        << endl;
   cout << "Range curio   :  " 
        << range_curio
-       << "\\pm"
+       << " \\pm "
        << err_range_curio
        << endl;
   cout << "\n" << endl;
