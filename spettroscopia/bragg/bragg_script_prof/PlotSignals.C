@@ -24,11 +24,12 @@ struct bragg_signal {
 #endif
 
 
-int plotSignal(bragg_signal sig, int same, int npts, TH2F *nullo) {
+int plotSignal(bragg_signal sig, int same, int npts, TH2F *nullo, const char* titolo_graph) {
 
   float x[npts]; for (int i=0; i<npts; i++) x[i]=i*1.0;
   float y[npts]; for (int i=0; i<npts; i++) y[i]=sig.s[i];
   TGraph *g = new TGraph(npts,x,y); // crea il grafico
+  g->SetTitle(titolo_graph);
   g->SetMarkerStyle(7); // imposta alcuni attributi
   g->SetLineColor(4);
   g->SetLineWidth(1);
@@ -57,7 +58,7 @@ int plotSignal(bragg_signal sig, int same, int npts, TH2F *nullo) {
   return 0;
 }
 
-int PlotSignals(const char *filename="", int plfrom=0, int plto=100, int same=1, int npts=256) {
+int PlotSignals(const char *filename="", const char* titolo_grafico="",int plfrom=0, int plto=2000, int same=1, int npts=256) {
 
   bragg_signal signal;
 
@@ -90,7 +91,7 @@ int PlotSignals(const char *filename="", int plfrom=0, int plto=100, int same=1,
   
   for (int i=plfrom; i<plto; i++) {
     br->GetEntry(i);
-    plotSignal(signal,same,npts,hnull);  
+    plotSignal(signal,same,npts,hnull,titolo_grafico);  
   }
   
   return 0;

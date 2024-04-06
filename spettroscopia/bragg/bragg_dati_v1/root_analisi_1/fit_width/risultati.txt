@@ -1,0 +1,219 @@
+NOTA: non è esattamente chiaro cosa dobbiamo fittare e a cosa corrisponda
+      consideriamo come indicazione di cosa dobbiamo ottenere il pdf di giacomo
+      e guardiamo il plotsignal per vedere dove sempra ci siano più segnali e quindi dove andare a fare il fit
+      
+---------------------------------------------------------------------------------------------------------------
+ 650th15 |
+----------
+
+
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 600     |
+----------
+
+root [6] TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 37, 41)
+(TF1 *) 0x560768e5f1d0
+root [7] TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 44, 48)
+(TF1 *) 0x560769606df0
+root [8] TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 48, 52)
+(TF1 *) 0x5607694979b0
+root [9] nome_histo -> Fit(nome_fit_nettunio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=9.67539 FROM MIGRAD    STATUS=CONVERGED      68 CALLS          69 TOTAL
+                     EDM=3.9912e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     2.89181e+01   3.33140e+00   4.15467e-03   1.59946e-05
+   2  Mean         3.87995e+01   9.83996e-02   1.48727e-04   8.59849e-04
+   3  Sigma        9.59199e-01   8.14406e-02   3.49369e-05   2.33950e-03
+(TFitResultPtr) <nullptr TFitResult>
+root [10] nome_histo -> Fit(nome_fit_americio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=41.6906 FROM MIGRAD    STATUS=CONVERGED      85 CALLS          86 TOTAL
+                     EDM=7.43035e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.43864e+02   8.80365e+00   1.79164e-02   1.48486e-05
+   2  Mean         4.64522e+01   5.92459e-02   1.78090e-04  -7.48537e-04
+   3  Sigma        1.14164e+00   8.72018e-02   5.68424e-05   8.74283e-04
+(TFitResultPtr) <nullptr TFitResult>
+root [11] nome_histo -> Fit(nome_fit_curio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=116.068 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=8.30502e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     7.95619e+01   6.48844e+00   2.11265e-02  -7.30015e-06
+   2  Mean         4.98270e+01   9.51443e-02   3.61139e-04  -5.95025e-03
+   3  Sigma        1.16247e+00   1.06706e-01   9.06747e-05  -1.22662e-02
+(TFitResultPtr) <nullptr TFitResult>
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 550     |
+----------
+
+root [6] TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 39, 43)
+(TF1 *) 0x55ae8928e2f0
+root [7] TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 46, 51)
+(TF1 *) 0x55ae892e7600
+root [8] TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 51, 55)
+(TF1 *) 0x55ae897c59f0
+root [9] nome_histo -> Fit(nome_fit_nettunio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=49.1257 FROM MIGRAD    STATUS=CONVERGED      73 CALLS          74 TOTAL
+                     EDM=1.13044e-06    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     2.15033e+01   3.84237e+00   8.27842e-03   2.06506e-04
+   2  Mean         4.09297e+01   9.59469e-02   3.30992e-04   1.33115e-02
+   3  Sigma        8.03780e-01   1.29187e-01   1.12651e-04   9.25480e-04
+(TFitResultPtr) <nullptr TFitResult>
+root [10] nome_histo -> Fit(nome_fit_americio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=60.2516 FROM MIGRAD    STATUS=CONVERGED      62 CALLS          63 TOTAL
+                     EDM=1.86899e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.75877e+02   8.74999e+00   2.59701e-02  -1.90985e-05
+   2  Mean         4.88944e+01   3.13116e-02   1.19103e-04  -3.61071e-03
+   3  Sigma        7.99103e-01   2.54956e-02   3.06331e-05  -2.71578e-03
+(TFitResultPtr) <nullptr TFitResult>
+root [11] nome_histo -> Fit(nome_fit_curio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=14.1735 FROM MIGRAD    STATUS=CONVERGED      71 CALLS          72 TOTAL
+                     EDM=4.11543e-10    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.30558e+02   7.31159e+00   1.07580e-02  -3.99178e-06
+   2  Mean         5.28121e+01   4.54360e-02   8.25731e-05  -4.32762e-04
+   3  Sigma        8.91728e-01   4.06465e-02   2.31286e-05  -1.40358e-03
+(TFitResultPtr) <nullptr TFitResult>
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 500     |
+----------
+
+root [6] TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 41, 45)
+(TF1 *) 0x557bfb4c6490
+root [7] TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 50, 54)
+(TF1 *) 0x557bfb735a30
+root [8] TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 54, 59)
+(TF1 *) 0x557bfb8bf4d0
+root [9] nome_histo -> Fit(nome_fit_nettunio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=17.5924 FROM MIGRAD    STATUS=CONVERGED      70 CALLS          71 TOTAL
+                     EDM=5.06606e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     3.64737e+01   4.19896e+00   6.94220e-03   8.58518e-06
+   2  Mean         4.32919e+01   7.66494e-02   1.60568e-04   1.32243e-03
+   3  Sigma        8.11428e-01   6.26112e-02   4.02722e-05   1.27738e-02
+(TFitResultPtr) <nullptr TFitResult>
+root [10] nome_histo -> Fit(nome_fit_americio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=83.2784 FROM MIGRAD    STATUS=CONVERGED      69 CALLS          70 TOTAL
+                     EDM=6.81463e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.84944e+02   9.31706e+00   3.27292e-02   4.41541e-05
+   2  Mean         5.19537e+01   3.53134e-02   1.55714e-04  -2.24939e-03
+   3  Sigma        8.40610e-01   2.89090e-02   4.09147e-05   3.40215e-02
+(TFitResultPtr) <nullptr TFitResult>
+root [11] nome_histo -> Fit(nome_fit_curio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=32.8832 FROM MIGRAD    STATUS=CONVERGED      69 CALLS          70 TOTAL
+                     EDM=1.93926e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.33876e+02   7.68418e+00   1.67651e-02   3.13551e-05
+   2  Mean         5.59023e+01   5.17026e-02   1.30157e-04   5.31719e-04
+   3  Sigma        9.54820e-01   4.36024e-02   3.13085e-05   1.48624e-02
+(TFitResultPtr) <nullptr TFitResult>
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 450     |
+----------
+
+root [0] 
+Attaching file anabragg_bragg2000_450_th15.root as _file0...
+(TFile *) 0x55822b342570
+root [1] TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 35, 40, 65)
+(TH1F *) 0x55822ab54000
+root [2] nt -> Draw("width >> width_histo")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [3] TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 44, 48)
+(TF1 *) 0x55822cc04cb0
+root [4] TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 53, 58)
+(TF1 *) 0x55822d0010e0
+root [5] TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 58, 64)
+(TF1 *) 0x55822cfb52b0
+root [6] TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 44, 48)
+(TF1 *) 0x55822ce8fa40
+root [7] nome_histo -> Fit(nome_fit_curio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=90.2886 FROM MIGRAD    STATUS=CONVERGED      90 CALLS          91 TOTAL
+                     EDM=2.55411e-08    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     8.75762e+01   5.27591e+00   1.91806e-02   4.88177e-05
+   2  Mean         6.00646e+01   1.23916e-01   4.16773e-04   3.28092e-04
+   3  Sigma        1.62087e+00   1.00377e-01   6.63978e-05   1.21559e-02
+(TFitResultPtr) <nullptr TFitResult>
+root [8] nome_histo -> Fit(nome_fit_americio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=119.253 FROM MIGRAD    STATUS=CONVERGED      87 CALLS          88 TOTAL
+                     EDM=4.37843e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.66169e+02   1.21576e+01   3.55365e-02   8.02892e-06
+   2  Mean         5.57991e+01   4.88721e-02   2.60605e-04  -6.66021e-04
+   3  Sigma        1.11189e+00   8.19426e-02   7.50053e-05   6.03118e-03
+(TFitResultPtr) <nullptr TFitResult>
+root [9] nome_histo -> Fit(nome_fit_nettunio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=30.6862 FROM MIGRAD    STATUS=CONVERGED     113 CALLS         114 TOTAL
+                     EDM=4.43488e-07    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     3.98619e+01   8.90847e+00   1.12708e-02   2.97200e-05
+   2  Mean         4.60164e+01   1.23267e-01   1.97626e-04  -1.29676e-02
+   3  Sigma        6.78299e-01   1.41626e-01   6.60412e-05   2.38631e-02
+(TFitResultPtr) <nullptr TFitResult>
+
+
+----------------------------------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------
+ 350     |
+----------
+
+root [0] 
+Attaching file anabragg_bragg2000_350_th15.root as _file0...
+(TFile *) 0x561a6da85520
+root [1] .ls
+TFile**		anabragg_bragg2000_350_th15.root	
+ TFile*		anabragg_bragg2000_350_th15.root	
+  KEY: TNtuple	nt;1	
+root [2] TH1F* nome_histo = new TH1F("width_histo", "Width 350mb", 50, 55, 75)
+(TH1F *) 0x561a6d25e000
+root [3] nt -> Draw("width >> width_histo")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [4] TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 62, 68)
+(TF1 *) 0x561a6f5b4650
+root [5] nome_histo -> Fit(nome_fit_americio, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=27.5775 FROM MIGRAD    STATUS=CONVERGED      63 CALLS          64 TOTAL
+                     EDM=1.61304e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.92099e+02   6.83937e+00   1.40847e-02  -7.63382e-06
+   2  Mean         6.46762e+01   3.16125e-02   7.91803e-05   1.12770e-03
+   3  Sigma        1.05771e+00   2.41646e-02   1.53350e-05  -5.31311e-03
+(TFitResultPtr) <nullptr TFitResult>
+
+
+----------------------------------------------------------------------------------------------------------------
