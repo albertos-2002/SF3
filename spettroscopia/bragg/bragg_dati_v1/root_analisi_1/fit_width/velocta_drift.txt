@@ -4,3 +4,33 @@ UDM = [mm / ns]
 
 UDM = [cm / micros]
 2.26126 \pm 0.00110526
+
+
+Range per la pressione 450 mb
+
+Range nettunio:  83.2442\pm0.0575418
+Range americio:  100.941\pm0.0697747
+Range curio   :  108.658\pm0.0751085
+
+
+Range per la pressione 500 mb
+
+Range nettunio:  78.3156\pm0.0541349
+Range americio:  93.9848\pm0.0649662
+Range curio   :  101.128\pm0.0699037
+
+
+Range per la pressione 550 mb
+
+Range nettunio:  74.0423\pm0.0511811
+Range americio:  88.4505\pm0.0611406
+Range curio   :  95.5377\pm0.0660396
+
+
+Range per la pressione 600 mb
+
+Range nettunio:  70.1887\pm0.0485173
+Range americio:  84.0326\pm0.0580867
+Range curio   :  90.1376\pm0.0623068
+
+
