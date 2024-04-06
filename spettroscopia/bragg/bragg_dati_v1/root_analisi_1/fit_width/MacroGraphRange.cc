@@ -8,29 +8,48 @@
 #include <TCanvas.h> //dovrebbe essere l'oggetto che contiene il grafico
 #include <TMultiGraph.h> //dovrebbe gestire l'avere più di un grafico assieme
 
-struct data_points {
+struct data_points_nettunio {
   
   //ascisse
-  double pressioni[6]    = { 350, 450, 500, 550, 600, 650 }; //udm := mb
-  //le varie ordinate - udm := a.u.
-  double nettunio[6]     = { 2.97769e+03, 5.06935e+03, 5.08024e+03, 5.12461e+03, 5.12954e+03, 5.11845e+03 };
-  double americio[6]     = { 4.66951e+03, 5.79538e+03, 5.85366e+03, 5.88909e+03, 5.91140e+03, 5.93146e+03 };
-  double curio[6]        = { 5.07594e+03, 6.12201e+03, 6.17339e+03, 6.21925e+03, 6.25014e+03, 6.27799e+03 };
-
-  //i relativi errori sulle ordinate - udm := a.u.
-  double err_nettunio[6] = { 3.62214e+01, 7.71928e+00, 9.77148e+00, 9.95358e+00, 1.39160e+01, 1.20664e+01 };
-  double err_americio[6] = { 7.10394e+00, 3.14879e+00, 3.62782e+00, 3.37861e+00, 3.31615e+00, 4.60111e+00 };
-  double err_curio[6]    = { 7.53948e+00, 3.42640e+00, 5.18833e+00, 3.69840e+00, 4.00240e+00, 4.38340e+00 };
-  
+  double pressioni[4]    = { 450, 500, 550, 600 }; //udm := mb
+  //le varie ordinate - udm := mm
+  double nettunio[4]     = { 83.2442, 78.3156, 74.0423, 70.1887 };
+  //i relativi errori sulle ordinate - udm := mm
+  double err_nettunio[4] = { 0.0575418, 0.0541349, 0.0511811, 0.0485173 }; 
   // il numero di punti coincide con il numero di presa dati in pressione
-  int number_of_points = 6;
-
+  int number_of_points = 4;
 };
 
-void MacroGraphIntegral(){
+struct data_points_americio { //aggiungere 350??
+  
+  //ascisse
+  double pressioni[4]    = { 450, 500, 550, 600 }; //udm := mb
+  //le varie ordinate - udm := mm
+  double americio[4]     = { 100.941, 93.9848, 88.4505, 84.0326 };
+  //i relativi errori sulle ordinate - udm := mm
+  double err_americio[4] = { 0.0697747, 0.0649662, 0.0611406, 0.0580867 };
+  // il numero di punti coincide con il numero di presa dati in pressione
+  int number_of_points = 4;
+};
+
+struct data_points_curio {
+  
+  //ascisse
+  double pressioni[4]    = { 450, 500, 550, 600 }; //udm := mb
+  //le varie ordinate - udm := mm
+  double curio[4]        = { 108.658, 101.128, 95.5377, 90.1376 };
+  //i relativi errori sulle ordinate - udm := mm
+  double err_curio[4]    = { 0.0751085, 0.0699037, 0.0660396, 0.0623068 };  
+  // il numero di punti coincide con il numero di presa dati in pressione
+  int number_of_points = 4;
+};
+
+void MacroGraphRange(){
 
   //creazione di una struttura
-  data_points data;
+  data_points_nettunio data_nettunio;
+  data_points_americio data_americio;
+  data_points_curio    data_curio;
   
   //creazione della canvas
   
@@ -38,21 +57,21 @@ void MacroGraphIntegral(){
   
   //creazione e gestione dello scatter plot
   
-  TGraphErrors* scatter_of_nettunio = new TGraphErrors( data.number_of_points, data.pressioni, data.nettunio, 0, data.err_nettunio );
+  TGraphErrors* scatter_of_nettunio = new TGraphErrors( data_nettunio.number_of_points, data_nettunio.pressioni, data_nettunio.nettunio, 0, data_nettunio.err_nettunio );
                 scatter_of_nettunio -> SetTitle("nettunio");
                 scatter_of_nettunio -> SetLineWidth(2);
                 scatter_of_nettunio -> SetMarkerStyle(kFullDotLarge);
                 scatter_of_nettunio -> SetMarkerSize(1);
                 scatter_of_nettunio -> SetMarkerColor(kRed);
   
-  TGraphErrors* scatter_of_americio = new TGraphErrors( data.number_of_points, data.pressioni, data.americio, 0, data.err_americio );
+  TGraphErrors* scatter_of_americio = new TGraphErrors( data_americio.number_of_points, data_americio.pressioni, data_americio.americio, 0, data_americio.err_americio );
                 scatter_of_americio -> SetTitle("americio");
                 scatter_of_americio -> SetLineWidth(2);
                 scatter_of_americio -> SetMarkerStyle(kFullDotLarge);
                 scatter_of_americio -> SetMarkerSize(1);
                 scatter_of_americio -> SetMarkerColor(kGreen+2);
   
-  TGraphErrors* scatter_of_curio    = new TGraphErrors( data.number_of_points, data.pressioni, data.curio   , 0, data.err_curio );
+  TGraphErrors* scatter_of_curio    = new TGraphErrors( data_curio.number_of_points, data_curio.pressioni, data_curio.curio   , 0, data_curio.err_curio );
                 scatter_of_curio    -> SetTitle("curio");
                 scatter_of_curio    -> SetLineWidth(2);
                 scatter_of_curio    -> SetMarkerStyle(kFullDotLarge);
@@ -69,8 +88,8 @@ void MacroGraphIntegral(){
   scatter -> Add(scatter_of_curio);
   
   scatter -> SetTitle("Range");
-  scatter -> GetXaxis() -> SetTitle("pressione (mb)");
-  scatter -> GetYaxis() -> SetTitle("integral (a.u.)");
+  scatter -> GetXaxis() -> SetTitle("pressione [mb]");
+  scatter -> GetYaxis() -> SetTitle("range [mm]");
   
   //scatter_of_nettunio -> Draw("AP");
   
