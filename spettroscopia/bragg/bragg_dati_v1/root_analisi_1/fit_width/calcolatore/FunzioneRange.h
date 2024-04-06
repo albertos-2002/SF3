@@ -65,7 +65,7 @@ template <typename T> void calcolatore_range( T& data, int pressione){
   err_range_curio    = range_curio    * radice ;
   
   //print dei risultati
-  cout << "Range per la pressione " 
+  cout << "Range [mm] per la pressione " 
        << pressione 
        << " mb" 
        << endl;
