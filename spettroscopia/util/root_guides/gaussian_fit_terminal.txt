@@ -53,6 +53,7 @@ NOTA: ho provato a fare il fit direttamente su una variabile della ntupla
 	auto ptr = nome_histo -> Fit(nome_fit_k, "R") //TFitResult
 	auto ptr2 = ptr -> Get()
 	ptr2 -> Print()
+	(aggiornare, non è esattamente così)
 	
    l'utilità e il funzionamento di inserire un "R" è dattato soltanto dall'affidabilità di chatgpt, secondo essa serve
    per dire a root di utilizzare il range fornito e non espandersi oltre

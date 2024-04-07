@@ -2,11 +2,13 @@
    ATTENZIONE: valori sono hardcoded
 */
 
-
 #include <TGraphErrors.h> //grafico con errori
-#include <TAxis.h> //bho dovrebbe gestire gli assi credo
-#include <TCanvas.h> //dovrebbe essere l'oggetto che contiene il grafico
-#include <TMultiGraph.h> //dovrebbe gestire l'avere più di un grafico assieme
+#include <TAxis.h>        //bho dovrebbe gestire gli assi credo
+#include <TCanvas.h>      //dovrebbe essere l'oggetto che contiene il grafico
+#include <TMultiGraph.h>  //dovrebbe gestire l'avere più di un grafico assieme
+#include <TF1.h>          //oggetti funzione
+#include <TFitResult.h>
+#include <TFitResultPtr.h>
 
 struct data_points_nettunio {
   
@@ -44,7 +46,15 @@ struct data_points_curio {
   int number_of_points = 4;
 };
 
+//definizione funzione di fit
+double FunctionFitIperbole( double* x, double* par ){
+    double result = par[0] + ( par[1] / (*x) );
+    return result;
+}
+
 void MacroGraphRange(){
+
+bool fit_activator = true;
 
   //creazione di una struttura
   data_points_nettunio data_nettunio;
@@ -57,12 +67,13 @@ void MacroGraphRange(){
   
   //creazione e gestione dello scatter plot
   
+  
   TGraphErrors* scatter_of_nettunio = new TGraphErrors( data_nettunio.number_of_points, data_nettunio.pressioni, data_nettunio.nettunio, 0, data_nettunio.err_nettunio );
                 scatter_of_nettunio -> SetTitle("nettunio");
                 scatter_of_nettunio -> SetLineWidth(2);
                 scatter_of_nettunio -> SetMarkerStyle(kFullDotLarge);
                 scatter_of_nettunio -> SetMarkerSize(1);
-                scatter_of_nettunio -> SetMarkerColor(kRed);
+                scatter_of_nettunio -> SetMarkerColor(kRed);             
   
   TGraphErrors* scatter_of_americio = new TGraphErrors( data_americio.number_of_points, data_americio.pressioni, data_americio.americio, 0, data_americio.err_americio );
                 scatter_of_americio -> SetTitle("americio");
@@ -77,8 +88,7 @@ void MacroGraphRange(){
                 scatter_of_curio    -> SetMarkerStyle(kFullDotLarge);
                 scatter_of_curio    -> SetMarkerSize(1);
                 scatter_of_curio    -> SetMarkerColor(kBlue);
-  
-  
+   
   //creazione e gestione del multigraph
   
   TMultiGraph* scatter = new TMultiGraph("scatter", "scatter");
@@ -91,9 +101,22 @@ void MacroGraphRange(){
   scatter -> GetXaxis() -> SetTitle("pressione [mb]");
   scatter -> GetYaxis() -> SetTitle("range [mm]");
   
-  //scatter_of_nettunio -> Draw("AP");
-  
   scatter -> Draw("AP");
+  
+  //fit 
+  if (fit_activator) {
+  TF1* fit_iperbolico = new TF1("fit: p0 + p1/x", FunctionFitIperbole, 425, 625, 2);  
+       fit_iperbolico -> SetLineColor(kOrange-3);
+       fit_iperbolico -> SetLineStyle(2); //dashed line for the fit line
+  
+  scatter_of_americio -> Fit(fit_iperbolico, "R");
+  
+  TFitResultPtr risultati_fit = scatter_of_americio -> Fit( fit_iperbolico, "RS" );
+                risultati_fit -> Print("V"); //bho
+  
+  fit_iperbolico -> Draw("same");
+  }
+  
   canvas -> SetGrid();
   canvas -> BuildLegend();
 
