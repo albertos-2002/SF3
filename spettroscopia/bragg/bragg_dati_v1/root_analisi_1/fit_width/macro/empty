@@ -9,6 +9,8 @@
 #include <TF1.h>          //oggetti funzione
 #include <TFitResult.h>
 #include <TFitResultPtr.h>
+#include <TLegend.h>
+#include <TLatex.h>
 
 struct data_points_nettunio {
   
@@ -106,7 +108,7 @@ bool fit_activator = true;
   //fit 
   if (fit_activator) {
   
-  TF1* fit_iperbolico_americio = new TF1("fit Am: p0 + p1/x", FunctionFitIperbole, 425, 625, 2);  
+  TF1* fit_iperbolico_americio = new TF1("fit: p0 + p1/x", FunctionFitIperbole, 425, 625, 2);  
        fit_iperbolico_americio -> SetLineColor(kOrange-3);
        fit_iperbolico_americio -> SetLineStyle(2); //dashed line for the fit line
   
@@ -115,9 +117,15 @@ bool fit_activator = true;
   TFitResultPtr risultati_fit_americio = scatter_of_americio -> Fit( fit_iperbolico_americio, "RS" );
                 risultati_fit_americio -> Print("V"); //bho
                 
+  // Print fit results for americio
+        TLatex* latex_americio = new TLatex(0.15, 0.85, Form("Americio Fit:\nParameter 0: %.2f\nParameter 1: %.2f\nChi-squared: %.2f", fit_iperbolico_americio->GetParameter(0), fit_iperbolico_americio->GetParameter(1), risultati_fit_americio->Chi2()));
+        latex_americio->SetNDC();
+        latex_americio->SetTextSize(0.03);
+        latex_americio->Draw();              
+                
   //------------------------------------------------------------------------------------------------------
   
-  TF1* fit_iperbolico_curio = new TF1("fit Cm: p0 + p1/x", FunctionFitIperbole, 425, 625, 2);  
+  TF1* fit_iperbolico_curio = new TF1("fit: p0 + p1/x", FunctionFitIperbole, 425, 625, 2);  
        fit_iperbolico_curio -> SetLineColor(kMagenta-3);
        fit_iperbolico_curio -> SetLineStyle(2); //dashed line for the fit line
   
@@ -126,9 +134,15 @@ bool fit_activator = true;
   TFitResultPtr risultati_fit_curio = scatter_of_curio -> Fit( fit_iperbolico_curio, "RS" );
                 risultati_fit_curio -> Print("V"); //bho
                 
+  // Print fit results for curio
+        TLatex* latex_curio = new TLatex(0.15, 0.75, Form("Curio Fit:\nParameter 0: %.2f\nParameter 1: %.2f\nChi-squared: %.2f", fit_iperbolico_curio->GetParameter(0), fit_iperbolico_curio->GetParameter(1), risultati_fit_curio->Chi2()));
+        latex_curio->SetNDC();
+        latex_curio->SetTextSize(0.03);
+        latex_curio->Draw();              
+                
   //------------------------------------------------------------------------------------------------------                
                 
-  TF1* fit_iperbolico_nettunio = new TF1("fit Np: p0 + p1/x", FunctionFitIperbole, 425, 625, 2);  
+  TF1* fit_iperbolico_nettunio = new TF1("fit: p0 + p1/x", FunctionFitIperbole, 425, 625, 2);  
        fit_iperbolico_nettunio -> SetLineColor(kViolet-7);
        fit_iperbolico_nettunio -> SetLineStyle(2); //dashed line for the fit line
   
@@ -137,15 +151,32 @@ bool fit_activator = true;
   TFitResultPtr risultati_fit_nettunio = scatter_of_nettunio -> Fit( fit_iperbolico_nettunio, "RS" );
                 risultati_fit_nettunio -> Print("V"); //bho
                 
-                
+  // Print fit results for nettunio
+        TLatex* latex_nettunio = new TLatex(0.15, 0.65, Form("Nettunio Fit:\nParameter 0: %.2f\nParameter 1: %.2f\nChi-squared: %.2f", fit_iperbolico_nettunio->GetParameter(0), fit_iperbolico_nettunio->GetParameter(1), risultati_fit_nettunio->Chi2()));
+        latex_nettunio->SetNDC();
+        latex_nettunio->SetTextSize(0.03);
+        latex_nettunio->Draw();
+        
+        
   
   fit_iperbolico_americio -> Draw("same");
   fit_iperbolico_curio -> Draw("same");
   fit_iperbolico_nettunio -> Draw("same");
   }
   
+  // Build legend
+  TLegend* legend = new TLegend(0.7, 0.7, 0.9, 0.9);
+  legend->AddEntry(scatter_of_nettunio, "nettunio", "p");
+  legend->AddEntry(scatter_of_americio, "americio", "p");
+  legend->AddEntry(scatter_of_curio, "curio", "p");
+  legend->Draw();
+
+  // Redraw
+  canvas->Update();
+  
+  
   canvas -> SetGrid();
-  canvas -> BuildLegend();
+  //canvas -> BuildLegend();
 
   return;
 

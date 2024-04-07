@@ -1,0 +1,122 @@
+
+Info in <TUnixSystem::ACLiC>: creating shared library /home/alberto/UniPd_github/SF3/spettroscopia/bragg/bragg_dati_v1/root_analisi_1/fit_width/macro/./MacroGraphRange_cc.so
+root [1] MacroGraphRange()
+
+AMERICIO
+
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=9.38291 FROM MIGRAD    STATUS=CONVERGED      44 CALLS          45 TOTAL
+                     EDM=9.76495e-17    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.32309e+01   2.96005e-01   4.96001e-05   3.67537e-07
+   2  p1           3.04244e+04   1.55000e+02   2.59725e-02   6.47485e-10
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=9.38291 FROM MIGRAD    STATUS=CONVERGED      20 CALLS          21 TOTAL
+                     EDM=3.4261e-17    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.32309e+01   2.96012e-01   0.00000e+00   3.67553e-07
+   2  p1           3.04244e+04   1.55004e+02  -0.00000e+00   7.08691e-10
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =      9.38291
+NDf                       =            2
+Edm                       =   3.4261e-17
+NCalls                    =           21
+p0                        =      33.2309   +/-   0.296012    
+p1                        =      30424.4   +/-   155.004     
+
+Covariance Matrix:
+
+            	          p0          p1
+p0          	    0.087623     -45.622
+p1          	     -45.622       24026
+
+Correlation Matrix:
+
+            	          p0          p1
+p0          	           1    -0.99431
+p1          	    -0.99431           1
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+
+CURIO
+
+ FCN=25.2536 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=4.60287e-17    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.51123e+01   3.18187e-01   8.48803e-05  -4.95989e-08
+   2  p1           3.30879e+04   1.66641e+02   4.44534e-02  -1.50849e-10
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=25.2536 FROM MIGRAD    STATUS=CONVERGED      22 CALLS          23 TOTAL
+                     EDM=3.98203e-18    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.51123e+01   3.18196e-01   0.00000e+00  -5.08170e-08
+   2  p1           3.30879e+04   1.66646e+02  -0.00000e+00  -7.48782e-11
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =      25.2536
+NDf                       =            2
+Edm                       =  3.98203e-18
+NCalls                    =           23
+p0                        =      35.1123   +/-   0.318196    
+p1                        =      33087.9   +/-   166.646     
+
+Covariance Matrix:
+
+            	          p0          p1
+p0          	     0.10125     -52.724
+p1          	     -52.724       27771
+
+Correlation Matrix:
+
+            	          p0          p1
+p0          	           1     -0.9943
+p1          	     -0.9943           1
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+
+NETTUNIO
+
+ FCN=31.1691 FROM MIGRAD    STATUS=CONVERGED      38 CALLS          39 TOTAL
+                     EDM=7.11041e-16    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.11462e+01   2.45860e-01   7.27332e-05  -1.39528e-06
+   2  p1           2.35116e+04   1.28609e+02   3.80466e-02  -2.58284e-09
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=31.1691 FROM MIGRAD    STATUS=CONVERGED      20 CALLS          21 TOTAL
+                     EDM=3.35752e-16    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           3.11462e+01   2.45868e-01   0.00000e+00  -1.39538e-06
+   2  p1           2.35116e+04   1.28613e+02   0.00000e+00  -2.65343e-09
+****************************************
+Minimizer is Minuit / Migrad
+Chi2                      =      31.1691
+NDf                       =            2
+Edm                       =  3.35752e-16
+NCalls                    =           21
+p0                        =      31.1462   +/-   0.245868    
+p1                        =      23511.6   +/-   128.613     
+
+Covariance Matrix:
+
+            	          p0          p1
+p0          	    0.060451     -31.441
+p1          	     -31.441       16541
+
+Correlation Matrix:
+
+            	          p0          p1
+p0          	           1    -0.99428
+p1          	    -0.99428           1
+root [2] Info in <TCanvas::Print>: file /home/alberto/UniPd_github/SF3/spettroscopia/bragg/bragg_dati_v1/root_analisi_1/fit_width/bragg-kleeman/allRange-fit_TOEDIT.png has been created
+
