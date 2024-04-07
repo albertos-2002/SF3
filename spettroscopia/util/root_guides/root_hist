@@ -1,0 +1,435 @@
+nt -> Draw("nome_variabile >> display_name")
+nt -> Draw("whidth >> display_name")
+nt -> Draw("width >> display_name")
+nt -> Draw("width >> display_name")
+nt -> Draw("width >> home_histo")
+.ls
+nt -> Draw("width >> nome_histo")
+nt -> Draw("width >> display_name")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_350_th15.root")
+.ls
+TH1F* nome_histo = new TH1F("width_histo", "Width 350mb", 50, 55, 75)
+nt -> Draw("width >> width_histo")
+TF1* nome_fit_k = new TF1("fit_americio", "gaus", 62, 68)
+nome_histo -> Fit(nome_fit_k, "R")
+root [0] 
+Attaching file anabragg_bragg2000_350_th15.root as _file0...
+(TFile *) 0x5569c48ae8c0
+root [1] .ls
+TFile**anabragg_bragg2000_350_th15.root
+ TFile*anabragg_bragg2000_350_th15.root
+  KEY: TNtuplent;1
+root [2] TH1F* nome_histo = new TH1F("width_histo", "Width 350mb", 50, 55, 75)
+(TH1F *) 0x5569c45c7000
+root [3] nt -> Draw("width >> width_histo")
+Info in <TCanvas::MakeDefCanvas>:  created default TCanvas with name c1
+root [4] TF1* nome_fit_k = new TF1("fit_americio", "gaus", 62, 68)
+(TF1 *) 0x5569c6693620
+root [5] nome_histo -> Fit(nome_fit_k, "R")
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ FCN=27.5775 FROM MIGRAD    STATUS=CONVERGED      63 CALLS          64 TOTAL
+                     EDM=1.61304e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  Constant     1.92099e+02   6.83937e+00   1.40847e-02  -7.63382e-06
+   2  Mean         6.46762e+01   3.16125e-02   7.91803e-05   1.12770e-03
+   3  Sigma        1.05771e+00   2.41646e-02   1.53350e-05  -5.31311e-03
+(TFitResultPtr) <nullptr TFitResult>
+root [6] ^C
+root [6] 
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_350_th15.root")
+.ls
+TH1F* nome_histo = new TH1F("width_histo", "Width 350mb", 50, 55, 75)
+nt -> Draw("width >> width_histo")
+TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 62, 68)
+nome_histo -> Fit(nome_fit_americio, "R")
+TH1F* nome_histo = new TH1F("width_histo", "Width 350mb", 50, 40, 75)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 350mb", 50, 45, 75)
+nt -> Draw("width >> width_histo")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_450_th15.root")
+.ls
+TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 50, 40, 70)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 50, 40, 65)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 25, 40, 65)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 40, 40, 65)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 30, 40, 65)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 35, 40, 65)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 50, 40, 65)
+nt -> Draw("width >> width_histo")
+TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 44, 49)
+TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 53, 58)
+TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 58, 64)
+nome_histo -> Fit(nome_fit_nettunio, "R")
+nome_histo -> Fit(nome_fit_americio, "R")
+nome_histo -> Fit(nome_fit_curio, "R")
+nome_fit_americio -> Draw("same")
+nome_fit_nettunio -> Draw("same")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_450_th15.root")
+TH1F* nome_histo = new TH1F("width_histo", "Width 450mb", 35, 40, 65)
+nt -> Draw("width >> width_histo")
+TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 44, 48)
+TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 53, 58)
+TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 58, 64)
+TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 44, 48)
+nome_histo -> Fit(nome_fit_curio, "R")
+nome_histo -> Fit(nome_fit_americio, "R")
+nome_histo -> Fit(nome_fit_nettunio, "R")
+nome_fit_americio -> Draw("same")
+nome_fit_curio -> Draw("same")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_500_th15.root")
+.ls
+TH1F* nome_histo = new TH1F("width_histo", "Width 500mb", 50, 38, 64)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 500mb", 40, 38, 62)
+nt -> Draw("width >> width_histo")
+TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 41, 45)
+TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 50, 54)
+TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 54, 59)
+nome_histo -> Fit(nome_fit_nettunio, "R")
+nome_histo -> Fit(nome_fit_americio, "R")
+nome_histo -> Fit(nome_fit_curio, "R")
+nome_fit_nettunio -> Draw("same")
+nome_fit_americio -> Draw("same")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_550_th15.root")
+.ls
+TH1F* nome_histo = new TH1F("width_histo", "Width 550mb", 50, 37, 58)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 550mb", 40, 37, 58)
+nt -> Draw("width >> width_histo")
+TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 39, 43)
+TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 46, 51)
+TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 51, 55)
+nome_histo -> Fit(nome_fit_nettunio, "R")
+nome_histo -> Fit(nome_fit_americio, "R")
+nome_histo -> Fit(nome_fit_curio, "R")
+nome_fit_nettunio -> Draw("same")
+nome_fit_americio -> Draw("same")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_600_th15.root")
+.ls
+TH1F* nome_histo = new TH1F("width_histo", "Width 600mb", 50, 33, 55)
+nt -> Draw("width >> width_histo")
+TH1F* nome_histo = new TH1F("width_histo", "Width 600mb", 40, 33, 55)
+nt -> Draw("width >> width_histo")
+TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 37, 41)
+TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 44, 48)
+TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 48, 52)
+nome_histo -> Fit(nome_fit_nettunio, "R")
+nome_histo -> Fit(nome_fit_americio, "R")
+nome_histo -> Fit(nome_fit_curio, "R")
+nome_fit_nettunio -> Draw("same")
+nome_fit_americio -> Draw("same")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_650_th15.root")
+nt->Draw("width")
+TH1F* nome_histo = new TH1F("histo", "width", 100, 0, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 90, 0, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 70, 0, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 40, 0, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 20, 0, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 10, 0, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 100, 0, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 100, 10, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 100, 5, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 800, 5, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 80, 5, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 180, 5, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 80, 5, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 400, 5, 60)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 400, 32, 54)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 100, 32, 54)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 80, 32, 54)
+nt -> Draw("width >> histo")
+TH1F* nome_histo = new TH1F("histo", "width", 70, 32, 54)
+nt -> Draw("width >> histo")
+root [38] 
+TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 35, 39)
+TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 41, 45)
+TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 45, 50)
+nome_histo -> Fit(nome_fit_nettunio, "R")
+nome_histo -> Fit(nome_fit_americio, "R")
+nome_histo -> Fit(nome_fit_curio, "R")
+nome_fit_nettunio -> Draw("same")
+nome_fit_americio -> Draw("same")
+TH1F* nome_histo = new TH1F("histo", "width", 200, 32, 54)
+nt -> Draw("width >> histo")
+TF1* nome_fit_nettunio = new TF1("fit_nettunio", "gaus", 35, 39)
+TF1* nome_fit_americio = new TF1("fit_americio", "gaus", 41, 45)
+TF1* nome_fit_curio    = new TF1("fit_curio", "gaus", 45, 50)
+nome_histo -> Fit(nome_fit_nettunio, "R")
+nome_histo -> Fit(nome_fit_americio, "R")
+nome_histo -> Fit(nome_fit_curio, "R")
+nt->Draw("integral")
+Draw("integral")
+root [56] 
+Draw("integral")
+root [56] 
+TH1F* integral_histo = new TH1F("integral_histo", "integral", 100, 0, 7000)
+Draw("integral>>integral_histo")
+nt->Draw("integral>>integral_histo")
+TH1F* integral_histo = new TH1F("integral_histo", "integral", 100, 4000, 7000)
+nt->Draw("integral>>integral_histo")
+TH1F* integral_histo = new TH1F("integral_histo", "integral", 100, 0, 7000)
+nt->Draw("integral>>integral_histo")
+nt->Draw("integral:ev")
+nt->Draw("integral:ev", "kBlue")
+nt->Draw("integral:ev")
+nt->Draw("vmax:ev")
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.L MacroGraphRange.cc+
+MacroGraphRange()
+MacroGraphRange()
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+.L MacroGraphRange.cc+
+.q
+.L MacroGraphRange.cc+
+.L MacroGraphRange.cc+
+.q
+.L MacroGraphRange.cc+
+.q
+.L MacroGraphRange.cc+
+MacroGraphRange()
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_600_th15.root")
+.ls
+nt -> Draw("integral")
+TH1F histo_integral = new TH1F("histo_integral", "integral", 100, 4600, 6600)
+TH1F* histo_integral = new TH1F("histo_integral", "integral", 100, 4600, 6600)
+.ls
+nt -> Draw("integral>>histo_integral")
+TF1* fit_basso = new TF1("fit_basso", "gaus", 4900, 5300)
+TF1* fit_medio = new TF1("fit_medio", "gaus", 5700, 6100)
+TF1* fit_alto = new TF1("fit_alto", "gaus", 6100, 6400)
+histo_integral -> Fit(fit_basso, "R")
+histo_integral -> Fit(fit_medio, "R")
+histo_integral -> Fit(fit_alto, "R")
+fit_medio -> Draw("same")
+fit_basso -> Draw("same")
+histo_integral -> Fit(fit_alto, "R")
+nt -> Draw("integral>>histo_integral")
+histo_integral -> Fit(fit_alto, "R")
+histo_integral -> Fit(fit_medio, "R")
+histo_integral -> Fit(fit_basso, "R")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_650_th15.root")
+.ls
+nt -> Draw(vmax:integral)
+nt -> Draw("vmax:integral")
+nt -> Draw("vmax:integral", "COLZ1")
+nt -> Draw("vmax:integral", "COLZ")
+nt -> Draw("vmax:integral COLZ")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 100, 0, 7000, 50, 60, 220)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 1000, 0, 7000, 100, 60, 220)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 500, 0, 7000, 100, 60, 220)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 400, 0, 7000, 100, 60, 220)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 0, 7000, 90, 60, 220)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 200, 0, 7000, 80, 60, 220)
+nt -> Draw("vmax:integral>>vmax_integral")
+c1->SetGrid()
+vmax_integral->Draw("COLZ1")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 0, 7000, 90, 60, 220)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 0, 7000, 80, 60, 225)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 0, 7000, 90, 60, 225)
+nt -> Draw("vmax:integral>>vmax_integral")
+vmax_integral->Draw("COLZ1")
+vmax_histo -> GetXaxis() -> SetTitle("integral [a.u.]")
+vmax_integral -> GetXaxis() -> SetTitle("integral [a.u.]")
+vmax_integral -> GetYaxis() -> SetTitle("vmax [a.u.]")
+vmax_integral->Draw("COLZ1")
+TH2F* width_integral = new TH2F("width_integral", "width:integral", 300, 0, 7000, 90, 16, 60)
+nt -> Draw("width:integral>>width_integral")
+TH2F* width_integral = new TH2F("width_integral", "width:integral", 300, 0, 7000, 90, 10, 60)
+nt -> Draw("width:integral>>width_integral")
+TH2F* width_integral = new TH2F("width_integral", "width:integral", 300, 0, 7000, 90, 10, 55)
+nt -> Draw("width:integral>>width_integral")
+TH2F* width_integral = new TH2F("width_integral", "width:integral", 300, 0, 7000, 80, 10, 55)
+nt -> Draw("width:integral>>width_integral")
+TH2F* width_integral = new TH2F("width_integral", "width:integral", 290, 0, 7000, 75, 10, 55)
+nt -> Draw("width:integral>>width_integral")
+width_integral -> GetYaxis() -> SetTitle("width [a.u.]")
+width_integral -> GetXaxis() -> SetTitle("integral [a.u.]")
+vmax_integral->Draw("COLZ1")
+width_integral->Draw("COLZ1")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_550_th15.root")
+.ls
+nt -> Draw("vmax:integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 500, 7000, 90, 55, 200)
+nt -> Draw("vmax:integral>>vmax_integral")
+vmax_integral -> GetYaxis() -> SetTitle("vmax [a.u.]")
+vmax_integral -> GetXaxis() -> SetTitle("integral [a.u.]")
+vmax_integral->Draw("COLZ1")
+c1->SetGrid()
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_450_th15.root")
+.ls
+nt -> Draw("vmax:integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 1000, 7000, 90, 55, 180)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 900, 7000, 90, 55, 180)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 700, 7000, 90, 55, 190)
+nt -> Draw("vmax:integral>>vmax_integral")
+vmax_integral -> GetYaxis() -> SetTitle("vmax [a.u.]")
+vmax_integral -> GetXaxis() -> SetTitle("integral [a.u.]")
+vmax_integral->Draw("COLZ1")
+c1->SetGrid()
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_350_th15.root")
+nt -> Draw("vmax:integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 1000, 6000, 90, 55, 170)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 800, 6000, 90, 55, 170)
+nt -> Draw("vmax:integral>>vmax_integral")
+TH2F* vmax_integral = new TH2F("vmax_integral", "vmax:integral", 300, 700, 6000, 90, 55, 170)
+nt -> Draw("vmax:integral>>vmax_integral")
+vmax_integral -> GetYaxis() -> SetTitle("vmax [a.u.]")
+vmax_integral -> GetXaxis() -> SetTitle("integral [a.u.]")
+vmax_integral->Draw("COLZ1")
+c1->SetGrid()
+nt -> Draw("width:integral")
+nt -> Draw("width:integral")
+TH2F* width_integral = new TH2F("width_integral", "width:integral", 300, 700, 6000, 90, 5, 75)
+nt -> Draw("width:integral>>width_integral")
+width_integral -> GetYaxis() -> SetTitle("width [a.u.]")
+width_integral -> GetXaxis() -> SetTitle("integral [a.u.]")
+width_integral->Draw("COLZ1")
+c1->SetGrid()
+nt -> Draw("width:vmax")
+nt -> Draw("vmax:width")
+TH2F* width_vmax = new TH2F("width_vmax", "width:vmax", 90, 5, 75, 90, 55, 170)
+nt -> Draw("width:vmax>>width_vmax")
+root [22] TH2F* width_vmax = new TH2F("width_vmax", "width:vmax", 90, 5, 75, 90, 55, 170)
+TH2F* width_vmax = new TH2F("width_vmax", "width:vmax", 90, 5, 75, 90, 55, 170)
+nt -> Draw("width:vmax>>width_vmax")
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_350_th15.root")
+TH2F* width_vmax = new TH2F("width_vmax", "width:vmax", 90, 5, 75, 90, 55, 170)
+nt -> Draw("width:vmax>>width_vmax")
+nt -> Draw("width:vmax")
+nt -> Draw("vmax:width")
+TH2F* vmax_width = new TH2F("vmax_width", "vmax:width", 90, 5, 75, 90, 55, 170)
+nt -> Draw("vmax:width>>vmax_width")
+TH2F* vmax_width = new TH2F("vmax_width", "vmax:width", 190, 5, 75, 190, 55, 170)
+nt -> Draw("vmax:width>>vmax_width")
+TH2F* vmax_width = new TH2F("vmax_width", "vmax:width", 180, 5, 75, 150, 55, 170)
+nt -> Draw("vmax:width>>vmax_width")
+TH2F* vmax_width = new TH2F("vmax_width", "vmax:width", 170, 5, 75, 140, 55, 170)
+nt -> Draw("vmax:width>>vmax_width")
+TH2F* vmax_width = new TH2F("vmax_width", "vmax:width", 165, 5, 75, 135, 55, 170)
+nt -> Draw("vmax:width>>vmax_width")
+vmax_width -> GetYaxis() -> SetTitle("vmax [a.u.]")
+vmax_width -> GetXaxis() -> SetTitle("width [a.u.]")
+vmax_width->Draw("COLZ1")
+c1->SetGrid()
+.q
+.L MacroGraphIntegral2.cc+
+MacroGraphIntegral2()
+.L MacroGraphIntegral2.cc+
+MacroGraphIntegral2()
+.q
+.L MacroGraphIntegral2.cc+
+.L MacroGraphIntegral2.cc+
+MacroGraphIntegral2()
+.L MacroGraphIntegral2.cc+
+MacroGraphIntegral2()
+.L MacroGraphIntegral2.cc+
+MacroGraphIntegral2()
+.L MacroGraphIntegral2.cc+
+MacroGraphIntegral2()
+.ls
+.q
+TFile *_file0 = TFile::Open("anabragg_bragg2000_550_th15.root")
+.ls
