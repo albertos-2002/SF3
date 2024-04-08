@@ -1,0 +1,86 @@
+includere per uno scatter plot
+#include <TGraph.h>
+
+includere per uno scatter plot con barre di errore
+#include <TGraphError.h>
+
+includere per avere più di un grafico (insieme di punti / linee) sullo stesso grafico
+#include <TMultiGraph.h>
+
+se vuoi salvare il grafico
+#include <TFile.h>
+nel caso di un codice più strutturato usare il TFileProxy per gestire aperture ripetute
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+COSTRUTTORI:
+
+la struttura consolidata prevede l'utilizzo di memoria dinamica
+se il codice è corto non è necessario occuparsi di eliminarla
+in caso contrario alla fine del suo utilizzo conviene liberarla
+
+I metodi seguenti utilizzano l'accesso by pointer
+
+TGraph* nome_graph = new TGraph( numero_punti, dati_x, dati_y )
+	per i dati in x e y gli argomenti accettati sono pointer
+	quindi o si usano array oppure nel caso di vector, creare
+	una variabile che contiene nome_vector.data(), che restituisce
+	un puntatore al primo elemento e passare quello a ROOT
+
+TGraphError* nome_graph = new TGraphError()
+
+TMultiGraph* nome_graph = new TMultiGraph("nome", "titolo") 
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+NOMINARE ASSI E TITOLO:
+
+titolo:
+	nome_graph -> SetTitle(" ")
+	
+nome assi:	
+	nome_graph -> GetXasxis() -> SetTitle(" ")
+	nome_graph -> GetXasxis() -> SetTitle(" ")
+
+COLORI E STILE:
+
+linee:
+	nome_graph -> SetLineColor()
+	nome_graph -> SetLineStyle()
+	nome_graph -> SetLineSize()
+
+marker:
+	nome_graph -> SetMarkerColor()
+	nome_graph -> SetMarkerStyle()
+	nome_graph -> SetMarkerSize()
+	
+vengono accettati sia valori numerici che stringhe e stringhe misto numeri
+vedere la documentazione di root per i dettagli
+
+GESTIONE DEL MULTIGRAPH:
+
+per aggiungere grafici:
+	nome_graph -> Add(nome_graph)
+	
+DISEGNO:
+
+nome_graph -> Draw(" ")
+
+accetta opzioni per il diregno
+
+"AP" : non so cosa faccia esattamente ma in teoria mette gli assi e i punti senza le linee (scatter plot)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+per gestire meglio il grafico, conviene creare anche una canvas
+la procedure testa prevede:
+	creare la canvas prima di creare i grafici
+	settare i dettagli della canvas dopo aver disegnato i grafici
+	
+#include <TCanvas.h>
+
+TCanvas* canvas = new TCanvas("nome", "titolo", 1)
+						per indicare una dimensione standard
+					
+canvas -> SetGrid()
+canvas -> BuildLegend()

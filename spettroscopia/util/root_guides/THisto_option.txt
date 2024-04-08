@@ -1,0 +1,23 @@
+cambiare da F a D per utilizzare i double
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+MONODIMENSIONALI:
+
+#include <TH1F.h>
+
+costruttore:
+
+	TH1F* histo_1d = new TH1F(  )
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+BIDIMENSIONALI:
+
+#include <TH2F.h>
+
+costruttore:
+
+	TH2F* histo_2d = new TH2F( "nome", "titolo", binx, minRangex, maxRangex, biny, minRangey, maxRangey )
+
+
