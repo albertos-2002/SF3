@@ -10,6 +10,7 @@ includere per avere più di un grafico (insieme di punti / linee) sullo stesso g
 se vuoi salvare il grafico
 #include <TFile.h>
 nel caso di un codice più strutturato usare il TFileProxy per gestire aperture ripetute
+TFile* nome_file = new TFile("nome_file.root", "MODE")
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 

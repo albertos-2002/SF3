@@ -1,5 +1,10 @@
 cambiare da F a D per utilizzare i double
 
+se vuoi salvare il grafico
+#include <TFile.h>
+nel caso di un codice più strutturato usare il TFileProxy per gestire aperture ripetute
+TFile* nome_file = new TFile("nome_file.root", "MODE")
+
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
 MONODIMENSIONALI:
@@ -8,7 +13,7 @@ MONODIMENSIONALI:
 
 costruttore:
 
-	TH1F* histo_1d = new TH1F(  )
+	TH1F* histo_1d = new TH1F( "name", "title", bin, minRange, maxRange )
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -20,4 +25,14 @@ costruttore:
 
 	TH2F* histo_2d = new TH2F( "nome", "titolo", binx, minRangex, maxRangex, biny, minRangey, maxRangey )
 
+le opzioni di customizzazione sono simili a quelle dei TGraph per assi e canvas
 
+per disegnare con i colori belli
+
+	histo_2d -> Draw("COLTZ1")
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------
+
+le opzioni di customizzazione sono simili a quelle dei TGraph per assi e canvas
+
+altre opzioni di customizzazione non sono state approfondite
