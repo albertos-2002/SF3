@@ -11,5 +11,7 @@ I fit fatti sugli istogrammi di anabragg, hanno un range (quello considerato com
 
 [Discussione sul range](discussione_range.md)
 
+[Note sugli intervalli di fit](note_fit_intervalli.md)
+
 
 
