@@ -6,7 +6,7 @@
 #include <TGraphErrors.h>
 #include <TCanvas.h>
 
-void fitGaussianAndPlotResiduals(const char* fileName, const char* ntupleName, const char* variableName, double rangeMin, double rangeMax) {
+void fitGaussianAndPlotResiduals(const char* fileName, const char* ntupleName, const char* variableName, int binning_histo_ext, double rangeMin, double rangeMax) {
     // Open the ROOT file
     TFile *file = TFile::Open(fileName);
     if (!file || file->IsZombie()) {
@@ -25,7 +25,7 @@ void fitGaussianAndPlotResiduals(const char* fileName, const char* ntupleName, c
     TCanvas* canvas = new TCanvas("canvas","canvas",1);
 
     // Create a histogram for the variable
-    TH1D *histogram = new TH1D("histogram", "Histogram of Integral", 100, rangeMin, rangeMax);
+    TH1D *histogram = new TH1D("histogram", "Histogram of Integral", binning_histo_ext, rangeMin, rangeMax);
     ntuple->Draw(Form("%s>>histogram", variableName));
 
     // Fit a Gaussian to the histogram
