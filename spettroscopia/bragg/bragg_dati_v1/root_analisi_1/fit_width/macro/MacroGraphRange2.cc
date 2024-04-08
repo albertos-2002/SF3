@@ -109,20 +109,20 @@ bool fit_activator = true;
        fit_iperbolico -> SetLineColor(kOrange-3);
        fit_iperbolico -> SetLineStyle(2); //dashed line for the fit line
   
-  scatter_of_americio -> Fit(fit_iperbolico, "R");
+  scatter_of_nettunio -> Fit(fit_iperbolico, "R");                                          ///--------------
   
-  TFitResultPtr risultati_fit = scatter_of_americio -> Fit( fit_iperbolico, "RS" );
+  TFitResultPtr risultati_fit = scatter_of_nettunio -> Fit( fit_iperbolico, "RS" );         ///--------------
                 risultati_fit -> Print("V"); //bho
   
   // Create a TGraphErrors for the residuals
         TGraphErrors* residualsGraph = new TGraphErrors();
-        for (int i = 0; i < scatter_of_americio->GetN(); ++i) {
+        for (int i = 0; i < scatter_of_nettunio->GetN(); ++i) {             ///------
             double x, y;
-            scatter_of_americio->GetPoint(i, x, y);
+            scatter_of_nettunio->GetPoint(i, x, y);                        ///------
             double fittedValue = fit_iperbolico->Eval(x);
             double residual = y - fittedValue;
             residualsGraph->SetPoint(i, x, residual);
-            residualsGraph->SetPointError(i, 0, scatter_of_americio->GetErrorY(i)); // Assuming no error in x-direction, only y-direction
+            residualsGraph->SetPointError(i, 0, scatter_of_nettunio->GetErrorY(i)); // Assuming no error in x-direction, only y-direction     ///-----------
         }
 
         // Set up style for the residuals graph
