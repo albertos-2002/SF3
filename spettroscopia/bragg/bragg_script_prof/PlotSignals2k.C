@@ -33,8 +33,6 @@ int plotSignal(bragg_signal sig, int same, int npts, TH2F *nullo, const char* ti
   g->SetMarkerStyle(7); // imposta alcuni attributi
   g->SetLineColor(4);
   g->SetLineWidth(1);
-  
-  
 
   TCanvas *csig = (TCanvas*)gROOT->FindObject("csig"); // cerca l'oggetto "csig" (canvas)
   if (!csig) { 
@@ -53,10 +51,6 @@ int plotSignal(bragg_signal sig, int same, int npts, TH2F *nullo, const char* ti
       gSystem->Sleep(200); // aspetta 200 ms
     }      
   }
-  
-  g->GetXaxis()->SetTitle("Sampling time [a.u.]");
-  g->GetYaxis()->SetTitle("Stopping power [ADC units]");
-  
   csig->Modified(); // aggiorna la canvas
   csig->Update();
   gSystem->ProcessEvents(); // aggiorna la grafica
@@ -64,7 +58,7 @@ int plotSignal(bragg_signal sig, int same, int npts, TH2F *nullo, const char* ti
   return 0;
 }
 
-int PlotSignals(const char *filename="", const char* titolo_grafico="",int plfrom=0, int plto=100, int same=1, int npts=256) {
+int PlotSignals(const char *filename="", const char* titolo_grafico="",int plfrom=0, int plto=2000, int same=1, int npts=256) {
 
   bragg_signal signal;
 
