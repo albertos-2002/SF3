@@ -2,6 +2,7 @@
 
 # What to do
 
+[] Ricordarsi di calcolare i coefficiente di compatibilità
 
 
 ## Roba che manca

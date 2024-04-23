@@ -33,7 +33,7 @@ $B_{max} \sim 5  kG$
 
 Il **polarizzatore** è fatto di materiale dicroico
 
-(non ci è dato sapere cosa sia $\smiley$)
+(non ci è dato sapere cosa sia)
 
 ## Dettagli specifici per l'apparato 1
 
