@@ -16,7 +16,7 @@ Lampada al neon (Ne) a scarica a bagliore
 
 corrente continua
 
-$\DeltaV \sim kV$
+$\Delta V \sim kV$
 
 $I \sim mA$
 
@@ -24,7 +24,7 @@ $I \sim mA$
 
 campi magnetici massimi da utilizzare:
 
-$B_{max} \sim 5 kG$
+$B_{max} \sim 5  kG$
 
 Il **polarizzatore** è fatto di materiale dicroico
 
