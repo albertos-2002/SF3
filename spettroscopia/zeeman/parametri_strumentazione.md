@@ -33,23 +33,23 @@ $B_{max} \sim 5  kG$
 
 Il **polarizzatore** è fatto di materiale dicroico
 
-(non ci è dato sapere cosa sia)
+(non ci è dato sapere cosa sia $\smiley$)
 
 ## Dettagli specifici per l'apparato 1
 
-- fenditura
+- **fenditura**
 
 	apertura $= 6\mu m$
 
 	step $= 6\mu m$
 
-- lente
+- **lente**
 
 	distanza focale lente di camera $= 280 mm$
 
 	diametro utile lente $= 31.5 mm$
 
-- lamina
+- **lamina**
 
 	materiale = quarzo
 
@@ -64,3 +64,16 @@ Il **polarizzatore** è fatto di materiale dicroico
 	$\frac{dn}{d\lambda} = -4.1 * 10^{-5} nm^{-1}$ 
 
 ## Informazioni sulle incertezze fornite dai docenti
+
+Le incertezze presenti sono sia di **costruzione** che di **misura**
+
+**trascurabili:**
+
+quelle sulle dimensioni delle componenti, che inoltre non sono note con precisione
+
+**importanti:**
+
+statistiche derivanti dai dati
+
+campo magnetico, data la complicata geometri delle linee di campo, assumiamo per l'apparato 1 un errore sistematico pari al $2%$
+
