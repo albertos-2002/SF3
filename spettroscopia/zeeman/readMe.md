@@ -8,7 +8,7 @@
 
 [A bit of theory](one_bit_of_theory.md)
 
-[Commenti analisi](commenti_analsi.md)
+[Commenti analisi](commenti_analisi.md)
 
 ---
 
