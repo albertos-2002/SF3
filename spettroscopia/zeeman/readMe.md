@@ -1,6 +1,6 @@
 # Esperienza di Zeeman
 
-[Parametri della strumentazione](parametri_strumentazioni.md)
+[Parametri della strumentazione](parametri_strumentazione.md)
 
 --- 
 
