@@ -30,7 +30,7 @@ $2d\sqrt{ n^2 - \sin ^2 (i) } = m\lambda$
 
 ### Regime di lunghezza d'onda utile $\Delta \lambda _{r.u.}$
 
-definisce il max( $\lambda _2 - \lambda _1$ ) tale che max$^{(m)}(\lambda _2)$ sia sovrapposto al max$^{(m+1)}(\lambda _1)$ dove non siamo più in grado di associare alle righe il $\lambda$ che le produce
+definisce il max( $\lambda _2 - \lambda _1$ ) tale che max $^{(m)}(\lambda _2)$ sia sovrapposto al max $^{(m+1)}(\lambda _1)$ dove non siamo più in grado di associare alle righe il $\lambda$ che le produce
 
 (comprendere)
 
