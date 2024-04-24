@@ -30,7 +30,7 @@ quanti picchi devo prendere
 
 [ x ] i prof nominano spesso histogrammi ma cosa intendono esattamente e di cosa dobbiamo farli
 
-[ x ] come dovrei calcolare la spaziatura tra i picchi ($|delta x_{r.u.}$)
+[ x ] come dovrei calcolare la spaziatura tra i picchi ($\Delta x_{r.u.}$)
 
 [ x ] fattore di landè con quale formula
 
