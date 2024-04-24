@@ -74,7 +74,7 @@ $B = B_{max}$
 
 lamina on
 
-con il campo $B$ perpendicolare alla luce incidente ( $\tetha = \frac{\pi}{2}$) fare una foto
+con il campo $B$ perpendicolare alla luce incidente ($\theta = \frac{\pi}{2}$) fare una foto
 
 il filtro va poi messo in due pirezioni perpendicolare tra loro $u_1 \perp u_2$ e fare per entrambi i casi una foto
 
