@@ -9,6 +9,7 @@
 #include "TApplication.h"
 #include "TAxis.h"
 #include "TSystem.h"
+#include "TGraphPainter.h"
 
 using namespace std;
 
@@ -103,21 +104,26 @@ int main(int argN, char* argL[]){
   SpettroCheNonEHisto -> SetMarkerColor(kBlue-4);
   SpettroCheNonEHisto -> SetMarkerSize(5);
   
+  //TGraphPainter::PaintGraph(SpettroCheNonEHisto);
+  
+  SpettroCheNonEHisto -> SetFillColor(30);
+  SpettroCheNonEHisto -> SetFillStyle(3003);
 
-  SpettroCheNonEHisto -> Draw("AP");
+  //SpettroCheNonEHisto -> Draw("AP");
+  SpettroCheNonEHisto -> Draw("APLF");
 
   canvas_one -> SetGrid();
   canvas_one -> BuildLegend();
   
-/*  string temp;
+  /*string control_of_exit;
   cout << "Enter for exit" << endl;
-  cin >> temp; */
-
-  AppWTF -> Run();
+  cin >> control_of_exit;
   
-  TSystem("pause");
-  
-  //TApplication::Close(AppWTF);
+  canvas_one -> Close();*/
 
+  cout << "test of what happen " << endl;
+
+  AppWTF -> Run(kTRUE);
+  
   return 0;
 }
