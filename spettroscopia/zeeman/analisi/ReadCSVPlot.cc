@@ -13,6 +13,7 @@
 #include "TMultiGraph.h"
 #include "TF1.h"
 #include "TPaveStats.h"
+#include "TLegend.h"
 
 using namespace std;
 
@@ -122,227 +123,175 @@ int main(int argN, char* argL[]){
     SpettroCheNonEHisto -> SetFillColor(30);
     SpettroCheNonEHisto -> SetFillStyle(3003);
     
-    SpettroCheNonEHisto -> Draw("APLF");
+    SpettroCheNonEHisto -> Draw("APL");
     canvas_one -> SetGrid();
     canvas_one -> BuildLegend();
 
     AppWTF -> Run(kTRUE);
 
   }
-
+  
+  //-------------------------------------------------------------------------------------------------
+  
+  //fitting and filling zone
   if(db_two){
+  
+    //ci servono 9*2 vettori dato che volgiamo che ogni curva
+    //sia un grafico per conto suo
+    vector< vector<double>* > VectorHolderX;
+    VectorHolderX.reserve(9);
+    for (int i=0; i<9; i++) {
+      VectorHolderX.push_back( new vector<double> );
+      VectorHolderX.at(i) -> reserve(1000);
+    }
+    
+    if(db_print) cout << " vector of vector for X created correctly" << endl;
+    
+    vector< vector<double>* > VectorHolderY;
+    VectorHolderY.reserve(9);
+    for (int i=0; i<9; i++) {
+      VectorHolderY.push_back( new vector<double> );
+      VectorHolderY.at(i) -> reserve(1000);
+    }
+    
+    if(db_print) cout << " vector of vector for Y created correctly" << endl;
+    
+    // inserting extraction data
+    vector<unsigned int> SplitPoint{3755-1, 4000,4250,4500,4750,5000,5250,5480,5750, 6035-1};
+    
+    for(unsigned int c = 0; c < ( SplitPoint.size()-1 ); c++){
 
-    //sezione di estrazione di range
-    vector<double> x1;
-    vector<double> x2;
-    vector<double> x3;
-  
-    vector<double> y1;
-    vector<double> y2;
-    vector<double> y3;
-  
-    x1.reserve(1100);
-    x2.reserve(1100);
-    x3.reserve(1100);
-  
-    y1.reserve(1100);
-    y2.reserve(1100);
-    y3.reserve(1100);
-  
-    double tempValue;
-    for(int i=3755-1; i<4480; i++){
-      tempValue = 0;
-      tempValue = GreyValue.at(i);
-      x1.push_back(i);
-      y1.push_back(tempValue);
-    }
-  
-    for(int i=4480- 1; i<5240; i++){
-      tempValue = 0;
-      tempValue = GreyValue.at(i);
-      x2.push_back(i);
-      y2.push_back(tempValue);
-    }
-  
-    for(int i=5240-1; i<6035; i++){
-      tempValue = 0;
-      tempValue = GreyValue.at(i);
-      x3.push_back(i);
-      y3.push_back(tempValue);
-    }
-  
-    if(db_print){
-  
-      for(int i=0; i<500; i++){
-        cout << x1.at(i) << "  " << y1.at(i) << endl;
-        cout << x2.at(i) << "  " << y2.at(i) << endl;
-        cout << x3.at(i) << "  " << y3.at(i) << endl;
-        cout << "- - - - - - - - - - - - - - - - -" << endl;
-      }
-    }
-
-    /*-------------------------------------------------------------------------------*/
-  
+      for(int j= SplitPoint.at(c); j<= SplitPoint.at(c+1); j++){
+         VectorHolderX.at(c) -> push_back( j );
+         VectorHolderY.at(c) -> push_back( GreyValue.at(j) );
+      } 
+   } 
+   
+   if (db_print) cout << " filling of the vector of X and Y done correctly" << endl;
+    
+    //facciamo anche un vettore per tutti i TGraph
     TMultiGraph* mg = new TMultiGraph("multi", "multi");
-    int punti1 = x1.size();
-    int punti2 = x2.size();
-    int punti3 = x3.size();
-  
-    TGraph* g1 = new TGraph(punti1, x1.data(), y1.data());
-    g1 -> SetFillColor(42);
-    g1 -> SetFillStyle(3001);
-    g1 -> SetMarkerColor(kBlue-4);
-    g1 -> SetMarkerSize(5);
-    g1 -> SetLineColor(kBlack);
-    g1 -> SetLineWidth(1.5);
-    g1 -> SetTitle("Zona sinistra");
-  
-    TGraph* g2 = new TGraph(punti2, x2.data(), y2.data());
-    g2 -> SetFillColor(30);
-    g2 -> SetFillStyle(3001);
-    g2 -> SetMarkerColor(kBlue-4);
-    g2 -> SetMarkerSize(5);
-    g2 -> SetLineColor(kBlack);
-    g2 -> SetLineWidth(1.5);
-    g2 -> SetTitle("Zona centrale");
-  
-    TGraph* g3 = new TGraph(punti3, x3.data(), y3.data());
-    g3 -> SetFillColor(38);
-    g3 -> SetFillStyle(3001);
-    g3 -> SetMarkerColor(kBlue-4);
-    g3 -> SetMarkerSize(5);
-    g3 -> SetLineColor(kBlack);
-    g3 -> SetLineWidth(1.5);
-    g3 -> SetTitle("Zona destra");
-  
+    
+    vector< TGraph* > VectorGraph;
+    VectorGraph.reserve(9);
+    
+    if(db_print) cout << "\n starting intese debug for the graph creation and management" << endl;
+    for (int i=0; i<9; i++){
+      VectorGraph.push_back( new TGraph( VectorHolderX.at(i) -> size(), 
+                                         VectorHolderX.at(i) -> data(), 
+                                         VectorHolderY.at(i) -> data() 
+                                       ) 
+                           );
+      if(db_print) cout << "graph filled correctly" << endl; 
+      
+      TGraph* g = VectorGraph.at(i);
+      if(db_print) cout << " element extracted from the vector of graph" << endl;
+                    
+      g -> SetFillStyle(3001);
+      //g -> SetMarkerColor(kBlue-4);
+      //g -> SetMarkerSize(5);
+      g -> SetLineColor(kBlack);
+      g -> SetLineWidth(1.5);
+      
+      if(i==2) g -> SetTitle("Zona sinistra");
+      if(i==5) g -> SetTitle("Zona centrale");
+      if(i==8) g -> SetTitle("Zona destra");
+      
+      if(i==0 || i==1 || i==2)  g -> SetFillColor(42);
+      if(i==3 || i==4 || i==5)  g -> SetFillColor(30);
+      if(i==6 || i==7 || i==8)  g -> SetFillColor(38);
+            
+      if(db_print) cout << " graph colored correctrly" << endl;
+    }
+    
+    if(db_print) cout << " managing of the 9 TGraph done correctly" << endl;
+
     //style of multi
     mg -> SetTitle("Spettro Zoom - B off");
     mg -> GetXaxis() -> SetTitle("Distance [pixel]");
     mg -> GetYaxis() -> SetTitle("Gray Scale [a.u.]");
-
+ 
     //adding of graph
-    mg->Add(g1);
-    mg->Add(g2);
-    mg->Add(g3);
+    for(auto g : VectorGraph) mg->Add(g);
+    
+    if(db_print) cout << " adding of graph into multi done correctly" << endl;
     
     mg -> GetXaxis() -> SetLimits(3740,6050);
     mg -> GetYaxis() -> SetRangeUser(1,29);  
     mg -> Draw("APLF");
-    
+
+    /*-------------------------------------------------------------------------------*/
+  
     //fitting zone
+    vector< TF1* > VectorFunction;
     
-      if (fit_zone){
-        
-        TF1* fitA = new TF1("A", "gaus", 3860, 3900);
-        cout << "\n" << "Fit A" << "\n" << endl;      
-        fitA -> SetLineColor(kRed);
-        fitA -> SetLineStyle(2);
-        fitA -> SetTitle("A");
-        fitA -> SetLineWidth(3);
-        g1 -> Fit(fitA, "RV");
-        fitA -> Draw("same");
-        canvas_one -> Update();
-        auto statsA = (TPaveStats*)g1 -> GetListOfFunctions() -> FindObject("stats");
-        if(statsA == nullptr) cout << "\n whyyyyyyyyyyyyy \n" << endl;
-        //canvas_one -> Modified();
-        //if(statsA == nullptr) cout << "\n why null \n" << endl;
-        //statsA -> Draw();
-        
-        
-        TF1* fitB = new TF1("B", "gaus", 4095, 4135);
-        cout << "\n" << "Fit B" << "\n" << endl;      
-        fitB -> SetLineColor(kRed);
-        fitB -> SetLineStyle(2);
-        fitB -> SetTitle("B");
-        fitB -> SetLineWidth(3);
-        g1 -> Fit(fitB, "RV");
-        //TPaveStats* statsB = (TPaveStats*)g1 -> FindObject("stats");
-        //statsB -> Draw("same");
-        fitB -> Draw("same");
-        
-        TF1* fitC = new TF1("C", "gaus", 4340, 4380);
-        cout << "\n" << "Fit C" << "\n" << endl;        
-        fitC -> SetLineColor(kRed);
-        fitC -> SetLineStyle(2);
-        fitC -> SetTitle("C");
-        fitC -> SetLineWidth(3);
-        g1 -> Fit(fitC, "RV");
-        //TPaveStats* statsC = (TPaveStats*)g1 -> FindObject("stats");
-        //statsC -> Draw("same");
-        fitC -> Draw("same");
-        
-        TF1* fitD = new TF1("D", "gaus", 4580, 4625);
-        cout << "\n" << "Fit D" << "\n" << endl;        
-        fitD -> SetLineColor(kRed);
-        fitD -> SetLineStyle(2);
-        fitD -> SetTitle("D");
-        fitD -> SetLineWidth(3);
-        g2 -> Fit(fitD, "RV");
-        //TPaveStats* statsD = (TPaveStats*)g2 -> FindObject("stats");
-        //statsD -> Draw("same");
-        fitD -> Draw("sames");
-        
-        TF1* fitE = new TF1("E", "gaus", 4830, 4880);
-        cout << "\n" << "Fit E" << "\n" << endl;        
-        fitE -> SetLineColor(kRed);
-        fitE -> SetLineStyle(2);
-        fitE -> SetTitle("E");
-        fitE -> SetLineWidth(3);
-        g2 -> Fit(fitE, "RV");
-        //TPaveStats* statsE = (TPaveStats*)g2 -> FindObject("stats");
-        //statsE -> Draw("same");
-        fitE -> Draw("sames");
-        
-        TF1* fitF = new TF1("F", "gaus", 5090, 5130);
-        cout << "\n" << "Fit F" << "\n" << endl;        
-        fitF -> SetLineColor(kRed);
-        fitF -> SetLineStyle(2);
-        fitF -> SetTitle("F");
-        fitF -> SetLineWidth(3);
-        g2 -> Fit(fitF, "RV");
-        //TPaveStats* statsF = (TPaveStats*)g2 -> FindObject("stats");
-        //statsF -> Draw("same");
-        fitF -> Draw("sames");
-        
-        TF1* fitG = new TF1("G", "gaus", 5340, 5385);
-        cout << "\n" << "Fit G" << "\n" << endl;        
-        fitG -> SetLineColor(kRed);
-        fitG -> SetLineStyle(2);
-        fitG -> SetTitle("G");
-        fitG -> SetLineWidth(3);
-        g3 -> Fit(fitG, "RV");
-        //TPaveStats* statsG = (TPaveStats*)g3 -> FindObject("stats");
-        //statsG -> Draw("same");
-        fitG -> Draw("sames");
-        
-        TF1* fitH = new TF1("H", "gaus", 5610, 5650);
-        cout << "\n" << "Fit H" << "\n" << endl;        
-        fitH -> SetLineColor(kRed);
-        fitH -> SetLineStyle(2);
-        fitH -> SetTitle("H");
-        fitH -> SetLineWidth(3);
-        g3 -> Fit(fitH, "RV");
-        //TPaveStats* statsH = (TPaveStats*)g3 -> FindObject("stats");
-        //statsH -> Draw("same");
-        fitH -> Draw("sames");
-        
-        TF1* fitI = new TF1("I", "gaus", 5880, 5920);
-        cout << "\n" << "Fit I" << "\n" << endl;     
-        fitI -> SetLineColor(kRed);
-        fitI -> SetLineStyle(2);
-        fitI -> SetTitle("I");
-        fitI -> SetLineWidth(3);
-        g3 -> Fit(fitI, "RV");
-        //TPaveStats* statsI = (TPaveStats*)g3 -> FindObject("stats");
-        //statsI -> Draw("same");
-        fitI -> Draw("sames");       
-     
+    if (fit_zone){
+      
+      //creazione delle funzioni di fitting  
+      VectorFunction.reserve(9);
+      
+      //storing dei "nomi"
+      //vector<char> Letters{'A','B','C','D','E','F','G','H','I'};
+      vector<string> Letters{"A","B","C","D","E","F","G","H","I"};
+      
+      VectorFunction.push_back( new TF1("A", "gaus", 3860, 3900) );
+      VectorFunction.push_back( new TF1("B", "gaus", 4095, 4135) );
+      VectorFunction.push_back( new TF1("C", "gaus", 4340, 4380) );
+      VectorFunction.push_back( new TF1("D", "gaus", 4580, 4625) );
+      VectorFunction.push_back( new TF1("E", "gaus", 4830, 4880) );
+      VectorFunction.push_back( new TF1("F", "gaus", 5090, 5130) );
+      VectorFunction.push_back( new TF1("G", "gaus", 5340, 5385) );
+      VectorFunction.push_back( new TF1("H", "gaus", 5610, 5650) );
+      VectorFunction.push_back( new TF1("I", "gaus", 5880, 5920) );
+      
+      for(int i=0; i<9; i++){
+      
+        auto FitFunction = VectorFunction.at(i);
+        auto Graph       = VectorGraph.at(i);
+      
+        cout << "\n" << "Fit " <<  i << "\n" << endl;      
+        FitFunction -> SetLineColor(kRed);
+        FitFunction -> SetLineStyle(9);
+        FitFunction -> SetTitle( ( Letters.at(i) ).c_str() );
+        FitFunction -> SetLineWidth(2);
+        //Graph       -> Fit(FitFunction, "RV");
+        Graph       -> Fit(FitFunction, "R");
+        FitFunction -> Draw("same");
+      
       }
     
+    }
+    
+
     //------------------ 
       
     canvas_one -> SetGrid();
-    canvas_one -> BuildLegend();
+    
+    auto legend = new TLegend();
+    
+    legend -> SetNColumns(3);
+    
+    //a quanto pare vengono fillate prima le righe 
+    //le prime tre entry andranno in riga
+    
+    legend -> AddEntry( VectorGraph.at(1) , "Zona sinistra", "lf");
+    legend -> AddEntry( VectorGraph.at(4) , "Zone centrale", "lf" );
+    legend -> AddEntry( VectorGraph.at(7) , "Zona destra", "lf" );
+    
+    legend -> AddEntry( VectorFunction.at(0) , "Fit A", "l" );
+    legend -> AddEntry( VectorFunction.at(1) , "Fit B", "l" );
+    legend -> AddEntry( VectorFunction.at(2) , "Fit C", "l" );
+    
+    legend -> AddEntry( VectorFunction.at(3) , "Fit D", "l" );
+    legend -> AddEntry( VectorFunction.at(4) , "Fit E", "l" );
+    legend -> AddEntry( VectorFunction.at(5) , "Fit F", "l" );
+    
+    legend -> AddEntry( VectorFunction.at(6) , "Fit G", "l" );
+    legend -> AddEntry( VectorFunction.at(7) , "Fit H", "l" );
+    legend -> AddEntry( VectorFunction.at(8) , "Fit I", "l" );
+    
+    legend -> Draw();
+    
     
     AppWTF -> Run(kTRUE);
   
