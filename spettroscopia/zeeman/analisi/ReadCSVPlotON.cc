@@ -14,77 +14,58 @@
 #include "TF1.h"
 #include "TPaveStats.h"
 #include "TLegend.h"
-
 using namespace std;
+
+/* CONFIGURATION SECTION =================================================================== */
+
+ string NomeGrafico = "B-on: max";
+ 
+ //range di taglio per lo spettro (in forma generale)
+ int TaglioXminM = 0;
+ int TaglioXmaxM = 0;
+ int TaglioYminM = 0;
+ int TaglioYmaxM = 0;
+
+/* ========================================================================================= */
 
 //global -----------------------------------------------------------------------------------
 bool db_print = false;
 bool db_one = false;
 bool db_two = false;
 bool fit_zone = false;
+bool cut_zone = false;
 
 //vector of data
 vector<float> GreyValue;
 vector<float> PointPosition;
 
+//root canvas and app
+int VoidArgumentI;
+char* VoidArgumentC[1];
+TApplication* AppWTF = new TApplication("PublicConstructor", &VoidArgumentI, VoidArgumentC); 
+auto canvas_one = new TCanvas("can", "can");
+
+//function declaration ---------------------------------------------------------------------
 
 void ReadShit();
-
-//------------------------------------------------------------------------------------------
-//function ---------------------------------------------------------------------------------
-
-
+void AnalisisInfo(const int &argN, char* argL[]);
+void MakeGeneralSpectrum();
 
 //------------------------------------------------------------------------------------------
 
 int main(int argN, char* argL[]){
 
-  TApplication* AppWTF = new TApplication("PublicConstructor", &argN, argL); 
+  AnalisisInfo(argN, argL);
 
-  //debug printing option
-  if (argN > 1) {
-    for (int i=0; i<argN; i++){
-      string debug_option_check( argL[i] );
-      if( debug_option_check == "db" ) db_print = true;
-      if( debug_option_check == "1" ) db_one = true;
-      if( debug_option_check == "2" ) db_two = true;
-      if( debug_option_check == "fit" ) fit_zone = true;
-    }
-  }
+  canvas_one -> SetGrid();
 
   GreyValue.reserve(10000);
   PointPosition.reserve(10000);
 
+
   ReadShit();
-
-  int NumeroPunti = PointPosition.size();
-
-  auto canvas_one = new TCanvas("can", "can");
   
-  if(db_one){
-  
-    //sezione monografico
-    auto SpettroCheNonEHisto = new TGraph( NumeroPunti, PointPosition.data(), GreyValue.data() );
-
-    SpettroCheNonEHisto -> SetTitle("Spettro Zeeman B-off");
-    SpettroCheNonEHisto -> GetYaxis() -> SetTitle("Gray Scale [a.u.]");
-    SpettroCheNonEHisto -> GetXaxis() -> SetTitle("Distance [pixel]");
-    SpettroCheNonEHisto -> SetMarkerColor(kBlue-4);
-    SpettroCheNonEHisto -> SetMarkerSize(5);
-  
-    SpettroCheNonEHisto -> SetFillColor(41);
-    SpettroCheNonEHisto -> SetFillStyle(3001);
-    
-    //SpettroCheNonEHisto -> GetXaxis() -> SetLimits(3740,6050);
-    //SpettroCheNonEHisto -> GetYaxis() -> SetRangeUser(1,29);
-    
-    SpettroCheNonEHisto -> Draw("APLF");
-    canvas_one -> SetGrid();
-    canvas_one -> BuildLegend();
-
-    AppWTF -> Run(kTRUE);
-
-  }
+  if(db_one) MakeGeneralSpectrum();
   
   //-------------------------------------------------------------------------------------------------
   
@@ -224,7 +205,6 @@ int main(int argN, char* argL[]){
 
     //------------------ 
       
-    canvas_one -> SetGrid();
     
     auto legend = new TLegend();
     
@@ -262,7 +242,7 @@ int main(int argN, char* argL[]){
   return 0;
 }
 
-/* DATA READING FUNCTION --------------------------------------------------------------------------------------- */
+/* DATA READING FUNCTION ======================================================================================= */
 void ReadShit(){
 
   //name 
@@ -315,23 +295,58 @@ void ReadShit(){
 
  return;
 }
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
-/* ------------------------------------------------------------------------------------------------------------- */
+/* ANALISIS OPTION SELECTOR ==================================================================================== */
+void AnalisisInfo(const int &argN, char* argL[]){
+  if (argN > 1) {
+    for (int i=0; i<argN; i++){
+      string debug_option_check( argL[i] );
+      if( debug_option_check == "db" ) db_print = true;
+      if( debug_option_check == "1" ) db_one = true;
+      if( debug_option_check == "2" ) db_two = true;
+      if( debug_option_check == "fit" ) fit_zone = true;
+      if( debug_option_check == "cut" ) cut_zone = true;
+    }
+  }
+  return;
+}
+/* SEZIONE MONOGRAFICO ========================================================================================= */
+void MakeGeneralSpectrum(){
+
+    //string InternalNomeGrafico = NomeGrafico;
+    int NumeroPunti = PointPosition.size();
+    auto SpettroCheNonEHisto = new TGraph( NumeroPunti, PointPosition.data(), GreyValue.data() );
+
+    SpettroCheNonEHisto -> SetTitle( NomeGrafico.c_str() );
+    SpettroCheNonEHisto -> GetYaxis() -> SetTitle("Gray Scale [a.u.]");
+    SpettroCheNonEHisto -> GetXaxis() -> SetTitle("Distance [pixel]");
+    SpettroCheNonEHisto -> SetMarkerColor(kBlue-4);
+    SpettroCheNonEHisto -> SetMarkerSize(5);
+  
+    SpettroCheNonEHisto -> SetFillColor(41);
+    SpettroCheNonEHisto -> SetFillStyle(3001);
+    
+    if(cut_zone){
+      SpettroCheNonEHisto -> GetXaxis() -> SetLimits(TaglioXminM,TaglioXmaxM);
+      SpettroCheNonEHisto -> GetYaxis() -> SetRangeUser(TaglioYminM,TaglioYmaxM);
+    }
+    
+    SpettroCheNonEHisto -> Draw("APLF");
+    canvas_one -> BuildLegend();
+
+    AppWTF -> Run(kTRUE);
+  
+}
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
+/* ============================================================================================================= */
