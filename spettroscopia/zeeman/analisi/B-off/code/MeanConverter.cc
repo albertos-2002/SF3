@@ -56,7 +56,7 @@ void MeanCalculator( double (&arr)[4] ){
   //value = (1/k)*( arr[1]  / (pow(arr[2],2)  ) + ( arr[3] / (pow(arr[4],2) ) ) );
   
   value = ( arr[1] + arr[3] ) / 2;
-  error = sqrt( pow(arr[2],2) + pow(arr[4],2) );
+  error = (1/(sqrt(2) ) )*sqrt( pow(arr[2],2) + pow(arr[4],2) );
   
   MeanHolder.push_back(value);
   EMeanHolder.push_back(error);
@@ -72,7 +72,7 @@ void ConverterCalculator(){
     k += (1/ ( pow(c,2) ) );
   }
 
-  double dummy;
+  double dummy = 0;
   for(int i=0; i< MeanHolder.size(); i++){
     dummy += MeanHolder.at(i) / ( pow(EMeanHolder.at(i),2 ) );
   }
@@ -90,13 +90,13 @@ void ResolutionCalcolator( double (&arr)[4] ){
 
   double val1 = TheRealConversionFactor*arr[1];
   Resolution.push_back( lambda/val1 );
-  double Eval1 = (1/val1)*sqrt( pow( (ETheRealConversionFactor/TheRealConversionFactor) ,2)+pow( (arr[2]/arr[1]) ,2) );
+  double Eval1 = (lambda/val1)*sqrt( pow( (ETheRealConversionFactor/TheRealConversionFactor) ,2)+pow( (arr[2]/arr[1]) ,2) );
   EResolution.push_back( Eval1 );
   DistanzeNM.push_back(val1);
   
   double val2 = TheRealConversionFactor*arr[3];
   Resolution.push_back( lambda/val2 );
-  double Eval2 = (1/val2)*sqrt( pow( (ETheRealConversionFactor/TheRealConversionFactor) ,2)+pow( (arr[4]/arr[3]) ,2) );
+  double Eval2 = (lambda/val2)*sqrt( pow( (ETheRealConversionFactor/TheRealConversionFactor) ,2)+pow( (arr[4]/arr[3]) ,2) );
   EResolution.push_back( Eval2 );
   DistanzeNM.push_back(val2);
 
@@ -109,7 +109,7 @@ void MeanResolutionCalculator(){
     k += (1/ ( pow(c,2) ) );
   }
 
-  double dummy;
+  double dummy = 0;
   for(int i=0; i< Resolution.size(); i++){
     dummy += Resolution.at(i) / ( pow(EResolution.at(i),2 ) );
   }

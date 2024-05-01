@@ -32,86 +32,86 @@ I:  5880 - 5920 $\sim$ 40 punti
 ## risultati analisi:
 
 ```
- Zona sinistra results: 
+  Zona sinistra results: 
 
  Distanze: 238.47 \pm 0.13038
            242.18 \pm 0.128485
- Media distanze: 240.325 \pm 0.18305
+ Media distanze: 240.325 \pm 0.129436
 
  Zona centrale results: 
 
  Distanze: 249.74 \pm 0.161487
            254.16 \pm 0.116713
- Media distanze: 251.95 \pm 0.199248
+ Media distanze: 251.95 \pm 0.14089
 
  Zona destra results: 
 
  Distanze: 262.99 \pm 0.177131
            267.8 \pm 0.104661
- Media distanze: 265.395 \pm 0.205741
+ Media distanze: 265.395 \pm 0.145481
 
  Compatibilità tra le zone: 
- sx-cx: 42.9651
- cx-dx: 46.9436
- sx-dx: 91.0363
+ sx-cx: 60.7619
+ cx-dx: 66.3883
+ sx-dx: 128.745
 
- Media delle medie: 251.578 \pm 0.112753
+ Media delle medie: 251.577 \pm 0.0797288
 
  ------------------------------------------------------------------------------------------- 
 
- Fattore di conversione: (0.000168529 \pm 1.7815e-06) nm / pixel 
+ Fattore di conversione: (0.000168529 \pm 1.25971e-06) nm / pixel 
  ------------------------------------------------------------------------------------------- 
 
  Risoluzioni (qualsiasi cosa siano): 
 
  zona sinistra: 
- (1)            14563.7 \pm 0.263381 nm 
- (2)            14340.6 \pm 0.259326 nm 
+ (1)            14563.7 \pm 109.151 nm 
+ (2)            14340.6 \pm 107.462 nm 
  zona centrale: 
- (3)            13906.5 \pm 0.251629 nm 
- (4)            13664.6 \pm 0.247025 nm 
+ (3)            13906.5 \pm 104.336 nm 
+ (4)            13664.6 \pm 102.332 nm 
  zona destra:   
- (5)            13205.8 \pm 0.23899 nm 
- (6)            12968.6 \pm 0.234382 nm 
+ (5)            13205.8 \pm 99.1103 nm 
+ (6)            12968.6 \pm 97.0699 nm 
 
- Media aritmetica: 13727.7 \pm 0.101442
+ Media aritmetica: 13727.6 \pm 42.0399
 
 
  Fattori di compatibilità: 
 
- ( 1 ) e ( 2 )    603.601
- ( 1 ) e ( 3 )    1804.23
- ( 1 ) e ( 4 )    2489.79
- ( 1 ) e ( 5 )    3817.96
- ( 1 ) e ( 6 )    4524.07
+ ( 1 ) e ( 2 )    1.45654
+ ( 1 ) e ( 3 )    4.35252
+ ( 1 ) e ( 4 )    6.00897
+ ( 1 ) e ( 5 )    9.20989
+ ( 1 ) e ( 6 )    10.9197
 
- ( 2 ) e ( 3 )    1201.39
- ( 2 ) e ( 4 )    1887.35
- ( 2 ) e ( 5 )    3217.72
- ( 2 ) e ( 6 )    3924.88
+ ( 2 ) e ( 3 )    2.89832
+ ( 2 ) e ( 4 )    4.5552
+ ( 2 ) e ( 5 )    7.76224
+ ( 2 ) e ( 6 )    9.4739
 
- ( 3 ) e ( 4 )    685.85
- ( 3 ) e ( 5 )    2018.92
- ( 3 ) e ( 6 )    2727.21
+ ( 3 ) e ( 4 )    1.65483
+ ( 3 ) e ( 5 )    4.86873
+ ( 3 ) e ( 6 )    6.58089
 
- ( 4 ) e ( 5 )    1334.83
- ( 4 ) e ( 6 )    2043.88
+ ( 4 ) e ( 5 )    3.22052
+ ( 4 ) e ( 6 )    4.93441
 
- ( 5 ) e ( 6 )    708.586
+ ( 5 ) e ( 6 )    1.70976
 
 
  ------------------------------------------------------------------------------------------- 
 
  Per avere una idea printiamo anche le distanze in nanometri tra i picchi: 
  zona sinistra: 
- (1)            0.040189 nm 
- (2)            0.0408142 nm 
+ (1)            0.0401891 nm 
+ (2)            0.0408143 nm 
  zona centrale: 
- (3)            0.0420883 nm 
- (4)            0.0428332 nm 
+ (3)            0.0420884 nm 
+ (4)            0.0428333 nm 
  zona destra:   
- (5)            0.0443213 nm 
- (6)            0.0451319 nm
+ (5)            0.0443214 nm 
+ (6)            0.045132 nm 
 
 ```
 
