@@ -13,8 +13,14 @@ double FinalMean;
 double EFinalMean;
 double lambda = 585.3; //nm
 double ConversionFactor = (lambda*lambda)/(2*4040000); //nm
+double TheRealConversionFactor;
+double ETheRealConversionFactor;
 vector<double> Resolution;
 vector<double> EResolution;
+double FinalResolution;
+double EFinalResolution;
+vector<double> RCompatibility;
+vector<double> DistanzeNM;
 
 
 /* Hard coded values (fit results) */
@@ -80,9 +86,56 @@ void ConverterCalculator(){
 
 }
 
-void ResolutionCalcolator(){
+void ResolutionCalcolator( double (&arr)[4] ){
 
-  Resolution.push_back(  )
+  double val1 = TheRealConversionFactor*arr[1];
+  Resolution.push_back( lambda/val1 );
+  double Eval1 = (1/val1)*sqrt( pow( (ETheRealConversionFactor/TheRealConversionFactor) ,2)+pow( (arr[2]/arr[1]) ,2) );
+  EResolution.push_back( Eval1 );
+  DistanzeNM.push_back(val1);
+  
+  double val2 = TheRealConversionFactor*arr[3];
+  Resolution.push_back( lambda/val2 );
+  double Eval2 = (1/val2)*sqrt( pow( (ETheRealConversionFactor/TheRealConversionFactor) ,2)+pow( (arr[4]/arr[3]) ,2) );
+  EResolution.push_back( Eval2 );
+  DistanzeNM.push_back(val2);
+
+}
+
+void MeanResolutionCalculator(){
+
+  double k = 0;
+  for(auto c : EResolution){
+    k += (1/ ( pow(c,2) ) );
+  }
+
+  double dummy;
+  for(int i=0; i< Resolution.size(); i++){
+    dummy += Resolution.at(i) / ( pow(EResolution.at(i),2 ) );
+  }
+
+  FinalResolution = (1/k)*dummy; 
+  EFinalResolution = sqrt( 1/k ); 
+  
+  RCompatibility.push_back( ( abs( Resolution.at(0)-Resolution.at(1) ) ) / sqrt( pow( EResolution.at(0) ,2) + pow( EResolution.at(1) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(0)-Resolution.at(2) ) ) / sqrt( pow( EResolution.at(0) ,2) + pow( EResolution.at(2) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(0)-Resolution.at(3) ) ) / sqrt( pow( EResolution.at(0) ,2) + pow( EResolution.at(3) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(0)-Resolution.at(4) ) ) / sqrt( pow( EResolution.at(0) ,2) + pow( EResolution.at(4) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(0)-Resolution.at(5) ) ) / sqrt( pow( EResolution.at(0) ,2) + pow( EResolution.at(5) ,2) ) );
+  
+  RCompatibility.push_back( ( abs( Resolution.at(1)-Resolution.at(2) ) ) / sqrt( pow( EResolution.at(1) ,2) + pow( EResolution.at(2) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(1)-Resolution.at(3) ) ) / sqrt( pow( EResolution.at(1) ,2) + pow( EResolution.at(3) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(1)-Resolution.at(4) ) ) / sqrt( pow( EResolution.at(1) ,2) + pow( EResolution.at(4) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(1)-Resolution.at(5) ) ) / sqrt( pow( EResolution.at(1) ,2) + pow( EResolution.at(5) ,2) ) );
+  
+  RCompatibility.push_back( ( abs( Resolution.at(2)-Resolution.at(3) ) ) / sqrt( pow( EResolution.at(2) ,2) + pow( EResolution.at(3) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(2)-Resolution.at(4) ) ) / sqrt( pow( EResolution.at(2) ,2) + pow( EResolution.at(4) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(2)-Resolution.at(5) ) ) / sqrt( pow( EResolution.at(2) ,2) + pow( EResolution.at(5) ,2) ) );
+  
+  RCompatibility.push_back( ( abs( Resolution.at(3)-Resolution.at(4) ) ) / sqrt( pow( EResolution.at(3) ,2) + pow( EResolution.at(4) ,2) ) );
+  RCompatibility.push_back( ( abs( Resolution.at(3)-Resolution.at(5) ) ) / sqrt( pow( EResolution.at(3) ,2) + pow( EResolution.at(5) ,2) ) );
+  
+  RCompatibility.push_back( ( abs( Resolution.at(4)-Resolution.at(5) ) ) / sqrt( pow( EResolution.at(4) ,2) + pow( EResolution.at(5) ,2) ) );
 
 }
 
@@ -93,8 +146,10 @@ int main(){
   MeanHolder.reserve(3);
   EMeanHolder.reserve(3);
   Compatibility.reserve(3);
-  //Resolution.reserve(3);
-  //EResolution.reserve(3);
+  Resolution.reserve(6);
+  EResolution.reserve(6);
+  RCompatibility.reserve(15);
+  DistanzeNM.reserve(6);
   
   double zona_sinistra[4];
   double zona_centrale[4];
@@ -130,11 +185,73 @@ int main(){
   cout << " cx-dx: " << Compatibility.at(1) << endl;
   cout << " sx-dx: " << Compatibility.at(2) << endl;
   
-  cout << "\n\n Media delle medie: " << FinalMean << " \\pm " << EFinalMean << endl;
+  cout << "\n Media delle medie: " << FinalMean << " \\pm " << EFinalMean << "\n" << endl;
   
-  cout << "\n\n Fattore di conversione: (" << (ConversionFactor/FinalMean) << " \\pm " << ( EFinalMean / (FinalMean*FinalMean) ) << ") nm / pixel " << endl;
-
+  TheRealConversionFactor = (ConversionFactor/FinalMean);
+  ETheRealConversionFactor = ( EFinalMean / (FinalMean*FinalMean) );
+  
+  cout << " ------------------------------------------------------------------------------------------- " << endl;
+  
+  cout << "\n Fattore di conversione: (" << TheRealConversionFactor << " \\pm " << ETheRealConversionFactor << ") nm / pixel " << endl;
+  
+  ResolutionCalcolator(zona_sinistra);
+  ResolutionCalcolator(zona_centrale);
+  ResolutionCalcolator(zona_destra);
+  
+  cout << " ------------------------------------------------------------------------------------------- " << endl;
+  
+  cout << "\n Risoluzioni (qualsiasi cosa siano): \n" << endl;
+  cout << " zona sinistra: " << endl;
+  cout << " (1)            " << Resolution.at(0) << " \\pm " << EResolution.at(0) << " nm " << endl;
+  cout << " (2)            " << Resolution.at(1) << " \\pm " << EResolution.at(1) << " nm " <<  endl;
+  cout << " zona centrale: " << endl;
+  cout << " (3)            " << Resolution.at(2) << " \\pm " << EResolution.at(2) << " nm " << endl;
+  cout << " (4)            " << Resolution.at(3) << " \\pm " << EResolution.at(3) << " nm " << endl;
+  cout << " zona destra:   " << endl;
+  cout << " (5)            " << Resolution.at(4) << " \\pm " << EResolution.at(4) << " nm " << endl;
+  cout << " (6)            " << Resolution.at(5) << " \\pm " << EResolution.at(5) << " nm " << endl;
+  cout << endl;
+  
+  MeanResolutionCalculator();
+  
+  cout << " Media aritmetica: " << FinalResolution << " \\pm " << EFinalResolution << endl;
   cout << "\n" << endl;
+  cout << " Fattori di compatibilità: " << endl;
+  cout << endl;
+  cout << " ( 1 ) e ( 2 )    " << RCompatibility.at(0) << endl;
+  cout << " ( 1 ) e ( 3 )    " << RCompatibility.at(1) << endl;
+  cout << " ( 1 ) e ( 4 )    " << RCompatibility.at(2) << endl;
+  cout << " ( 1 ) e ( 5 )    " << RCompatibility.at(3) << endl;
+  cout << " ( 1 ) e ( 6 )    " << RCompatibility.at(4) << endl;
+  cout << endl;
+  cout << " ( 2 ) e ( 3 )    " << RCompatibility.at(5) << endl;
+  cout << " ( 2 ) e ( 4 )    " << RCompatibility.at(6) << endl;
+  cout << " ( 2 ) e ( 5 )    " << RCompatibility.at(7) << endl;
+  cout << " ( 2 ) e ( 6 )    " << RCompatibility.at(8) << endl;
+  cout << endl;
+  cout << " ( 3 ) e ( 4 )    " << RCompatibility.at(9) << endl;
+  cout << " ( 3 ) e ( 5 )    " << RCompatibility.at(10) << endl;
+  cout << " ( 3 ) e ( 6 )    " << RCompatibility.at(11) << endl;
+  cout << endl;
+  cout << " ( 4 ) e ( 5 )    " << RCompatibility.at(12) << endl;
+  cout << " ( 4 ) e ( 6 )    " << RCompatibility.at(13) << endl;
+  cout << endl;
+  cout << " ( 5 ) e ( 6 )    " << RCompatibility.at(14) << endl;
+  cout << "\n" << endl;
+  
+  cout << " ------------------------------------------------------------------------------------------- " << endl;
+  
+  cout << "\n Per avere una idea printiamo anche le distanze in nanometri tra i picchi: " << endl;
+  cout << " zona sinistra: " << endl;
+  cout << " (1)            " << DistanzeNM.at(0) << " nm " << endl;
+  cout << " (2)            " << DistanzeNM.at(1) << " nm " <<  endl;
+  cout << " zona centrale: " << endl;
+  cout << " (3)            " << DistanzeNM.at(2) << " nm " << endl;
+  cout << " (4)            " << DistanzeNM.at(3) << " nm " << endl;
+  cout << " zona destra:   " << endl;
+  cout << " (5)            " << DistanzeNM.at(4) << " nm " << endl;
+  cout << " (6)            " << DistanzeNM.at(5) << " nm " << endl;
+  cout << endl;
   
   return 0;
 
