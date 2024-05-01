@@ -120,10 +120,13 @@ int main(int argN, char* argL[]){
     SpettroCheNonEHisto -> SetMarkerColor(kBlue-4);
     SpettroCheNonEHisto -> SetMarkerSize(5);
   
-    SpettroCheNonEHisto -> SetFillColor(30);
-    SpettroCheNonEHisto -> SetFillStyle(3003);
+    SpettroCheNonEHisto -> SetFillColor(41);
+    SpettroCheNonEHisto -> SetFillStyle(3001);
     
-    SpettroCheNonEHisto -> Draw("APL");
+    //SpettroCheNonEHisto -> GetXaxis() -> SetLimits(3740,6050);
+    //SpettroCheNonEHisto -> GetYaxis() -> SetRangeUser(1,29);
+    
+    SpettroCheNonEHisto -> Draw("APLF");
     canvas_one -> SetGrid();
     canvas_one -> BuildLegend();
 
@@ -217,7 +220,10 @@ int main(int argN, char* argL[]){
     if(db_print) cout << " adding of graph into multi done correctly" << endl;
     
     mg -> GetXaxis() -> SetLimits(3740,6050);
-    mg -> GetYaxis() -> SetRangeUser(1,29);  
+    mg -> GetYaxis() -> SetRangeUser(1,29); 
+    
+    if(db_print) cout << " this time setting ranges does not create a segmentation fault" << endl;
+    
     mg -> Draw("APLF");
 
     /*-------------------------------------------------------------------------------*/
@@ -262,6 +268,7 @@ int main(int argN, char* argL[]){
     
     }
     
+    if(db_print) cout << " fit done or skipped" << endl;
 
     //------------------ 
       
@@ -278,20 +285,23 @@ int main(int argN, char* argL[]){
     legend -> AddEntry( VectorGraph.at(4) , "Zone centrale", "lf" );
     legend -> AddEntry( VectorGraph.at(7) , "Zona destra", "lf" );
     
-    legend -> AddEntry( VectorFunction.at(0) , "Fit A", "l" );
-    legend -> AddEntry( VectorFunction.at(1) , "Fit B", "l" );
-    legend -> AddEntry( VectorFunction.at(2) , "Fit C", "l" );
+    if(fit_zone){
     
-    legend -> AddEntry( VectorFunction.at(3) , "Fit D", "l" );
-    legend -> AddEntry( VectorFunction.at(4) , "Fit E", "l" );
-    legend -> AddEntry( VectorFunction.at(5) , "Fit F", "l" );
+      legend -> AddEntry( VectorFunction.at(0) , "Fit A", "l" );
+      legend -> AddEntry( VectorFunction.at(1) , "Fit B", "l" );
+      legend -> AddEntry( VectorFunction.at(2) , "Fit C", "l" );
     
-    legend -> AddEntry( VectorFunction.at(6) , "Fit G", "l" );
-    legend -> AddEntry( VectorFunction.at(7) , "Fit H", "l" );
-    legend -> AddEntry( VectorFunction.at(8) , "Fit I", "l" );
+      legend -> AddEntry( VectorFunction.at(3) , "Fit D", "l" );
+      legend -> AddEntry( VectorFunction.at(4) , "Fit E", "l" );
+      legend -> AddEntry( VectorFunction.at(5) , "Fit F", "l" );
+    
+      legend -> AddEntry( VectorFunction.at(6) , "Fit G", "l" );
+      legend -> AddEntry( VectorFunction.at(7) , "Fit H", "l" );
+      legend -> AddEntry( VectorFunction.at(8) , "Fit I", "l" );
+    
+    }
     
     legend -> Draw();
-    
     
     AppWTF -> Run(kTRUE);
   
