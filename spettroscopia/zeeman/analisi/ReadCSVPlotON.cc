@@ -32,12 +32,20 @@ using namespace std;
 /* CONFIGURATION SECTION =================================================================== */
 
  string NomeGrafico = "B-on: max";
+ string DrawOptionForAll = "APLF";
  
  //range di taglio per lo spettro (in forma generale)
  int TaglioXminM = 3300;
  int TaglioXmaxM = 5500;
  int TaglioYminM = 12;
  int TaglioYmaxM = 75;
+ 
+ //range di taglio per lo spettro (zoom sui picchi di interesse)
+ vector<unsigned int> SplitPoint{3300, 3416, 3530, 3647, 3766, 3882, 4000, 4120, 4240, 4363, 4484, 4607, 4733, 4858, 4984, 5112, 5237, 5361, 5500};
+ vector<string> Letters{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R"};
+ vector<float> FitRangeLowerBound{ 3360, 3440, 3595, 3670, 3825, 3910, 4065, 4145, 4305, 4390, 4550, 4635, 4795, 4885, 5050, 5135, 5305, 5395};
+ vector<float> FitRangeUpperBound{ 3400, 3480, 3630, 3710, 3865, 3945, 4105, 4185, 4345, 4430, 4585, 4675, 4835, 4925, 5090, 5180, 5345, 5435};
+ string NameFittingFunction = "gaus";
  
  //splitting
  int HowManyPeaks = 18;
@@ -65,19 +73,23 @@ auto canvas_one = new TCanvas("can", "can");
 //vector for the splitting
 vector< vector<double>* > VectorHolderX;
 vector< vector<double>* > VectorHolderY;
-vector<unsigned int> SplitPoint{3300, 3416, 3530, 3647, 3766, 3882, 4000, 4120, 4240, 4363, 4484, 4607, 4733, 4858, 4984, 5112, 5237, 5361, 5500};
 
 //vector for the multi
 vector< TGraph* > VectorGraph;
+
+//vector for the fitting
+vector< TF1* > VectorFunction;
+
 
 /*  FUNCTION DECLARATION =================================================================== */
 
 void ReadShit();
 void AnalisisInfo(const int &argN, char* argL[]);
-void MakeGeneralSpectrum(string IsFilling);
+void MakeGeneralSpectrum();
 void DataCutter();
-void MakeMulti(string IsFilling);
+void MakeMulti();
 void MakeThaLegend();
+void MakeThaFit();
 
 /* ----------------------------------------------------------------------------------------- */
 
@@ -93,103 +105,23 @@ int main(int argN, char* argL[]){
 
   ReadShit();
   
-  if(db_one) MakeGeneralSpectrum("");
+  if(db_one) MakeGeneralSpectrum();
   
   if(db_two){ 
   
     DataCutter();
-    MakeMulti("f");
+    MakeMulti();
+    //fit of peak
+    if(fit_zone) MakeThaFit();
     MakeThaLegend();
     
-    AppWTF -> Run(kTRUE);
-    
+    AppWTF -> Run(kTRUE);   
   }
-  
-
-
-
-  //fitting and filling zone
-  
-  
-/*  
-    
-    
-
-    //fitting zone
-    vector< TF1* > VectorFunction;
-    
-    if (fit_zone){
-      
-      //creazione delle funzioni di fitting  
-      VectorFunction.reserve(9);
-      
-      //storing dei "nomi"
-      //vector<char> Letters{'A','B','C','D','E','F','G','H','I'};
-      vector<string> Letters{"A","B","C","D","E","F","G","H","I"};
-      
-      VectorFunction.push_back( new TF1("A", "gaus", 3860, 3900) );
-      VectorFunction.push_back( new TF1("B", "gaus", 4095, 4135) );
-      VectorFunction.push_back( new TF1("C", "gaus", 4340, 4380) );
-      VectorFunction.push_back( new TF1("D", "gaus", 4580, 4625) );
-      VectorFunction.push_back( new TF1("E", "gaus", 4830, 4880) );
-      VectorFunction.push_back( new TF1("F", "gaus", 5090, 5130) );
-      VectorFunction.push_back( new TF1("G", "gaus", 5340, 5385) );
-      VectorFunction.push_back( new TF1("H", "gaus", 5610, 5650) );
-      VectorFunction.push_back( new TF1("I", "gaus", 5880, 5920) );
-      
-      for(int i=0; i<9; i++){
-      
-        auto FitFunction = VectorFunction.at(i);
-        auto Graph       = VectorGraph.at(i);
-      
-        cout << "\n" << "Fit " <<  i << "\n" << endl;      
-        FitFunction -> SetLineColor(kRed);
-        FitFunction -> SetLineStyle(9);
-        FitFunction -> SetTitle( ( Letters.at(i) ).c_str() );
-        FitFunction -> SetLineWidth(2);
-        //Graph       -> Fit(FitFunction, "RV");
-        Graph       -> Fit(FitFunction, "R");
-        FitFunction -> Draw("same");
-      
-      }
-    
-    }
-    
-    if(db_print) cout << " fit done or skipped" << endl;
-
-    //------------------ 
-      
-    
-    
-    
-    if(fit_zone){
-    
-      legend -> AddEntry( VectorFunction.at(0) , "Fit A", "l" );
-      legend -> AddEntry( VectorFunction.at(1) ,AppWTF -> Run(kTRUE); "Fit B", "l" );
-      legend -> AddEntry( VectorFunction.at(2) , "Fit C", "l" );
-    
-      legend -> AddEntry( VectorFunction.at(3) , "Fit D", "l" );
-      legend -> AddEntry( VectorFunction.at(4) , "Fit E", "l" );
-      legend -> AddEntry( VectorFunction.at(5) , "Fit F", "l" );
-    
-      legend -> AddEntry( VectorFunction.at(6) , "Fit G", "l" );
-      legend -> AddEntry( VectorFunction.at(7) , "Fit H", "l" );
-      legend -> AddEntry( VectorFunction.at(8) , "Fit I", "l" );
-    
-    }
-    
-    //
-    
-    //AppWTF -> Run(kTRUE);
-  
-  }
-*/
-
 
   return 0;
 }
 
-/* ------------------------------------------------------------------------------------------------------------- */
+/* ............................................................................................................. */
 /* DATA READING FUNCTION ======================================================================================= */
 void ReadShit(){
 
@@ -243,6 +175,7 @@ void ReadShit(){
 
  return;
 }
+/* ............................................................................................................. */
 /* ANALISIS OPTION SELECTOR ==================================================================================== */
 void AnalisisInfo(const int &argN, char* argL[]){
   if (argN > 1) {
@@ -253,12 +186,14 @@ void AnalisisInfo(const int &argN, char* argL[]){
       if( debug_option_check == "2" ) db_two = true;
       if( debug_option_check == "fit" ) fit_zone = true;
       if( debug_option_check == "cut" ) cut_zone = true;
+      if( debug_option_check == "nocolor" ) DrawOptionForAll = "APL";
     }
   }
   return;
 }
+/* ............................................................................................................. */
 /* SEZIONE MONOGRAFICO ========================================================================================= */
-void MakeGeneralSpectrum(string IsFilling){
+void MakeGeneralSpectrum(){
 
     //string InternalNomeGrafico = NomeGrafico;
     int NumeroPunti = PointPosition.size();
@@ -278,14 +213,14 @@ void MakeGeneralSpectrum(string IsFilling){
       SpettroCheNonEHisto -> GetYaxis() -> SetRangeUser(TaglioYminM,TaglioYmaxM);
     }
             
-    SpettroCheNonEHisto -> Draw("APL");
-    if(IsFilling == "f") SpettroCheNonEHisto -> Draw("APLF");
+    SpettroCheNonEHisto -> Draw( DrawOptionForAll.c_str() );
     canvas_one -> BuildLegend();
 
     AppWTF -> Run(kTRUE);
   
   return;
 }
+/* ............................................................................................................. */
 /* SPLITTING DEL VETTORE DEI DATI ============================================================================== */
 void DataCutter(){
   
@@ -319,8 +254,9 @@ void DataCutter(){
 
   return;
 }
-/* ============================================================================================================= */
-void MakeMulti(string IsFilling){
+/* ............................................................................................................. */
+/* MULTIGRAFH BUILDER ========================================================================================== */
+void MakeMulti(){
 
   TMultiGraph* mg = new TMultiGraph("multi", "multi");
   
@@ -345,15 +281,9 @@ void MakeMulti(string IsFilling){
     if(i==8)  g -> SetTitle("Zona centrale");
     if(i==16) g -> SetTitle("Zona destra");
     
-    if( i<6 ){
-      g -> SetFillColor(42);
-    }
-    if( i>=6 && i<12 ){
-      g -> SetFillColor(30);
-    }
-    if( i>=12 && i<18 ){
-      g -> SetFillColor(38);
-    }
+    if( i<6 )           g -> SetFillColor(42);
+    if( i>=6 && i<12 )  g -> SetFillColor(30);
+    if( i>=12 && i<18 ) g -> SetFillColor(38);
             
     if(db_print) cout << " graph colored correctrly" << endl;
   }    
@@ -372,13 +302,12 @@ void MakeMulti(string IsFilling){
   mg -> GetYaxis() -> SetRangeUser(TaglioYminM,TaglioYmaxM);  
   if(db_print) cout << " this time setting ranges does not create a segmentation fault" << endl;  
     
-  mg -> Draw("APL");
-  if(IsFilling == "f") mg -> Draw("APLF");
-  
+  mg -> Draw( DrawOptionForAll.c_str() );
   //if(!fit_zone) canvas_one -> BuildLegend();
 
   return;
 }
+/* ............................................................................................................. */
 /* LEGEND BUILDER (have to be custom almost always) ============================================================ */
 void MakeThaLegend(){
 
@@ -386,23 +315,60 @@ void MakeThaLegend(){
   
   //a quanto pare vengono fillate prima le righe 
   //le prime tre entry andranno in riga
-  if(fit_zone) legend -> SetNColumns(3);
+  legend -> SetNColumns(3);
       
   legend -> AddEntry( VectorGraph.at(1) , "Zona sinistra", "lf");
   legend -> AddEntry( VectorGraph.at(8) , "Zone centrale", "lf" );
   legend -> AddEntry( VectorGraph.at(16) , "Zona destra", "lf" );
+  
+  if(fit_zone){  //se sono presenti aggiungiamo alla legenda tutti i fit necessari
+  
+    for(int i=0; i<HowManyPeaks; i++){
+  
+      string NomeFitToDisplay = "Fit " + Letters.at(i);
+      legend -> AddEntry( VectorFunction.at(i), NomeFitToDisplay.c_str(), "l" );
+  
+    }
+  }
 
   legend -> Draw();
 
 }
-/* ============================================================================================================= */
-/* ============================================================================================================= */
-/* ============================================================================================================= */
-/* ============================================================================================================= */
-/* ============================================================================================================= */
-/* ============================================================================================================= */
-/* ============================================================================================================= */
-/* ============================================================================================================= */
-/* ============================================================================================================= */
-/* ============================================================================================================= */
+/* ............................................................................................................. */
+/* FIT FITTER AND GRAPH ADDER ================================================================================== */
+void MakeThaFit(){
+
+  //creazione delle funzioni di fitting  
+  VectorFunction.reserve(HowManyPeaks);      
+  for (int i=0; i<HowManyPeaks; i++){
+    VectorFunction.push_back( new TF1( ( Letters.at(i) ).c_str(), 
+                                       NameFittingFunction.c_str(), 
+                                       FitRangeLowerBound.at(i), 
+                                       FitRangeUpperBound.at(i) 
+                                     ) 
+                            );
+  }
+  if(db_print) cout << "fitting object created " << endl;
+  
+  //esecuzione dei fit
+  for(int i=0; i<HowManyPeaks; i++){
+      
+    auto FitFunction = VectorFunction.at(i);
+    auto Graph       = VectorGraph.at(i);
+      
+    //fit drawing style      
+    FitFunction -> SetLineColor(kRed);
+    FitFunction -> SetLineStyle(9);
+    FitFunction -> SetTitle( ( Letters.at(i) ).c_str() );
+    FitFunction -> SetLineWidth(2);
+    
+    cout << "\n" << "Fit:  " << Letters.at(i) << "\n" << endl;
+    Graph       -> Fit(FitFunction, "RV");
+    FitFunction -> Draw("same");
+      
+  }
+  if(db_print) cout << " fit done or skipped" << endl;
+  
+  return;
+}
 /* ============================================================================================================= */
