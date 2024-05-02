@@ -27,7 +27,7 @@ using namespace std;
  int TaglioYmaxM = 75;
  
  //splitting
- int HowManyPeaks = 0;
+ int HowManyPeaks = 18;
 
 /* ========================================================================================= */
 
@@ -52,6 +52,10 @@ auto canvas_one = new TCanvas("can", "can");
 //vector for the splitting
 vector< vector<double>* > VectorHolderX;
 vector< vector<double>* > VectorHolderY;
+vector<unsigned int> SplitPoint{3755-1, 4000,4250,4500,4750,5000,5250,5480,5750, 6035-1};
+
+//vector for the multi
+vector< TGraph* > VectorGraph;
 
 /*  FUNCTION DECLARATION =================================================================== */
 
@@ -59,6 +63,7 @@ void ReadShit();
 void AnalisisInfo(const int &argN, char* argL[]);
 void MakeGeneralSpectrum(string IsFilling);
 void DataCutter();
+void MakeMulti(string IsFilling);
 
 /* ----------------------------------------------------------------------------------------- */
 
@@ -76,69 +81,25 @@ int main(int argN, char* argL[]){
   
   if(db_one) MakeGeneralSpectrum("");
   
-  //-------------------------------------------------------------------------------------------------
+  if(db_two){ 
   
+    DataCutter();
+    MakeMulti("f");
+    
+    AppWTF -> Run(kTRUE);
+    
+  }
+  
+
+
+
   //fitting and filling zone
   
   
-  
+/*  
     
-    //facciamo anche un vettore per tutti i TGraph
-    TMultiGraph* mg = new TMultiGraph("multi", "multi");
     
-    vector< TGraph* > VectorGraph;
-    VectorGraph.reserve(9);
-    
-    if(db_print) cout << "\n starting intese debug for the graph creation and management" << endl;
-    for (int i=0; i<9; i++){
-      VectorGraph.push_back( new TGraph( VectorHolderX.at(i) -> size(), 
-                                         VectorHolderX.at(i) -> data(), 
-                                         VectorHolderY.at(i) -> data() 
-                                       ) 
-                           );
-      if(db_print) cout << "graph filled correctly" << endl; 
-      
-      TGraph* g = VectorGraph.at(i);
-      if(db_print) cout << " element extracted from the vector of graph" << endl;
-                    
-      g -> SetFillStyle(3001);
-      //g -> SetMarkerColor(kBlue-4);
-      //g -> SetMarkerSize(5);
-      g -> SetLineColor(kBlack);
-      g -> SetLineWidth(1.5);
-      
-      if(i==2) g -> SetTitle("Zona sinistra");
-      if(i==5) g -> SetTitle("Zona centrale");
-      if(i==8) g -> SetTitle("Zona destra");
-      
-      if(i==0 || i==1 || i==2)  g -> SetFillColor(42);
-      if(i==3 || i==4 || i==5)  g -> SetFillColor(30);
-      if(i==6 || i==7 || i==8)  g -> SetFillColor(38);
-            
-      if(db_print) cout << " graph colored correctrly" << endl;
-    }
-    
-    if(db_print) cout << " managing of the 9 TGraph done correctly" << endl;
 
-    //style of multi
-    mg -> SetTitle("Spettro Zoom - B off");
-    mg -> GetXaxis() -> SetTitle("Distance [pixel]");
-    mg -> GetYaxis() -> SetTitle("Gray Scale [a.u.]");
- 
-    //adding of graph
-    for(auto g : VectorGraph) mg->Add(g);
-    
-    if(db_print) cout << " adding of graph into multi done correctly" << endl;
-    
-    mg -> GetXaxis() -> SetLimits(3740,6050);
-    mg -> GetYaxis() -> SetRangeUser(1,29); 
-    
-    if(db_print) cout << " this time setting ranges does not create a segmentation fault" << endl;
-    
-    mg -> Draw("APLF");
-
-    /*-------------------------------------------------------------------------------*/
-  
     //fitting zone
     vector< TF1* > VectorFunction;
     
@@ -198,7 +159,7 @@ int main(int argN, char* argL[]){
     if(fit_zone){
     
       legend -> AddEntry( VectorFunction.at(0) , "Fit A", "l" );
-      legend -> AddEntry( VectorFunction.at(1) , "Fit B", "l" );
+      legend -> AddEntry( VectorFunction.at(1) ,AppWTF -> Run(kTRUE); "Fit B", "l" );
       legend -> AddEntry( VectorFunction.at(2) , "Fit C", "l" );
     
       legend -> AddEntry( VectorFunction.at(3) , "Fit D", "l" );
@@ -211,15 +172,18 @@ int main(int argN, char* argL[]){
     
     }
     
-    legend -> Draw();
+    //legend -> Draw();
     
-    AppWTF -> Run(kTRUE);
+    //AppWTF -> Run(kTRUE);
   
   }
+*/
+
 
   return 0;
 }
 
+/* ------------------------------------------------------------------------------------------------------------- */
 /* DATA READING FUNCTION ======================================================================================= */
 void ReadShit(){
 
@@ -314,11 +278,10 @@ void MakeGeneralSpectrum(string IsFilling){
 
     AppWTF -> Run(kTRUE);
   
+  return;
 }
 /* SPLITTING DEL VETTORE DEI DATI ============================================================================== */
 void DataCutter(){
-  
-  if(db_two){
   
     //in numero di tagli dovrebbe essere proporzionale al numero di picchi
     //da fittare, in modo tale da poter avere la fit box per ognuno di essi
@@ -337,9 +300,7 @@ void DataCutter(){
     }    
     if(db_print) cout << " vector of vector for Y created correctly" << endl;
     
-    // inserting extraction data
-    vector<unsigned int> SplitPoint{3755-1, 4000,4250,4500,4750,5000,5250,5480,5750, 6035-1};
-    
+    //cutting data
     for(unsigned int c = 0; c < ( SplitPoint.size()-1 ); c++){
 
       for(int j= SplitPoint.at(c); j<= SplitPoint.at(c+1); j++){
@@ -350,8 +311,66 @@ void DataCutter(){
    
    if (db_print) cout << " filling of the vector of X and Y done correctly" << endl;
 
+  return;
 }
 /* ============================================================================================================= */
+void MakeMulti(string IsFilling){
+
+  TMultiGraph* mg = new TMultiGraph("multi", "multi");
+  
+  VectorGraph.reserve(HowManyPeaks);
+    
+  for (int i=0; i<HowManyPeaks; i++){
+    VectorGraph.push_back( new TGraph( VectorHolderX.at(i) -> size(), 
+                                       VectorHolderX.at(i) -> data(), 
+                                       VectorHolderY.at(i) -> data() 
+                                       ) 
+                         );
+    if(db_print) cout << "graph filled correctly" << endl; 
+      
+    TGraph* g = VectorGraph.at(i);
+    if(db_print) cout << " element extracted from the vector of graph" << endl;
+                    
+    g -> SetFillStyle(3001);
+    g -> SetLineColor(kBlack);
+    g -> SetLineWidth(1.5);
+      
+    if(i==1) g -> SetTitle("Zona sinistra");
+    if(i==8) g -> SetTitle("Zona centrale");
+    if(i==16) g -> SetTitle("Zona destra");
+    
+    for( int i=0; i<6; i++ ){
+      g -> SetFillColor(42);
+    }
+    for( int i=6; i<12; i++ ){
+      g -> SetFillColor(30);
+    }
+    for( int i=12; i<18; i++ ){
+      g -> SetFillColor(38);
+    }
+            
+    if(db_print) cout << " graph colored correctrly" << endl;
+  }    
+  if(db_print) cout << " managing of the 18 TGraph done correctly" << endl;
+
+  //style of multi
+  mg -> SetTitle( NomeGrafico.c_str() );
+  mg -> GetXaxis() -> SetTitle("Distance [pixel]");
+  mg -> GetYaxis() -> SetTitle("Gray Scale [a.u.]");
+ 
+  //adding of graph
+  for(auto g : VectorGraph) mg->Add(g);  
+  if(db_print) cout << " adding of graph into multi done correctly" << endl;
+    
+  mg -> GetXaxis() -> SetLimits(TaglioXminM,TaglioXmaxM);
+  mg -> GetYaxis() -> SetRangeUser(TaglioYminM,TaglioYmaxM);  
+  if(db_print) cout << " this time setting ranges does not create a segmentation fault" << endl;  
+    
+  mg -> Draw("APL");
+  if(IsFilling == "f") mg -> Draw("APLF");
+
+  return;
+}
 /* ============================================================================================================= */
 /* ============================================================================================================= */
 /* ============================================================================================================= */
