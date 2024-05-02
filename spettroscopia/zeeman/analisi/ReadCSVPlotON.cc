@@ -21,14 +21,18 @@ using namespace std;
  string NomeGrafico = "B-on: max";
  
  //range di taglio per lo spettro (in forma generale)
- int TaglioXminM = 0;
- int TaglioXmaxM = 0;
- int TaglioYminM = 0;
- int TaglioYmaxM = 0;
+ int TaglioXminM = 3300;
+ int TaglioXmaxM = 5500;
+ int TaglioYminM = 12;
+ int TaglioYmaxM = 75;
+ 
+ //splitting
+ int HowManyPeaks = 0;
 
 /* ========================================================================================= */
 
-//global -----------------------------------------------------------------------------------
+/* GLOBAL VARIABLE DEFINITION ============================================================== */
+//"debugging" options
 bool db_print = false;
 bool db_one = false;
 bool db_two = false;
@@ -45,13 +49,18 @@ char* VoidArgumentC[1];
 TApplication* AppWTF = new TApplication("PublicConstructor", &VoidArgumentI, VoidArgumentC); 
 auto canvas_one = new TCanvas("can", "can");
 
-//function declaration ---------------------------------------------------------------------
+//vector for the splitting
+vector< vector<double>* > VectorHolderX;
+vector< vector<double>* > VectorHolderY;
+
+/*  FUNCTION DECLARATION =================================================================== */
 
 void ReadShit();
 void AnalisisInfo(const int &argN, char* argL[]);
-void MakeGeneralSpectrum();
+void MakeGeneralSpectrum(string IsFilling);
+void DataCutter();
 
-//------------------------------------------------------------------------------------------
+/* ----------------------------------------------------------------------------------------- */
 
 int main(int argN, char* argL[]){
 
@@ -65,45 +74,14 @@ int main(int argN, char* argL[]){
 
   ReadShit();
   
-  if(db_one) MakeGeneralSpectrum();
+  if(db_one) MakeGeneralSpectrum("");
   
   //-------------------------------------------------------------------------------------------------
   
   //fitting and filling zone
-  if(db_two){
   
-    //ci servono 9*2 vettori dato che volgiamo che ogni curva
-    //sia un grafico per conto suo
-    vector< vector<double>* > VectorHolderX;
-    VectorHolderX.reserve(9);
-    for (int i=0; i<9; i++) {
-      VectorHolderX.push_back( new vector<double> );
-      VectorHolderX.at(i) -> reserve(1000);
-    }
-    
-    if(db_print) cout << " vector of vector for X created correctly" << endl;
-    
-    vector< vector<double>* > VectorHolderY;
-    VectorHolderY.reserve(9);
-    for (int i=0; i<9; i++) {
-      VectorHolderY.push_back( new vector<double> );
-      VectorHolderY.at(i) -> reserve(1000);
-    }
-    
-    if(db_print) cout << " vector of vector for Y created correctly" << endl;
-    
-    // inserting extraction data
-    vector<unsigned int> SplitPoint{3755-1, 4000,4250,4500,4750,5000,5250,5480,5750, 6035-1};
-    
-    for(unsigned int c = 0; c < ( SplitPoint.size()-1 ); c++){
-
-      for(int j= SplitPoint.at(c); j<= SplitPoint.at(c+1); j++){
-         VectorHolderX.at(c) -> push_back( j );
-         VectorHolderY.at(c) -> push_back( GreyValue.at(j) );
-      } 
-   } 
-   
-   if (db_print) cout << " filling of the vector of X and Y done correctly" << endl;
+  
+  
     
     //facciamo anche un vettore per tutti i TGraph
     TMultiGraph* mg = new TMultiGraph("multi", "multi");
@@ -310,7 +288,7 @@ void AnalisisInfo(const int &argN, char* argL[]){
   return;
 }
 /* SEZIONE MONOGRAFICO ========================================================================================= */
-void MakeGeneralSpectrum(){
+void MakeGeneralSpectrum(string IsFilling){
 
     //string InternalNomeGrafico = NomeGrafico;
     int NumeroPunti = PointPosition.size();
@@ -329,14 +307,50 @@ void MakeGeneralSpectrum(){
       SpettroCheNonEHisto -> GetXaxis() -> SetLimits(TaglioXminM,TaglioXmaxM);
       SpettroCheNonEHisto -> GetYaxis() -> SetRangeUser(TaglioYminM,TaglioYmaxM);
     }
-    
-    SpettroCheNonEHisto -> Draw("APLF");
+            
+    SpettroCheNonEHisto -> Draw("APL");
+    if(IsFilling == "f") SpettroCheNonEHisto -> Draw("APLF");
     canvas_one -> BuildLegend();
 
     AppWTF -> Run(kTRUE);
   
 }
-/* ============================================================================================================= */
+/* SPLITTING DEL VETTORE DEI DATI ============================================================================== */
+void DataCutter(){
+  
+  if(db_two){
+  
+    //in numero di tagli dovrebbe essere proporzionale al numero di picchi
+    //da fittare, in modo tale da poter avere la fit box per ognuno di essi
+    
+    VectorHolderX.reserve(HowManyPeaks);
+    for (int i=0; i<HowManyPeaks; i++) {
+      VectorHolderX.push_back( new vector<double> );
+      VectorHolderX.at(i) -> reserve(1000);
+    }   
+    if(db_print) cout << " vector of vector for X created correctly" << endl;
+      
+    VectorHolderY.reserve(HowManyPeaks);
+    for (int i=0; i<HowManyPeaks; i++) {
+      VectorHolderY.push_back( new vector<double> );
+      VectorHolderY.at(i) -> reserve(1000);
+    }    
+    if(db_print) cout << " vector of vector for Y created correctly" << endl;
+    
+    // inserting extraction data
+    vector<unsigned int> SplitPoint{3755-1, 4000,4250,4500,4750,5000,5250,5480,5750, 6035-1};
+    
+    for(unsigned int c = 0; c < ( SplitPoint.size()-1 ); c++){
+
+      for(int j= SplitPoint.at(c); j<= SplitPoint.at(c+1); j++){
+         VectorHolderX.at(c) -> push_back( j );
+         VectorHolderY.at(c) -> push_back( GreyValue.at(j) );
+      } 
+   } 
+   
+   if (db_print) cout << " filling of the vector of X and Y done correctly" << endl;
+
+}
 /* ============================================================================================================= */
 /* ============================================================================================================= */
 /* ============================================================================================================= */
