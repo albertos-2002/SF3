@@ -1,3 +1,16 @@
+/* ========================================================================= 
+ |                                                                         |
+ | Il codice è adattato per analizzare 9 picchi con                        |
+ | split zeeman normale, per un totale di 18 fit gaussiani                 | 
+ |                                                                         |
+ | Sotto gli include è disponibile una sezione in cui                      |
+ | configurare i parametri numerici per l'analisi                          |
+ | La configurazione non è totale in quanto permangono                     |
+ | un numero limitato ma non indifferente di "dettagli" hardcoded          |
+ |                                                                         |
+========================================================================== */
+
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -52,7 +65,7 @@ auto canvas_one = new TCanvas("can", "can");
 //vector for the splitting
 vector< vector<double>* > VectorHolderX;
 vector< vector<double>* > VectorHolderY;
-vector<unsigned int> SplitPoint{3755-1, 4000,4250,4500,4750,5000,5250,5480,5750, 6035-1};
+vector<unsigned int> SplitPoint{3300, 3416, 3530, 3647, 3766, 3882, 4000, 4120, 4240, 4363, 4484, 4607, 4733, 4858, 4984, 5112, 5237, 5361, 5500};
 
 //vector for the multi
 vector< TGraph* > VectorGraph;
@@ -64,6 +77,7 @@ void AnalisisInfo(const int &argN, char* argL[]);
 void MakeGeneralSpectrum(string IsFilling);
 void DataCutter();
 void MakeMulti(string IsFilling);
+void MakeThaLegend();
 
 /* ----------------------------------------------------------------------------------------- */
 
@@ -85,6 +99,7 @@ int main(int argN, char* argL[]){
   
     DataCutter();
     MakeMulti("f");
+    MakeThaLegend();
     
     AppWTF -> Run(kTRUE);
     
@@ -145,16 +160,7 @@ int main(int argN, char* argL[]){
     //------------------ 
       
     
-    auto legend = new TLegend();
     
-    legend -> SetNColumns(3);
-    
-    //a quanto pare vengono fillate prima le righe 
-    //le prime tre entry andranno in riga
-    
-    legend -> AddEntry( VectorGraph.at(1) , "Zona sinistra", "lf");
-    legend -> AddEntry( VectorGraph.at(4) , "Zone centrale", "lf" );
-    legend -> AddEntry( VectorGraph.at(7) , "Zona destra", "lf" );
     
     if(fit_zone){
     
@@ -172,7 +178,7 @@ int main(int argN, char* argL[]){
     
     }
     
-    //legend -> Draw();
+    //
     
     //AppWTF -> Run(kTRUE);
   
@@ -335,17 +341,17 @@ void MakeMulti(string IsFilling){
     g -> SetLineColor(kBlack);
     g -> SetLineWidth(1.5);
       
-    if(i==1) g -> SetTitle("Zona sinistra");
-    if(i==8) g -> SetTitle("Zona centrale");
+    if(i==1)  g -> SetTitle("Zona sinistra");
+    if(i==8)  g -> SetTitle("Zona centrale");
     if(i==16) g -> SetTitle("Zona destra");
     
-    for( int i=0; i<6; i++ ){
+    if( i<6 ){
       g -> SetFillColor(42);
     }
-    for( int i=6; i<12; i++ ){
+    if( i>=6 && i<12 ){
       g -> SetFillColor(30);
     }
-    for( int i=12; i<18; i++ ){
+    if( i>=12 && i<18 ){
       g -> SetFillColor(38);
     }
             
@@ -368,10 +374,27 @@ void MakeMulti(string IsFilling){
     
   mg -> Draw("APL");
   if(IsFilling == "f") mg -> Draw("APLF");
+  
+  //if(!fit_zone) canvas_one -> BuildLegend();
 
   return;
 }
-/* ============================================================================================================= */
+/* LEGEND BUILDER (have to be custom almost always) ============================================================ */
+void MakeThaLegend(){
+
+  auto legend = new TLegend();
+  
+  //a quanto pare vengono fillate prima le righe 
+  //le prime tre entry andranno in riga
+  if(fit_zone) legend -> SetNColumns(3);
+      
+  legend -> AddEntry( VectorGraph.at(1) , "Zona sinistra", "lf");
+  legend -> AddEntry( VectorGraph.at(8) , "Zone centrale", "lf" );
+  legend -> AddEntry( VectorGraph.at(16) , "Zona destra", "lf" );
+
+  legend -> Draw();
+
+}
 /* ============================================================================================================= */
 /* ============================================================================================================= */
 /* ============================================================================================================= */
