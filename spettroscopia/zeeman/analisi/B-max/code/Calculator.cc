@@ -361,6 +361,12 @@ void PrintThemAll(){
   cout << endl;
   cout << " ........................................................................................ " << endl;
   cout << endl;
+  
+  cout << " Errore campo magnetico:" << ErrCampoMagnetico << endl;
+  
+  cout << endl;
+  cout << " ........................................................................................ " << endl;
+  cout << endl;
 
  return;
 }
