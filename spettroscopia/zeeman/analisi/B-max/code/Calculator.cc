@@ -24,6 +24,8 @@ vector<double> ErrCentroidi_ZonaSinistra{ 0.0497603, 0.129751, 0.0589181, 0.0920
 vector<double> ErrCentroidi_ZonaCentrale{ 0.0730524, 0.114942, 0.0613072, 0.162998, 0.0394902, 0.136119 };
 vector<double> ErrCentroidi_ZonaDestra{ 0.0763089, 0.125038, 0.0648628, 0.144223, 0.0681009, 0.109052 };
 
+double CampoMagnetico = 0.48;   //[T]
+
 vector< vector<double> > HolderCentroidi{ Centroidi_ZonaSinistra, Centroidi_ZonaCentrale, Centroidi_ZonaDestra };
 vector< vector<double> > HolderErrCentroidi{ ErrCentroidi_ZonaSinistra, ErrCentroidi_ZonaCentrale, ErrCentroidi_ZonaDestra };
 
@@ -43,7 +45,6 @@ vector<double> ErrMediaSplitZeeman_nm;
 vector<double> CompatibilitaMediaSplitZeeman_nm;
 
 //fattore di lande
-double CampoMagnetico = 0.48;   //[T]
 double ErrCampoMagnetico = sqrt( pow( (2*CampoMagnetico/100) ,2) + pow(0.0005,2) );   //[T]
 double MuDiB = 0.0000580460;    //[ev/T]
 double AccaPerC = 1240;         //[ev]
