@@ -17,12 +17,12 @@ using namespace std;
 /* GLOBAL VARIABLES ================================================ */
 
 //dati ricavati dal fit tramite root
-vector<double> Centroidi_ZonaSinistra{ , , , , ,  };
-vector<double> Centroidi_ZonaCentrale{ , , , , ,  };
-vector<double> Centroidi_ZonaDestra{ , , , , ,  };
-vector<double> ErrCentroidi_ZonaSinistra{ , , , , ,  };
-vector<double> ErrCentroidi_ZonaCentrale{ , , , , ,  };
-vector<double> ErrCentroidi_ZonaDestra{ , , , , ,  };
+vector<double> Centroidi_ZonaSinistra{ 3877.85, 3924.64, 4116.29, 4163.62, 4357.18, 4405.76 };
+vector<double> Centroidi_ZonaCentrale{ 4602.18, 4652.02, 4851.22, 4902.33, 5105.01, 5156.8 };
+vector<double> Centroidi_ZonaDestra{ 5362.86, 5415.17, 5624.85, 5677.95, 5891.63, 5946.92 };
+vector<double> ErrCentroidi_ZonaSinistra{ 0.258534, 0.442848, 0.285251, 0.359791, 0.216579, 0.500805 };
+vector<double> ErrCentroidi_ZonaCentrale{ 0.211802, 0.603795, 0.235961, 0.605666, 0.234727, 0.523423 };
+vector<double> ErrCentroidi_ZonaDestra{ 0.370627, 0.409145, 0.28479, 0.469368, 0.164369, 0.232458 };
 
 double CampoMagnetico = 0.24;   //[T]
 
