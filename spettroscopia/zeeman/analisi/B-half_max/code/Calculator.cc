@@ -24,7 +24,7 @@ vector<double> ErrCentroidi_ZonaSinistra{ 0.343368, 0.361956, 0.335776, 0.392435
 vector<double> ErrCentroidi_ZonaCentrale{ 0.343979, 0.421243, 0.331332, 0.397804, 0.348617, 0.443274 };
 vector<double> ErrCentroidi_ZonaDestra{ 0.367854, 0.463344, 0.311851, 0.491584, 0.347864, 0.413227 };
 
-double CampoMagnetico = 0.40035;   //[T]
+double CampoMagnetico = 0.24;   //[T]
 
 vector< vector<double> > HolderCentroidi{ Centroidi_ZonaSinistra, Centroidi_ZonaCentrale, Centroidi_ZonaDestra };
 vector< vector<double> > HolderErrCentroidi{ ErrCentroidi_ZonaSinistra, ErrCentroidi_ZonaCentrale, ErrCentroidi_ZonaDestra };

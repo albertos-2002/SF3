@@ -91,17 +91,17 @@ R:  5905 - 5950
 
  Fattori di lande divisi per zona
 
- Zona Sinistra: 2.10844 \pm 0.0458141
+ Zona Sinistra: 1.70895 \pm 0.0371016
 
- Zona Centrale: 2.21208 \pm 0.0478585
+ Zona Centrale: 1.79295 \pm 0.0387569
 
- Zona Destra:   2.34335 \pm 0.0507342
+ Zona Destra:   1.89935 \pm 0.0410857
 
  Matrice dei fattori di compatibilità tra le stime: 
 
             sx       cx       dx    
-   sx        -    1.56426  3.4364
-   cx        -        -    1.88216
+   sx        -    1.56561  3.43938
+   cx        -        -    1.8838
    dx        -        -        -    
 
  ........................................................................................ 
@@ -110,11 +110,11 @@ Medie pesate giusto perchè non si sa mai
 
 Lambda zeeman [nm]: 0.0115261 \pm 5.46137e-05
 
-Fattore di lande:   2.21333 \pm 0.0277186
+Fattore di lande:   1.79397 \pm 0.0224472
 
  ........................................................................................ 
 
- Errore campo magnetico:0.00650913
+ Errore campo magnetico:0.0080226
 
  ........................................................................................ 
 
