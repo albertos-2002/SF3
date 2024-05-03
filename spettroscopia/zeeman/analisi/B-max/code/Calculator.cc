@@ -230,7 +230,7 @@ void LandeFactorCalculatoPlusCompatibility(){
 
   for( unsigned int i=0; i < EnergiaSplitZeeman.size() ; i++ ){
     
-    HolderValue = EnergiaSplitZeeman.at(i) * (MuDiB/CampoMagnetico);
+    HolderValue = EnergiaSplitZeeman.at(i) / (MuDiB*CampoMagnetico);  ///
     FattoreLande.push_back( HolderValue );
       
     HolderError = HolderValue * sqrt( pow( ( ErrEnergiaSplitZeeman.at(i)/EnergiaSplitZeeman.at(i) ) ,2 ) 

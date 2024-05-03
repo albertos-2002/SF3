@@ -29,6 +29,91 @@ R:  5395 - 5435
 ## risultati analisi
 
 ```
+ Valore in [pixel] dello splitting zeeman dei picchi
+ I valori sono printati in ordine e con errore
+
+ Zona Sinistra: 
+ 80.62 \pm 0.138965
+ 82.27 \pm 0.10931
+ 83.35 \pm 0.106816
+
+ Zona Centrale: 
+ 84.4 \pm 0.136192
+ 85.45 \pm 0.174146
+ 86.84 \pm 0.141732
+
+ Zona Destra:   
+ 88.15 \pm 0.146484
+ 89.39 \pm 0.158137
+ 91.43 \pm 0.128569
+
+ ........................................................................................ 
+
+ Valori in [pixel] della media aritmetica, per zona, della
+ distanza tra i picchi dello split zeeman
+
+ Zona Sinistra: 82.08 \pm 0.119261
+
+ Zona Centrale: 85.5633 \pm 0.151617
+
+ Zona Destra:   89.6567 \pm 0.144908
+
+ ........................................................................................ 
+
+ Valori in [nm] della media aritmetica, per zona, della
+ distanza tra i picchi dello split zeeman
+
+ Zona Sinistra: 0.0138329 \pm 0.000105332
+
+ Zona Centrale: 0.0144199 \pm 0.000110772
+
+ Zona Destra:   0.0151097 \pm 0.000115552
+
+ Matrice dei fattori di compatibilità tra le stime: 
+
+            sx       cx       dx    
+   sx        -    3.84046  8.16657
+   cx        -        -    4.30963
+   dx        -        -        -    
+
+ ........................................................................................ 
+
+
+ Valori di enegia [eV], per zona, dello split zeeman
+
+ Zona Sinistra: 5.00699e-05 \pm 3.81265e-07
+
+ Zona Centrale: 5.21948e-05 \pm 4.00955e-07
+
+ Zona Destra:   5.46918e-05 \pm 4.18254e-07
+
+ ........................................................................................ 
+
+ Fattori di lande divisi per zona
+
+ Zona Sinistra: 1.79706 \pm 0.0385036
+
+ Zona Centrale: 1.87333 \pm 0.0401826
+
+ Zona Destra:   1.96295 \pm 0.0420808
+
+ Matrice dei fattori di compatibilità tra le stime: 
+
+            sx       cx       dx    
+   sx        -    1.37037  2.90831
+   cx        -        -    1.54027
+   dx        -        -        -    
+
+ ........................................................................................ 
+
+Medie pesate giusto perchè non si sa mai
+
+Lambda zeeman [nm]: 0.0144149 \pm 6.36901e-05
+
+Fattore di lande:   1.87288 \pm 0.0231958
+
+ ........................................................................................ 
+
 
 ```
 
