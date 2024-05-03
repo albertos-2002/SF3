@@ -4,24 +4,24 @@
 
 ```
 
-A:   - 
-B:   - 
-C:   - 
-D:   - 
-E:   - 
-F:   - 
-G:   - 
-H:   - 
-I:   - 
-J:   - 
-K:   - 
-L:   - 
-M:   - 
-N:   - 
-O:   - 
-P:   - 
-Q:   - 
-R:   - 
+A:  3595 - 3636
+B:  3636 - 3670
+C:  3828 - 3872
+D:  3872 - 3907
+E:  4065 - 4108
+F:  4108 - 4146
+G:  4306 - 4350
+H:  4350 - 4388
+I:  4551 - 4597
+J:  4597 - 4634
+K:  4800 - 4846
+L:  4846 - 4885
+M:  5053 - 5100
+N:  5100 - 5140
+O:  5311 - 5357
+P:  5357 - 5396
+Q:  5574 - 5620
+R:  5620 - 5659
 
 ```
 
@@ -29,6 +29,94 @@ R:   -
 ## risultati analisi
 
 ```
+ Valore in [pixel] dello splitting zeeman dei picchi
+ I valori sono printati in ordine e con errore
+
+ Zona Sinistra: 
+ 28.76 \pm 0.498913
+ 30.25 \pm 0.516479
+ 30.01 \pm 0.548528
+
+ Zona Centrale: 
+ 30.55 \pm 0.543845
+ 31.58 \pm 0.517715
+ 31.78 \pm 0.563938
+
+ Zona Destra:   
+ 32.33 \pm 0.591612
+ 32.57 \pm 0.582156
+ 33.18 \pm 0.540154
+
+ ........................................................................................ 
+
+ Valori in [pixel] della media aritmetica, per zona, della
+ distanza tra i picchi dello split zeeman
+
+ Zona Sinistra: 29.6733 \pm 0.521711
+
+ Zona Centrale: 31.3033 \pm 0.542163
+
+ Zona Destra:   32.6933 \pm 0.571745
+
+ ........................................................................................ 
+
+ Valori in [nm] della media aritmetica, per zona, della
+ distanza tra i picchi dello split zeeman
+
+ Zona Sinistra: 0.00500082 \pm 9.55394e-05
+
+ Zona Centrale: 0.00527552 \pm 9.95162e-05
+
+ Zona Destra:   0.00550977 \pm 0.000104788
+
+ Matrice dei fattori di compatibilità tra le stime: 
+
+            sx       cx       dx    
+   sx        -    1.99126  3.58917
+   cx        -        -    1.621
+   dx        -        -        -    
+
+ ........................................................................................ 
+
+
+ Valori di enegia [eV], per zona, dello split zeeman
+
+ Zona Sinistra: 1.81011e-05 \pm 3.45818e-07
+
+ Zona Centrale: 1.90954e-05 \pm 3.60212e-07
+
+ Zona Destra:   1.99434e-05 \pm 3.79294e-07
+
+ ........................................................................................ 
+
+ Fattori di lande divisi per zona
+
+ Zona Sinistra: 0.778921 \pm 0.0215657
+
+ Zona Centrale: 0.821708 \pm 0.0226142
+
+ Zona Destra:   0.858196 \pm 0.0237096
+
+ Matrice dei fattori di compatibilità tra le stime: 
+
+            sx       cx       dx    
+   sx        -    1.36925  2.47344
+   cx        -        -    1.11361
+   dx        -        -        -    
+
+ ........................................................................................ 
+
+Medie pesate giusto perchè non si sa mai
+
+Lambda zeeman [nm]: 0.00524647 \pm 5.75816e-05
+
+Fattore di lande:   0.817104 \pm 0.0130361
+
+ ........................................................................................ 
+
+ Errore campo magnetico:0.0080226
+
+ ........................................................................................ 
 
 ```
 

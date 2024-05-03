@@ -17,14 +17,14 @@ using namespace std;
 /* GLOBAL VARIABLES ================================================ */
 
 //dati ricavati dal fit tramite root
-vector<double> Centroidi_ZonaSinistra{ , , , , ,  };
-vector<double> Centroidi_ZonaCentrale{ , , , , ,  };
-vector<double> Centroidi_ZonaDestra{ , , , , ,  };
-vector<double> ErrCentroidi_ZonaSinistra{ , , , , ,  };
-vector<double> ErrCentroidi_ZonaCentrale{ , , , , ,  };
-vector<double> ErrCentroidi_ZonaDestra{ , , , , ,  };
+vector<double> Centroidi_ZonaSinistra{ 3620.38, 3649.14, 3854.63, 3884.88, 4092.38, 4122.39 };
+vector<double> Centroidi_ZonaCentrale{ 4333.76, 4364.31, 4578.97, 4610.55, 4828.35, 4860.13 };
+vector<double> Centroidi_ZonaDestra{ 5082.01, 5114.34, 5338.72, 5371.29, 5602.02, 5635.2 };
+vector<double> ErrCentroidi_ZonaSinistra{ 0.343368, 0.361956, 0.335776, 0.392435, 0.349318, 0.422918 };
+vector<double> ErrCentroidi_ZonaCentrale{ 0.343979, 0.421243, 0.331332, 0.397804, 0.348617, 0.443274 };
+vector<double> ErrCentroidi_ZonaDestra{ 0.367854, 0.463344, 0.311851, 0.491584, 0.347864, 0.413227 };
 
-double CampoMagnetico = 0.;   //[T]
+double CampoMagnetico = 0.40035;   //[T]
 
 vector< vector<double> > HolderCentroidi{ Centroidi_ZonaSinistra, Centroidi_ZonaCentrale, Centroidi_ZonaDestra };
 vector< vector<double> > HolderErrCentroidi{ ErrCentroidi_ZonaSinistra, ErrCentroidi_ZonaCentrale, ErrCentroidi_ZonaDestra };
