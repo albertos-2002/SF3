@@ -11,13 +11,23 @@ Sono stati salvati sia il grafico che i dati in formato .csv
 
 ### campi magnetici $B$ utilizzati, misurati in corrente $A$
 
-$max : 11.39 A$
+$max : 11.39 \ A$
 
-$B_1 : 9.5 A$
+$B_1 : 9.5 \ A$
 
-$B_2 : 7.7 A$
+$B_2 : 7.7 \ A$
 
-$\frac{max}{2} : 5.7 A$
+$\frac{max}{2} : 5.7 \ A$
+
+questi campo convertiti in tesla sono di circa:
+
+$max : 0.48 \ T$
+
+$B_1 : 0.40035 \ T$
+
+$B_2 : 0.3245 \ T$
+
+$\frac{max}{2} : 0.24 \ T$
 
 
 ---
@@ -54,7 +64,7 @@ calcolare il fattore di Landè per il campo massimo
 
 .-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.-.
 
-**$3 campi: B \in [\frac{B_{on}}{2},B_{on}[$**
+**$3 \  campi: B \in [\frac{B_{on}}{2},B_{on}[$**
 
 calcolare lo split zeeman $\Delta \lambda _{zee}$ di 2 picchi
 
