@@ -31,20 +31,20 @@ using namespace std;
 
 /* CONFIGURATION SECTION =================================================================== */
 
- string NomeGrafico = "B-on: ";
+ string NomeGrafico = "B-on: B1";
  string DrawOptionForAll = "APLF";
  
  //range di taglio per lo spettro (in forma generale)
- int TaglioXminM = ;
- int TaglioXmaxM = ;
- int TaglioYminM = ;
- int TaglioYmaxM = ;
+ int TaglioXminM = 3750;
+ int TaglioXmaxM = 6025;
+ int TaglioYminM = 28;
+ int TaglioYmaxM = 108;
  
  //range di taglio per lo spettro (zoom sui picchi di interesse)
- vector<unsigned int> SplitPoint{, , , , , , , , , , , , , , , , , , };
+ vector<unsigned int> SplitPoint{3750, 3870, 3990, 4110, 4230, 4350, 4475, 4600, 4720, 4850, 4970, 5100, 5230, 5360, 5490, 5620, 5755, 5890, 6025};
  vector<string> Letters{"A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R"};
- vector<float> FitRangeLowerBound{ , , , , , , , , , , , , , , , , , };
- vector<float> FitRangeUpperBound{ , , , , , , , , , , , , , , , , , };
+ vector<float> FitRangeLowerBound{ 3820, 3880, 4055, 4125, 4295, 4365, 4545, 4610, 4795, 4860, 5050, 5115, 5305, 5375, 5565, 5635, 5835, 5905};
+ vector<float> FitRangeUpperBound{ 3860, 3925, 4100, 4165, 4335, 4410, 4585, 4650, 4835, 4905, 5090, 5160, 5350, 5415, 5610, 5680, 5875, 5950};
  string NameFittingFunction = "gaus";
  
  //splitting
