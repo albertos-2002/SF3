@@ -50,7 +50,6 @@ TNtuple* nt;
 
 void AnalisisInfo( const int& argN, char* argL[] );
 void MakeCanvasAndHisto();
-void SetUpCanvas( TCanvas* c );
 void SaveCanvas();
 void TFileFucker();
 
@@ -63,13 +62,8 @@ int main( int argN, char* argL[] ){
 
   MakeCanvasAndHisto();
 
-  nt -> Print();
-  /*
-  string controllo;
-  cin >> controllo;
-  if (controllo == "exit") exit(-1);*/
-
-  //SetUpCanvas();
+  //nt -> Print();
+  
   SaveCanvas();
 
   AppWTF -> Run(kTRUE);
@@ -106,20 +100,8 @@ void MakeCanvasAndHisto(){
  return;
 }
 /* ==================================================================== */
-void SetUpCanvas(TCanvas* c){
-  
-  //for (auto c : MapOfCanvas){
-  
-    c -> SetGrid();
-    c -> BuildLegend(); 
-    
- // }
-
- return;
-}
-/* ==================================================================== */
 void SaveCanvas(){
-
+/*
   for(auto c : NameOfCanvas1){
     
     string NameProjection = c + " >> " + c;
@@ -128,6 +110,7 @@ void SaveCanvas(){
     
     auto tmpHolder1 = MapOf1Histo.at(c);
     if(!tmpHolder1){
+      cout << "Entered in the if for holder1" << endl;
   
       for(auto j : *MapDataHolder.at(c) ){
         tmpHolder1 -> Fill(j);
@@ -136,8 +119,9 @@ void SaveCanvas(){
       tmpHolder1 -> Draw("APL");
     }
     
-    auto tmpHolder2 = MapOf2Histo.at(c);
+/*    auto tmpHolder2 = MapOf2Histo.at(c);
     if(!tmpHolder2){
+      cout << "entered in the if for holder2" << endl;
     
       for(auto j : *MapDataHolder.at(c) ){
         //tmpHolder2 -> Fill(j);
@@ -145,13 +129,13 @@ void SaveCanvas(){
       tmpHolder2 -> SetLineColor(0);
       tmpHolder2 -> Draw("ALP");
     }
-    
+*//*    
     MapOfCanvas.at(c) -> SetGrid();
     
     //MapOfCanvas.at(c) -> Print();
   
   }  
-
+*/
  return;
 }
 /* ==================================================================== */
@@ -165,7 +149,7 @@ void TFileFucker(){
   cout << "Dame el nome del file da verzare " << endl;
   cin >> FileToOpen;
 
-  TFile* FileReading = new TFile( FileToOpen.c_str() );  
+  TFile* FileReading = TFile::Open( FileToOpen.c_str() );  
   TTree* IHopeIsTheTree = dynamic_cast<TTree*>(FileReading->Get("nt"));
   
   for(auto c : NameOfCanvas1){
@@ -178,6 +162,7 @@ void TFileFucker(){
     for( int i=0; i<IHopeIsTheNumberOfEntries; i++){
   
       IHopeIsTheTree -> GetEntry(i);
+      cout << BranchData << endl;
       MapDataHolder.at(c) -> push_back(BranchData);  
     }
   
