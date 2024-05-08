@@ -40,7 +40,7 @@ auto AppWTF = new TApplication("MakeThaApppp", &argAN, argAL);
 map<string, TCanvas*> MapOfCanvas;
 map<string, TH1F*> MapOf1Histo;
 map<string, TH2F*> MapOf2Histo;
-map< string, vector<double>* > MapDataHolder;
+map< string, vector<float>* > MapDataHolder;
 
 string FileToOpen;
 
@@ -101,7 +101,7 @@ void MakeCanvasAndHisto(){
 }
 /* ==================================================================== */
 void SaveCanvas(){
-/*
+
   for(auto c : NameOfCanvas1){
     
     string NameProjection = c + " >> " + c;
@@ -129,20 +129,20 @@ void SaveCanvas(){
       tmpHolder2 -> SetLineColor(0);
       tmpHolder2 -> Draw("ALP");
     }
-*//*    
+*/   
     MapOfCanvas.at(c) -> SetGrid();
     
     //MapOfCanvas.at(c) -> Print();
   
   }  
-*/
+
  return;
 }
 /* ==================================================================== */
 void TFileFucker(){
 
   for(auto c : NameOfCanvas1){
-    MapDataHolder[c] = new vector<double>;
+    MapDataHolder[c] = new vector<float>;
     MapDataHolder.at(c) -> reserve(3100);
   }
 
