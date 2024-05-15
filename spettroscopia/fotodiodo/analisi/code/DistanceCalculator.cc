@@ -11,9 +11,11 @@
 
 #include "TApplication.h"
 #include "TGraph.h"
-#include "TGraphError.h"
+#include "TGraphErrors.h"
 #include "TF1.h"
 #include "TLegend.h"
+#include "TCanvas.h"
+#include "TAxis.h"
 
 using namespace std;
 
@@ -34,20 +36,46 @@ vector<double> Counts{ 25831, 9092, 12848, 15055, 5973, 4765, 1999, 2063, 2695, 
 
 vector<double> ErrCounts; 
 vector<double> Rate; //cps
+vector<double> ErrRate;
 
 //------------------------------------------------------------------
 // FUNCTION DECLARATION ============================================
 void ErrorCountsCalculator();
 void RateCalculator();
-
+void ErrorRateCalculator();
 
 //------------------------------------------------------------------
 
-int main( int argN, char* argL ){
+int main( int argN, char* argL[] ){
+
+  TApplication* AppWTF = new TApplication("ThisShouldBeAnApp", &argN, argL);
 
   ErrCounts.reserve(11);
   Rate.reserve(11);
 
+  //chiamata ai calcolatori
+  ErrorCountsCalculator();
+  RateCalculator();
+  ErrorRateCalculator();
+  
+  //creazione del grafico
+  TCanvas* can = new TCanvas( "can", "can", 1920, 1080 );
+  can -> SetGrid();
+  
+  TGraphErrors* graph = new TGraphErrors( Distanza.size(), Distanza.data(), Rate.data(), 0, ErrRate.data() );
+                graph -> SetTitle();
+                graph -> GetXaxis() -> SetTitle();
+                graph -> GetYaxis() -> SetTitle();
+                graph -> SetMarkerStyle(8);
+                graph -> SetMarkerColor(kBlue);
+  
+  graph -> Draw("AP");
+  
+  can -> BuildLegend();
+  
+  AppWTF -> Run(kTRUE);
+
+ return 0;
 }
 
 // Calcolatore errore entries ======================================
@@ -67,12 +95,27 @@ void RateCalculator(){
   if( Tempo.size() != Counts.size() ) exit(-1);
   
   double Holder;
-  for( int i=0; i<Tempo.size(), i++ ){
+  for( int i=0; i<Tempo.size(); i++ ){
     Holder = 0;
     Holder = Counts.at(i) / Tempo.at(i);
     Rate.push_back(Holder);
   }
   
+ return;
+}
+
+// Calcolatore errore rate =========================================
+void ErrorRateCalculator(){
+
+  if( Counts.size() != ErrCounts.size() || Rate.size() != Counts.size() ) exit(-1);
+  
+  double Holder;
+  for( int i=0; i<Counts.size(); i++ ){
+    Holder = 0;
+    Holder = Rate.at(i) * ( ErrCounts.at(i) / Counts.at(i) );
+    ErrRate.push_back(Holder);
+  }
+
  return;
 }
 
