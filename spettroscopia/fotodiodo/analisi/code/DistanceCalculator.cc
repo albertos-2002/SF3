@@ -33,6 +33,8 @@ using namespace std;
 vector<double> Distanza{ 1.2, 2.2, 3.2, 4.2, 5.2, 6.2, 7.2, 8.2, 9.2, 10.2, 15.2 }; //cm
 vector<double> Tempo{ 147.14, 89.50, 206.78, 345.23, 193.29, 199.49, 114.23, 140.36, 235.88, 235.88, 342.36 }; //s
 vector<double> Counts{ 25831, 9092, 12848, 15055, 5973, 4765, 1999, 2063, 2695, 2473, 1723 }; //no udm
+/* per cambiamenti nel fit punti da modificare */
+// . . . . 
 
 vector<double> ErrCounts; 
 vector<double> Rate; //cps
@@ -45,7 +47,7 @@ void RateCalculator();
 void ErrorRateCalculator();
 
 double FunctionToFit(double* x, double* par){
-  double result = par[0] / pow(*x,2);
+  double result = par[0] / pow((*x-par[1]),2);
   return result;
 }
 
@@ -76,16 +78,20 @@ int main( int argN, char* argL[] ){
                 graph -> SetName("Data");
   
   //fit di tipo a/x^2
-  TF1* fit = new TF1("fit: p0/x^2", FunctionToFit, 1, 15.5, 1);  
+  TF1* fit = new TF1("fit: p0/(x^2 - p1)", FunctionToFit, 1, 15.5, 2);  
        fit -> SetLineColor(kOrange-3);
        fit -> SetLineStyle(2); //dashed line for the fit line
-       fit -> SetName("fit: p0/x^2");
   
   graph -> Fit(fit, "RV");
   
   graph -> Draw("AP");
   fit -> Draw("same");
-  can -> BuildLegend();
+  
+  auto legend = new TLegend();
+  
+  legend -> AddEntry( graph, "Data", "lpe");
+  legend -> AddEntry( fit, "fit: p0/(x^2 - p1)", "lp");
+  legend -> Draw();
 
   AppWTF -> Run(kTRUE);
 
