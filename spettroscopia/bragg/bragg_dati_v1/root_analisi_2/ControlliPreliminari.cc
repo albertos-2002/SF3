@@ -115,8 +115,8 @@ void SaveCanvas(){
       for(auto j : *MapDataHolder.at(c) ){
         tmpHolder1 -> Fill(j);
       }
-      tmpHolder1 -> SetLineColor(0);
-      tmpHolder1 -> Draw("APL");
+      tmpHolder1 -> SetLineColor(kBlue);
+      tmpHolder1 -> Draw();
     }
     
 /*    auto tmpHolder2 = MapOf2Histo.at(c);

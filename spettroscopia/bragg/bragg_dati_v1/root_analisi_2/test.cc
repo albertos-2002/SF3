@@ -28,11 +28,11 @@ using namespace std;
 
 //global scope object
 
-TCanvas* ev       = new TCanvas( "ev","ev", 1920, 1080 );
-TCanvas* baseline = new TCanvas( "baseline","baseline", 1920, 1080 );
-TCanvas* integral = new TCanvas( "integral","integral", 1920, 1080 );
-TCanvas* vmax     = new TCanvas( "vmax","vmax", 1920, 1080 );
-TCanvas* width    = new TCanvas( "width","width", 1920, 1080 );
+//TCanvas* ev       = new TCanvas( "ev","ev", 1920, 1080 );
+
+//TCanvas* integral = new TCanvas( "integral","integral", 1920, 1080 );
+//TCanvas* vmax     = new TCanvas( "vmax","vmax", 1920, 1080 );
+//TCanvas* width    = new TCanvas( "width","width", 1920, 1080 );
 
 vector<double> vectorEV;
 vector<double> vectorBASELINE;
@@ -51,7 +51,7 @@ int main( int argN, char* argL[] ){
   TApplication* AppWTF = new TApplication("ThaApp", &argN, argL);
   
 //reading
-  TFile* FileReading = TFile::Open( FileToOpen );  
+  TFile* FileReading = TFile::Open( FileToOpen.c_str() );  
   TTree* IHopeIsTheTree = dynamic_cast<TTree*>(FileReading->Get("nt"));
   float dataEV,
         dataINTEGRAL,
@@ -70,15 +70,35 @@ int main( int argN, char* argL[] ){
   
       IHopeIsTheTree -> GetEntry(i);
       
-      vectorEV       -> push_back(dataEV);
-      vectorINTEGRAL -> push_back(dataINTEGRAL);
-      vectorVMAX     -> push_back(dataVMAX);
-      vectorWIDTH    -> push_back(dataWIDTH);
-      vectorBASELINE -> push_back(dataBASELINE);
+      vectorEV      .push_back(dataEV);
+      vectorINTEGRAL.push_back(dataINTEGRAL);
+      vectorVMAX    .push_back(dataVMAX);
+      vectorWIDTH   .push_back(dataWIDTH);
+      vectorBASELINE.push_back(dataBASELINE);
+      
+      //cout << dataEV << " " << dataINTEGRAL << " " << dataVMAX << " " << dataWIDTH << " " << dataBASELINE << endl;
     }
 // ------------------------------------------------------------------------   
   
+  //ev       -> cd();
   
+  TCanvas* baseline = new TCanvas( "baseline","baseline", 1920, 1080 );
+  baseline -> cd();
+    TH1F* HistoBaseline = new TH1F( "baseline", "baseline", 12, 0, 10 );
+    for( auto c : vectorBASELINE ){
+      HistoBaseline -> Fill(c);
+      //cout << c << endl;
+    }
+    HistoBaseline -> SetLineColor(kBlue);
+    HistoBaseline -> Draw();
+    baseline -> SetGrid();
+    baseline -> BuildLegend();
+        
+  //integral -> cd(); 
+  
+  //vmax     -> cd(); 
+  
+  //width    -> cd();
   
   
   
