@@ -24,7 +24,7 @@ using namespace std;
 | Note:                                                            |
 |   Per vivere serenamente assumiamo che sia il tempo che la       |
 |   ditanza siano senza errore (sensa info possiamo dargli una     |
-|   uniforme), l'errore commesso dovrebbe essere piccolo           |
+|   uniforme), l'errore commesso dovrebbe essere piccolo (si lo è) |
 |                                                                  |
 ================================================================= */
 
@@ -43,6 +43,11 @@ vector<double> ErrRate;
 void ErrorCountsCalculator();
 void RateCalculator();
 void ErrorRateCalculator();
+
+double FunctionToFit(double* x, double* par){
+  double result = par[0] / pow(*x,2);
+  return result;
+}
 
 //------------------------------------------------------------------
 
@@ -63,16 +68,25 @@ int main( int argN, char* argL[] ){
   can -> SetGrid();
   
   TGraphErrors* graph = new TGraphErrors( Distanza.size(), Distanza.data(), Rate.data(), 0, ErrRate.data() );
-                graph -> SetTitle();
-                graph -> GetXaxis() -> SetTitle();
-                graph -> GetYaxis() -> SetTitle();
+                graph -> SetTitle( "Rate vs Distanza" );
+                graph -> GetXaxis() -> SetTitle( "Distanza [cm]" );
+                graph -> GetYaxis() -> SetTitle( "Rate [cps] " );
                 graph -> SetMarkerStyle(8);
                 graph -> SetMarkerColor(kBlue);
+                graph -> SetName("Data");
+  
+  //fit di tipo a/x^2
+  TF1* fit = new TF1("fit: p0/x^2", FunctionToFit, 1, 15.5, 1);  
+       fit -> SetLineColor(kOrange-3);
+       fit -> SetLineStyle(2); //dashed line for the fit line
+       fit -> SetName("fit: p0/x^2");
+  
+  graph -> Fit(fit, "RV");
   
   graph -> Draw("AP");
-  
+  fit -> Draw("same");
   can -> BuildLegend();
-  
+
   AppWTF -> Run(kTRUE);
 
  return 0;
