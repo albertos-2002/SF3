@@ -16,6 +16,8 @@
 #include "TLegend.h"
 #include "TCanvas.h"
 #include "TAxis.h"
+#include "TPad.h"
+#include "TLine.h"
 
 using namespace std;
 
@@ -67,7 +69,12 @@ int main( int argN, char* argL[] ){
   
   //creazione del grafico
   TCanvas* can = new TCanvas( "can", "can", 1920, 1080 );
-  can -> SetGrid();
+    
+  TPad *pad1 = new TPad("pad1", "Pad 1", 0.0, 0.3, 1.0, 1.0); // Upper pad
+  TPad *pad2 = new TPad("pad2", "Pad 2", 0.0, 0.0, 1.0, 0.3); // Lower pad
+  
+  pad1 -> Draw();
+  pad2 -> Draw();
   
   TGraphErrors* graph = new TGraphErrors( Distanza.size(), Distanza.data(), Rate.data(), 0, ErrRate.data() );
                 graph -> SetTitle( "Rate vs Distanza" );
@@ -82,16 +89,58 @@ int main( int argN, char* argL[] ){
        fit -> SetLineColor(kOrange-3);
        fit -> SetLineStyle(2); //dashed line for the fit line
   
-  graph -> Fit(fit, "RV");
+  //prima canvas, quella del grafico e del fit
+  pad1 -> cd();
   
-  graph -> Draw("AP");
-  fit -> Draw("same");
+    graph -> Fit(fit, "RV");
+    graph -> Draw("AP");
+    fit -> Draw("same");
   
-  auto legend = new TLegend();
+    auto legend = new TLegend();
+    legend -> AddEntry( graph, "Data", "lpe");
+    legend -> AddEntry( fit, "fit: p0/(x^2 - p1)", "lp");
+    legend -> Draw();
+    
+    pad1 -> SetGrid();
+
+  //seconda canvas, quella con il grafico dei residui
+  pad2 -> cd();
   
-  legend -> AddEntry( graph, "Data", "lpe");
-  legend -> AddEntry( fit, "fit: p0/(x^2 - p1)", "lp");
-  legend -> Draw();
+    // Create a TGraphErrors for the residuals
+    TGraphErrors* residualsGraph = new TGraphErrors();
+    for (int i = 0; i < graph->GetN(); ++i) {
+      double x, y;
+      graph->GetPoint(i, x, y);
+      double fittedValue = fit->Eval(x);
+      double residual = y - fittedValue;
+      residualsGraph->SetPoint(i, x, residual);
+      residualsGraph->SetPointError(i, 0, graph->GetErrorY(i)); // Assuming no error in x-direction, only y-direction
+    }
+
+    // Set up style for the residuals graph
+    residualsGraph->SetTitle("Residui Fit");
+    residualsGraph->SetMarkerStyle(20);
+    residualsGraph->SetMarkerSize(1);
+    residualsGraph->SetMarkerColor(kBlue);
+
+    // Draw the residuals graph
+    residualsGraph->Draw("AP");
+  
+    auto legend2 = new TLegend();
+    legend2 -> AddEntry(residualsGraph, "Residui", "lpe");
+    legend2 -> Draw();
+    
+    pad2 -> SetGrid();
+    
+    double xmin = 0;//pad2->GetUxmin();
+    double xmax = 16.25;//pad2->GetUxmax();
+    TLine *line = new TLine(xmin, 0, xmax, 0);
+    line -> SetLineColor(kViolet-3); // Set the color of the line
+    line -> SetLineStyle(9);    // Set the line style (optional, e.g., dashed line)
+    line -> SetLineWidth(1);
+    line -> Draw();
+  
+  can -> Update();
 
   AppWTF -> Run(kTRUE);
 
