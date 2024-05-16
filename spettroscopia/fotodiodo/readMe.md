@@ -58,3 +58,21 @@ Per l'errore sul rate si è usata una propagazione
 Non si sono considerati errori sul tempo e sulla distanza, l'errore commesso dovrebbe essere considerevolmente piccolo
 
 ---
+
+## Misure di assorbimento
+
+Per tutti i campioni e per tutti gli spessori, il range dei gamme (60keV) è di 500-580
+
+Come errore sui counts è stata utilizzata $\sqrt{(N)}$
+
+Per l'errore sul rate si è usata una propagazione
+
+Non si sono considerati errori sul tempo e sullo spessore, l'errore commesso dovrebbe essere considerevolmente piccolo
+
+
+La funzione da fittare per ottenere il coefficiente di assorbimento è ancora da determinare
+
+--- 
+
+
+
