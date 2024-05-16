@@ -1,6 +1,6 @@
 /* =================================================================
 |                                                                  |
-| Calcolatore per il rate deggli x e relativa legge quadratica     |
+| Calcolatore per il rate degli x e relativa legge quadratica      |
 |                                                                  |
 ================================================================= */
 
