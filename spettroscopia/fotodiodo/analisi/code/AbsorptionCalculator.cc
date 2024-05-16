@@ -29,10 +29,6 @@ using namespace std;
 |                                                                  |
 |   Assumiamo che lo spessore sia noto senza incertezza            |
 |   Assumiamo che il tempo sia noto senza incertezza               |
-|    |
-|    |
-|    |
-|    |
 |                                                                  |
 ================================================================= */
 

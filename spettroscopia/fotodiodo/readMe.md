@@ -74,5 +74,30 @@ La funzione da fittare per ottenere il coefficiente di assorbimento è ancora da
 
 --- 
 
+## Risoluzione energetica
 
+Per il fit di tipo gaussiano sul picco dei gamma (60 keV) sono stati usati i seguenti range
 
+``` 
+_________________________
+| Shaping   | Range     |
+| Time [us] |           |    
+|___________|___________|
+|     3     | 510 - 570 |
+|___________|___________|
+|     4     | 505 - 560 |
+|___________|___________|
+
+```
+
+Per la risoluzione si è utata la FWHM del fit gaussiano a 60 keV, e come energia di picco, ovviamente, 60 keV
+
+Si è anche fatto un inutile grafico dei due punti (probabilmente ne serviva qualcuno in più)
+
+---
+
+## Misure facoltative
+
+Non svolte
+
+---
