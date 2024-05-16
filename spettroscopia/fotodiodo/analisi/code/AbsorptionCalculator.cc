@@ -103,7 +103,11 @@ int main( int argN, char* argL[] ){
        
   multi -> Draw("ap");
   can -> SetGrid();
-  can -> BuildLegend();
+  
+  auto legend = new TLegend();
+       legend -> AddEntry( graph_ag, "Ag data", "lpe");
+       legend -> AddEntry( graph_cu, "Cu data", "lpe");
+       legend -> Draw();
   
   
   AppWTF -> Run(kTRUE);
