@@ -98,7 +98,7 @@ int main( int argN, char* argL[] ){
   
     auto legend = new TLegend();
     legend -> AddEntry( graph, "Data", "lpe");
-    legend -> AddEntry( fit, "fit: p0/(x^2 - p1)", "lp");
+    legend -> AddEntry( fit, "fit: p0/(x-p1)^2", "lp");
     legend -> Draw();
     
     pad1 -> SetGrid();
