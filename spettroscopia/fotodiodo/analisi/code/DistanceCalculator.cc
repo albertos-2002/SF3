@@ -52,7 +52,10 @@ double FunctionToFit(double* x, double* par){
   double result = par[0] / pow((*x-par[1]),2);
   return result;
 }
-
+double FunctionToFit2(double* x, double* par){
+  double result = par[0] / pow(*x,2);
+  return result;
+}
 //------------------------------------------------------------------
 
 int main( int argN, char* argL[] ){
@@ -67,9 +70,12 @@ int main( int argN, char* argL[] ){
   RateCalculator();
   ErrorRateCalculator();
   
+/* ============================================================================================================================= */  
+  
   //creazione del grafico
   TCanvas* can = new TCanvas( "can", "can", 1920, 1080 );
-    
+           can -> cd();
+  
   TPad *pad1 = new TPad("pad1", "Pad 1", 0.0, 0.3, 1.0, 1.0); // Upper pad
   TPad *pad2 = new TPad("pad2", "Pad 2", 0.0, 0.0, 1.0, 0.3); // Lower pad
   
@@ -141,6 +147,87 @@ int main( int argN, char* argL[] ){
     line -> Draw();
   
   can -> Update();
+  
+/* ============================================================================================================================= */  
+//grafico con il fit non buono per discussione in presentazione
+
+    //creazione del grafico
+  TCanvas* can2 = new TCanvas( "can2", "can2", 1920, 1080 );
+           can2 -> cd();
+    
+  TPad *pad12 = new TPad("pad12", "Pad 12", 0.0, 0.3, 1.0, 1.0); // Upper pad
+  TPad *pad22 = new TPad("pad22", "Pad 22", 0.0, 0.0, 1.0, 0.3); // Lower pad
+  
+  pad12 -> Draw();
+  pad22 -> Draw();
+  
+  TGraphErrors* graph2 = new TGraphErrors( Distanza.size(), Distanza.data(), Rate.data(), 0, ErrRate.data() );
+                graph2 -> SetTitle( "Rate vs Distanza" );
+                graph2 -> GetXaxis() -> SetTitle( "Distanza [cm]" );
+                graph2 -> GetYaxis() -> SetTitle( "Rate [cps] " );
+                graph2 -> SetMarkerStyle(8);
+                graph2 -> SetMarkerColor(kBlue);
+                graph2 -> SetName("Data");
+  
+  //fit di tipo a/x^2
+  TF1* fit2 = new TF1("fit: p0/x^2", FunctionToFit2, 1, 15.5, 2);  
+       fit2 -> SetLineColor(kOrange-3);
+       fit2 -> SetLineStyle(2); //dashed line for the fit line
+  
+  //prima canvas, quella del grafico e del fit
+  pad12 -> cd();
+  
+    graph2 -> Fit(fit2, "RV");
+    graph2 -> Draw("AP");
+    fit2 -> Draw("same");
+  
+    auto legend22 = new TLegend();
+    legend22 -> AddEntry( graph, "Data", "lpe");
+    legend22 -> AddEntry( fit, "fit: p0/x^2", "lp");
+    legend22 -> Draw();
+    
+    pad12 -> SetGrid();
+
+  //seconda canvas, quella con il grafico dei residui
+  pad22 -> cd();
+  
+    // Create a TGraphErrors for the residuals
+    TGraphErrors* residualsGraph2 = new TGraphErrors();
+    for (int i = 0; i < graph2->GetN(); ++i) {
+      double x, y;
+      graph2->GetPoint(i, x, y);
+      double fittedValue = fit2->Eval(x);
+      double residual2 = y - fittedValue;
+      residualsGraph2->SetPoint(i, x, residual2);
+      residualsGraph2->SetPointError(i, 0, graph2->GetErrorY(i)); // Assuming no error in x-direction, only y-direction
+    }
+
+    // Set up style for the residuals graph
+    residualsGraph2->SetTitle("Residui Fit");
+    residualsGraph2->SetMarkerStyle(20);
+    residualsGraph2->SetMarkerSize(1);
+    residualsGraph2->SetMarkerColor(kBlue);
+
+    // Draw the residuals graph
+    residualsGraph2->Draw("AP");
+  
+    auto legend222 = new TLegend();
+    legend222 -> AddEntry(residualsGraph, "Residui", "lpe");
+    legend222 -> Draw();
+    
+    pad22 -> SetGrid();
+    
+    double xmin2 = 0;//pad22->GetUxmin();
+    double xmax2 = 16.25;//pad22->GetUxmax();
+    TLine *line2 = new TLine(xmin2, 0, xmax2, 0);
+    line2 -> SetLineColor(kViolet-3); // Set the color of the line
+    line2 -> SetLineStyle(9);    // Set the line style (optional, e.g., dashed line)
+    line2 -> SetLineWidth(1);
+    line2 -> Draw();
+  
+  can2 -> Update();
+
+/* ============================================================================================================================= */  
 
   AppWTF -> Run(kTRUE);
 
