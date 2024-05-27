@@ -92,7 +92,7 @@ _________________________
 
 ```
 
-Per la risoluzione si è utata la FWHM del fit gaussiano a 60 keV, e come energia di picco, ovviamente, 60 keV
+Per la risoluzione si è utata la FWHM del fit gaussiano a 60 keV, e come energia di picco, si sono presi i valori della media della gaussiana forniti dal fit, sono (in modo non corretto) considerati senza errori e quindi non sono stati propagati nel risultato finale
 
 Si è anche fatto un inutile grafico dei due punti (probabilmente ne serviva qualcuno in più)
 
