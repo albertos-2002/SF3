@@ -1,5 +1,123 @@
 # Fit per il copper
+```
+Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
+ **********
+ **    7 **SET PRINT           2
+ **********
+ **********
+ **    8 **SET NOGRAD
+ **********
+ PARAMETER DEFINITIONS:
+    NO.   NAME         VALUE      STEP SIZE      LIMITS
+     1 p0           0.00000e+00  3.00000e-01     no limits
+     2 p1           0.00000e+00  3.00000e-01     no limits
+ **********
+ **    9 **SET ERR           1
+ **********
+ **********
+ **   10 **SET PRINT           2
+ **********
+ **********
+ **   11 **SET STR           1
+ **********
+ NOW USING STRATEGY  1: TRY TO BALANCE SPEED AGAINST RELIABILITY
+ **********
+ **   12 **MIGRAD        1220        0.01
+ **********
+ FIRST CALL TO USER FUNCTION AT NEW START POINT, WITH IFLAG=4.
+ START MIGRAD MINIMIZATION.  STRATEGY  1.  CONVERGENCE WHEN EDM .LT. 1.00e-05
+ FCN=9746 FROM MIGRAD    STATUS=INITIATE       42 CALLS          43 TOTAL
+                     EDM= unknown      STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           0.00000e+00   3.00000e-01   0.00000e+00  -4.54790e+03
+   2  p1           0.00000e+00   3.00000e-01   0.00000e+00 -6.21525e+306
+NO ERROR MATRIX       
+ FCN=9745.99 FROM MIGRAD    STATUS=PROGRESS       63 CALLS          64 TOTAL
+                     EDM=9.42665e-05    STRATEGY= 1      NO ERROR MATRIX       
+  EXT PARAMETER               CURRENT GUESS       STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           5.26447e-02   3.00000e-01   5.26447e-02  -2.25604e-01
+   2  p1           9.03872e-02   3.00000e-01   9.03872e-02   1.44613e+00
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+   START COVARIANCE MATRIX CALCULATION.
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+         2.7170e-04  1.9997e+00
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=7269.52 FROM HESSE     STATUS=OK             10 CALLS         103 TOTAL
+                     EDM=0.407058    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.19541e+04   1.89266e+04   1.83145e+01  -2.48298e-14
+   2  p1           9.03872e-02   9.37482e-03   9.09835e-06   1.36112e+02
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.99973   1.000  1.000
+        2  0.99973   1.000  1.000
+ FCN=7269.48 FROM MIGRAD    STATUS=PROGRESS      108 CALLS         109 TOTAL
+                     EDM=0.400929    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           2.13505e+04   1.89266e+04  -6.03605e+02  -8.66137e-05
+   2  p1           9.00881e-02   9.37482e-03  -2.99062e-04   3.09837e+02
+ FCN=7268.76 FROM MIGRAD    STATUS=PROGRESS      181 CALLS         182 TOTAL
+                     EDM=0.415277    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  38.8 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.35942e+04   3.89681e+03  -1.18721e+03  -2.68422e-03
+   2  p1           8.52562e-02   2.69768e-03  -8.94273e-04   3.57358e+03
+ FCN=7264.5 FROM MIGRAD    STATUS=PROGRESS      273 CALLS         274 TOTAL
+                     EDM=0.439817    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  27.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           4.82857e+03   1.03328e+03  -7.51370e+02  -8.71069e-03
+   2  p1           7.40082e-02   2.02639e-03  -1.47596e-03   4.47947e+03
+ FCN=7241.48 FROM MIGRAD    STATUS=PROGRESS      353 CALLS         354 TOTAL
+                     EDM=9.78443    STRATEGY= 1  ERROR MATRIX UNCERTAINTY  49.1 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           9.46046e+02   1.64636e+02  -1.46716e+02  -1.99691e-01
+   2  p1           5.65740e-02   1.48163e-03  -1.45783e-03   2.03478e+04
+ FCN=5675.67 FROM MIGRAD    STATUS=PROGRESS      454 CALLS         455 TOTAL
+                     EDM=101744    STRATEGY= 1  ERROR MATRIX UNCERTAINTY 100.0 per cent
+  EXT PARAMETER                APPROXIMATE        STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           1.58467e+01   2.92085e+00  -2.96351e+01  -1.39151e+02
+   2  p1           1.39554e-02   4.87114e-04  -1.10538e-02   3.93447e+05
+ MIGRAD MINIMIZATION HAS CONVERGED.
+ MIGRAD WILL VERIFY CONVERGENCE AND ERROR MATRIX.
+   START COVARIANCE MATRIX CALCULATION.
+ EIGENVALUES OF SECOND-DERIVATIVE MATRIX:
+         8.2563e-02  1.9174e+00
+ COVARIANCE MATRIX CALCULATED SUCCESSFULLY
+ FCN=16.4637 FROM MIGRAD    STATUS=CONVERGED     538 CALLS         539 TOTAL
+                     EDM=4.77939e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                                   STEP         FIRST   
+  NO.   NAME      VALUE            ERROR          SIZE      DERIVATIVE 
+   1  p0           5.77191e+00   1.47069e-01   1.19390e-04  -1.56784e-03
+   2  p1           1.26855e-03   1.01900e-04   8.27235e-08   1.74436e+00
+ EXTERNAL ERROR MATRIX.    NDIM=  25    NPAR=  2    ERR DEF=1
+  2.163e-02  1.375e-05 
+  1.375e-05  1.038e-08 
+ PARAMETER  CORRELATION COEFFICIENTS  
+       NO.  GLOBAL      1      2
+        1  0.91744   1.000  0.917
+        2  0.91744   0.917  1.000
+Info in <TMinuitMinimizer::Minimize>: Finished to run MIGRAD - status 0
+ EXTERNAL ERROR MATRIX.    NDIM=   2    NPAR=  2    ERR DEF=1
+  2.163e-02  1.375e-05 
+  1.375e-05  1.038e-08 
+ FCN=16.4637 FROM MIGRAD    STATUS=CONVERGED     538 CALLS         539 TOTAL
+                     EDM=4.77939e-09    STRATEGY= 1      ERROR MATRIX ACCURATE 
+  EXT PARAMETER                  PARABOLIC         MINOS ERRORS        
+  NO.   NAME      VALUE            ERROR      NEGATIVE      POSITIVE   
+   1  p0           5.77191e+00   1.47069e-01                            
+   2  p1           1.26855e-03   1.01900e-04                            
 
+```
+
+# Fit per l'argento
 ``` 
 Warning in <ROOT::Math::FitConfig::CreateMinimizer>: Could not create the Minuit2 minimizer. Try using the minimizer Minuit
  **********
