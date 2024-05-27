@@ -61,7 +61,7 @@ Non si sono considerati errori sul tempo e sulla distanza, l'errore commesso dov
 
 ## Misure di assorbimento
 
-Per tutti i campioni e per tutti gli spessori, il range dei gamme (60keV) è di 500-580
+Per tutti i campioni e per tutti gli spessori, il range dei gamma (60keV) è di 500-580 per AG e di 500-560 per CU
 
 Come errore sui counts è stata utilizzata $\sqrt{(N)}$
 
@@ -70,7 +70,9 @@ Per l'errore sul rate si è usata una propagazione
 Non si sono considerati errori sul tempo e sullo spessore, l'errore commesso dovrebbe essere considerevolmente piccolo
 
 
-La funzione da fittare per ottenere il coefficiente di assorbimento è ancora da determinare
+La funzione da fittare per ottenere il coefficiente di assorbimento è una funzione esponenziale
+
+$$ po*e^{-p1*x} $$
 
 --- 
 
