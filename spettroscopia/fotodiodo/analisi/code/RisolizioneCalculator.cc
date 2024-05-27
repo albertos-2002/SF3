@@ -40,7 +40,7 @@ vector<double> Risoluzione;
 vector<double> ErrRisoluzione;
 
 double TheConstant = 2 * sqrt(2) * sqrt( log(2) );
-double TheEnergy = 60; //keV
+vector<double> TheEnergy = {539.3,530}; //le medie delle gaussiane
 
 //------------------------------------------------------------------
 
@@ -55,11 +55,11 @@ int main(int argN, char* argL[]){
   //calcolo delle risoluzioni
   for(int i=0; i<ShapingTime.size(); i++){
     Holder = 0;
-    Holder = TheConstant * SigmaGaussianaFit.at(i) / TheEnergy;
+    Holder = TheConstant * SigmaGaussianaFit.at(i) / TheEnergy.at(i);
     Risoluzione.push_back(Holder);
     
     Holder = 0;
-    Holder = TheConstant * ErrSigmaGaussianaFit.at(i) / TheEnergy;
+    Holder = TheConstant * ErrSigmaGaussianaFit.at(i) / TheEnergy.at(i);
     ErrRisoluzione.push_back(Holder);
   }
   
