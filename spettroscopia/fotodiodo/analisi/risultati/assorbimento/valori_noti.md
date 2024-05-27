@@ -4,7 +4,11 @@
 
 source per assorbimento:  
 
+https://physics.nist.gov/PhysRefData/Elements/index.html
+
 https://physics.nist.gov/PhysRefData/XrayMassCoef/ElemTab/z47.html
+
+https://physics.nist.gov/PhysRefData/XrayMassCoef/ElemTab/z29.html
 
 ---
 
