@@ -13,5 +13,5 @@ I fit fatti sugli istogrammi di anabragg, hanno un range (quello considerato com
 
 [Note sugli intervalli di fit](note_fit_intervalli.md)
 
-
+## [Note sulla seconda parte dell'esperienza](seconda_parte.md)
 
