@@ -22,8 +22,7 @@ con ovvio significato dei simboli
 ================================================================================= */
 
 #include <iostream>
-#include <math.h> //sqrt()
-#include <cmath> //pow(base,esponente)
+#include <cmath> 
 #include <cstring>
 
 using namespace std;
@@ -43,6 +42,8 @@ struct risultati_calcolo {
   float velocita_scalata;
   float err_velocita_scalata;
 };
+
+risultati_calcolo risultati;
 
 struct dati450mb {
   static constexpr float width_nettunio     = 4.60164e+01;  // [a.u]
@@ -107,13 +108,21 @@ void calcolatore_velocita_drift() {
   cout << endl;
   
   //media pesata
+  double media_pesata_k        = ( 1/ pow( err_velocita_350,2) ) + ( 1/ pow( err_velocita_400,2) );
+  double media_pesata_errore_velocita = sqrt(1/media_pesata_k);
+  double media_pesata_velocita = (1/media_pesata_k) * ( ( velocita_350/ pow( err_velocita_350,2) ) + ( velocita_400/ pow( err_velocita_400,2) ) ); 
   
+  cout << "\n" << "Media pesata delle veclotia" << endl;
+  cout << media_pesata_velocita << " \\pm " << media_pesata_errore_velocita << endl;
+  cout << endl;
 
   //calcolo della velocità di drift
-   risultati.velocita_drift =  
+   risultati.velocita_drift =  media_pesata_velocita;
 
   //calcolo dell'errore
-  risultati.err_velocita_drift = 
+  risultati.err_velocita_drift = media_pesata_errore_velocita;
+  
+  cout << "Stima della velocità con udm: " << endl;
   
   //print dei risultati
   cout << "\n" << endl;
@@ -154,9 +163,6 @@ template <typename T> void calcolatore_range( T& data, int pressione){
   
   float dummy1;
   float dummy11;
-  float dummy2;
-  float dummy22;
-  float radice;
   
   //calcolo del range
   range_nettunio = risultati.velocita_scalata * data.width_nettunio;
@@ -173,16 +179,9 @@ template <typename T> void calcolatore_range( T& data, int pressione){
   dummy1 = pow( dummy11, 2 );
   if (debug_opt) cout << dummy1 << endl;
   
-  dummy22 = dati350mb::err_width_americio / dati350mb::width_americio;
-  dummy2 = pow( dummy22, 2 );
-  if (debug_opt) cout << dummy2 << endl;
-  
-  radice = sqrt( dummy1 + dummy2 );
-  if (debug_opt) cout << radice << endl;
-  
-  err_range_nettunio = range_nettunio * radice ;
-  err_range_americio = range_americio * radice ;
-  err_range_curio    = range_curio    * radice ;
+  err_range_nettunio = range_nettunio * sqrt( dummy1 + pow( ( data.err_width_nettunio/data.width_nettunio ) ,2) ) ;
+  err_range_americio = range_americio * sqrt( dummy1 + pow( ( data.err_width_americio/data.width_americio ) ,2) ) ;
+  err_range_curio    = range_curio    * sqrt( dummy1 + pow( ( data.err_width_curio/data.width_curio       ) ,2) ) ;
   
   //print dei risultati
   cout << "Range [mm] per la pressione " 
@@ -210,4 +209,27 @@ template <typename T> void calcolatore_range( T& data, int pressione){
   return;
 } 
 
+//===========================================================================================
+
+int main( int argument_number, char* argument_list[] ){
+  for (int i = 0; i < argument_number; i++){
+    if (strcmp(argument_list[i], "debug") == 0) {
+      debug_opt=true;
+      cout << "debug on" << endl;
+    }
+  }
+
+  calcolatore_velocita_drift();
+  
+  dati450mb data450;
+  dati500mb data500;
+  dati550mb data550;
+  dati600mb data600;
+  
+  calcolatore_range( data450, 450);
+  calcolatore_range( data500, 500);
+  calcolatore_range( data550, 550);
+  calcolatore_range( data600, 600);
+  return 0;
+}
 
