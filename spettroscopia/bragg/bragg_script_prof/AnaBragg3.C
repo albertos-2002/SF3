@@ -203,8 +203,8 @@ TGraph* graph_dx = new TGraph(numero_punti, data_x_dx, data_y_dx);
 
 graph_sx -> SetLineColor(kOrange+2);
 graph_dx -> SetLineColor(kBlue);
-graph_sx -> SetMarkerStyle(9);
-graph_dx -> SetMarkerStyle(9);
+graph_sx -> SetMarkerStyle(7);
+graph_dx -> SetMarkerStyle(7);
 
 graph_sx -> Fit(function_sx, "QR");
 graph_dx -> Fit(function_dx, "QR");
