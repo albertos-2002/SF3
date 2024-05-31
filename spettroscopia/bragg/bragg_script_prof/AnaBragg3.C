@@ -177,11 +177,6 @@ costante_controllo_singolo_evento = vmax*3.0/10.0;
 	
 //------------------------------------------------------------------------------------------------------------------------------
 
-if ( i == maxev-1) {
-
-auto can = new TCanvas("can", "can", 1000, 800);
-auto mg = new TMultiGraph("multi","multi");
-can -> Update();
 
 int numero_punti = 10;
 
@@ -203,23 +198,8 @@ for (int i = 0; i < numero_punti; ++i) {
 TGraph* graph_sx = new TGraph(numero_punti, data_x_sx, data_y_sx);
 TGraph* graph_dx = new TGraph(numero_punti, data_x_dx, data_y_dx);
 
-graph_sx -> SetLineColor(kOrange+3);
-graph_dx -> SetLineColor(kBlue);
-graph_sx -> SetMarkerStyle(9);
-graph_dx -> SetMarkerStyle(9);
-
-mg -> Add(graph_sx);
-mg -> Add(graph_dx);
-mg -> Draw("apl");
-
 graph_sx -> Fit(function_sx, "Q");
 graph_dx -> Fit(function_dx, "Q");
-
-function_sx -> SetLineStyle(2);
-function_dx -> SetLineStyle(2);
-
-function_sx -> Draw("same");
-function_dx -> Draw("same");
 
 float p0_sx = function_sx->GetParameter(0);  // Intercept
 float p1_sx = function_sx->GetParameter(1);  // Slope
@@ -227,10 +207,29 @@ float p1_sx = function_sx->GetParameter(1);  // Slope
 float p0_dx = function_dx->GetParameter(0);  // Intercept
 float p1_dx = function_dx->GetParameter(1);  // Slope
 
-can -> SetGrid();
-can -> BuildLegend();
-can -> Update();
 
+if ( i == maxev-1) {
+
+  auto can = new TCanvas("can", "can", 1000, 800);
+  auto mg = new TMultiGraph("multi","multi");
+
+  graph_sx -> SetLineColor(kOrange+3);
+  graph_dx -> SetLineColor(kBlue);
+  graph_sx -> SetMarkerStyle(9);
+  graph_dx -> SetMarkerStyle(9);
+
+  mg -> Add(graph_sx);
+  mg -> Add(graph_dx);
+  mg -> Draw("apl");
+
+  function_sx -> SetLineStyle(2);
+  function_dx -> SetLineStyle(2);
+
+  function_sx -> Draw("same");
+  function_dx -> Draw("same");
+
+  can -> SetGrid();
+  can -> BuildLegend();
 }
 
 //------------------------------------------------------------------------------------------------------------------------------
