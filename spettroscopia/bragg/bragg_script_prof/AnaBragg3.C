@@ -149,12 +149,12 @@ std::cout << std::endl;
 
 //------------------------------------------------------------------------------------------------------------------------------
 
-float costante_controllo_singolo_evento = media_gaussiana_baseline + (3*sigma_gaussiana_baseline);
+float costante_controllo_singolo_evento /*= media_gaussiana_baseline + (3*sigma_gaussiana_baseline)*/;
 
 //------------------------------------------------------------------------------------------------------------------------------
 
 //riscrizione
-costante_controllo_singolo_evento = vmax*3.0/10.0;
+costante_controllo_singolo_evento = vmax*1.5/10.0;
 
 //------------------------------------------------------------------------------------------------------------------------------
 
