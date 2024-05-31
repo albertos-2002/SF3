@@ -178,28 +178,36 @@ costante_controllo_singolo_evento = vmax*3.0/10.0;
 //------------------------------------------------------------------------------------------------------------------------------
 
 
-int numero_punti = 10;
+int numero_punti = 6;
 
-auto function_sx = new TF1("func_sx", "pol1", lbound-5, lbound+5);
-auto function_dx = new TF1("func_dx", "pol1", rbound-5, rbound+5);
+auto function_sx = new TF1("sx", "pol1", lbound-3, lbound+3);
+auto function_dx = new TF1("dx", "pol1", rbound-3, rbound+3);
 
-int data_x_sx[10];
-int data_y_sx[10];
-int data_x_dx[10];
-int data_y_dx[10];
+function_sx -> SetLineStyle(2);
+function_dx -> SetLineStyle(2);
+
+int data_x_sx[6];
+int data_y_sx[6];
+int data_x_dx[6];
+int data_y_dx[6];
 
 for (int i = 0; i < numero_punti; ++i) {
-        data_x_sx[i] = lbound - 5 + i;
-        data_y_sx[i] = signal.s[lbound - 5 + i] - bl;
-        data_x_dx[i] = rbound - 5 + i;
-        data_y_dx[i] = signal.s[rbound - 5 + i] - bl;
+        data_x_sx[i] = lbound - 3 + i;
+        data_y_sx[i] = signal.s[lbound - 3 + i] - bl;
+        data_x_dx[i] = rbound - 3 + i;
+        data_y_dx[i] = signal.s[rbound - 3 + i] - bl;
 }
 
 TGraph* graph_sx = new TGraph(numero_punti, data_x_sx, data_y_sx);
 TGraph* graph_dx = new TGraph(numero_punti, data_x_dx, data_y_dx);
 
-graph_sx -> Fit(function_sx, "Q");
-graph_dx -> Fit(function_dx, "Q");
+graph_sx -> SetLineColor(kOrange+2);
+graph_dx -> SetLineColor(kBlue);
+graph_sx -> SetMarkerStyle(9);
+graph_dx -> SetMarkerStyle(9);
+
+graph_sx -> Fit(function_sx, "QR");
+graph_dx -> Fit(function_dx, "QR");
 
 float p0_sx = function_sx->GetParameter(0);  // Intercept
 float p1_sx = function_sx->GetParameter(1);  // Slope
@@ -213,17 +221,9 @@ if ( i == maxev-1) {
   auto can = new TCanvas("can", "can", 1000, 800);
   auto mg = new TMultiGraph("multi","multi");
 
-  graph_sx -> SetLineColor(kOrange+3);
-  graph_dx -> SetLineColor(kBlue);
-  graph_sx -> SetMarkerStyle(9);
-  graph_dx -> SetMarkerStyle(9);
-
   mg -> Add(graph_sx);
   mg -> Add(graph_dx);
-  mg -> Draw("apl");
-
-  function_sx -> SetLineStyle(2);
-  function_dx -> SetLineStyle(2);
+  mg -> Draw("APL");
 
   function_sx -> Draw("same");
   function_dx -> Draw("same");
