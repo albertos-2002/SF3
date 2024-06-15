@@ -27,12 +27,46 @@ delle tre risoluzioni (una per picco) è stata calcolata la compatibilità (i va
 
 ---
 
-## 2 : 
+## 2 : Modifica del calcolo della width, velocità di drift e bragg kleeman
 
 
 ---
 
-## 3 : 
+## 3 : Segnali del preamplificatore
+
+Note:
+
+- la baseline fluttua molto
+
+- altezza del segnale è proporzionale alla carica
+
+- la derivata temporale del segnale è la curva di bragg
+
+. - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . - . 
+
+Procedura di analisi:
+
+- pre-processing (smoothing / running mean)
+
+- riconoscere dal plot signal i segnali buoni e cattivi 
+
+	la persona che espone dovrebbe trovare "una buona spiegazione" per questa roba
+
+- implementare dei controlli di qualità
+
+	un semplice controllo di qualità che è stato inserito è verificare che i primi 20 punti del segnale siano inferiori agli ultimi 20 dello stesso, se questo non accade il segnale viene scartato dalle successive analisi
+
+- calcolare altezza del segnale
+
+	il calcolo per l'altezza del segnale, in questo caso la parte interessante è la vmax, è rimasto lo stesso rispetto ai precedenti, un semplice scorrimento tra i punti fino alla determinazione del massimo (non dovrebbe creare gravi problemi o errori)
+
+- calcolare larghezza del segnale 
+
+- generare gli histogrammi e confrontarli con quelli precedenti
+
+- calcolare velocità di drift
+
+- fare la derivata digitale 
 
 
 ---
