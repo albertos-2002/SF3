@@ -7,8 +7,6 @@
 using namespace std;
 
 /* GLOBAL SCOPE ============================================================================ */
-typedef map< string, vector<double> > DataMap;
-
 vector<float> temperatura_dconst = {};
 vector<float> temperatura_vconst = {};
 
@@ -18,17 +16,14 @@ vector<string> FileName_vconst = { "run0", "run1", "run2", "run3", "run4", "run5
 string PathToSaveGraph = "../risultati/grafici";  //relative from execution folder 
 
 //gestione memoria
-DataMap SegnaleTemporale_d;
-DataMap SegnaleTemporale_v;
-DataMap SegnaleVoltico_d;
-DataMap SegnaleVoltico_v;
+map< string, map< string, vector<double> >* >* SegnaleTemporale;
+map< string, map< string, vector<double> >* >* SegnaleVoltico;
 
 bool DebugPrint = true;
 
 /* FUNCTION DECLARATION ==================================================================== */
 void MapAndVectorMemoryAllocator();
 void ReadShit();
-void MakePreliminaryGraph();
 
 
 #endif

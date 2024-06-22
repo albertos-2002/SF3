@@ -23,7 +23,6 @@
 #include "CalcolatoreMobilita.h"
 #include "DisplayTemperatura.h"
 #include "ExternalObjects.h"
-#include "PreliminaryGraph.h"
 
 using namespace std;
 
@@ -57,10 +56,7 @@ int main (int argN, char* argL[]) {
         //lettura da file
         ReadShit();
         if(DebugPrint) cout << " MAIN: callED read file " << endl;
-        
-        //si occupa di creare i grafici dei dati appena letti
-        MakePreliminaryGraph();
-        if(DebugPrint) cout << " MAIN: callED preliminay graph " << endl;
+
 
 
 	AppWTF -> Run(kTRUE);
@@ -71,26 +67,36 @@ int main (int argN, char* argL[]) {
 
 void MapAndVectorMemoryAllocator(){
 
-  SegnaleTemporale_d = DataMap();
-  SegnaleTemporale_v = DataMap();
-  SegnaleVoltico_d = DataMap(); 
-  SegnaleVoltico_v = DataMap();
+  SegnaleTemporale = new map< string, map< string, vector<double> > >;
+  SegnaleVoltico   = new map< string, map< string, vector<double> > >;
 
+  (*SegnaleTemporale)["d"] = new map< string, vector<double> >;
+  (*SegnaleTemporale)["v"] = new map< string, vector<double> >; 
+  (*SegnaleVoltico)["d"]   = new map< string, vector<double> >;
+  (*SegnaleVoltico)["v"]   = new map< string, vector<double> >;
+  if(DebugPrint) cout << " MAIN: created inner maps " << endl;
+        
+        
+  auto MappaTempoD   = SegnaleTemporale -> at("d");
+  auto MappaVolticaD = SegnaleVoltico   -> at("d");
   
   for( auto index : FileName_dconst ){
-    SegnaleTemporale_d[index] = vector<double>();
-    SegnaleVoltico_d  [index] = vector<double>();
-    SegnaleTemporale_d.at(index).reserve(2016);
-    SegnaleVoltico_d  .at(index).reserve(2016);    
+    MappaTempoD  [index]   = new vector<double>;
+    MappaVolticaD[index] = new vector<double>;
+    MappaTempoD   -> at(index) -> reserve(2016);
+    MappaVolticaD -> at(index) -> reserve(2016);    
   }
   if(DebugPrint) cout << " MAIN: allocated vectors for D " << endl;
-
+  
+  
+  auto MappaTempoV   = SegnaleTemporale -> at("v");
+  auto MappaVolticaV = SegnaleVoltico   -> at("v");
   
   for( auto index : FileName_vconst ){
-    SegnaleTemporale_v[index] = vector<double>();
-    SegnaleVoltico_v  [index] = vector<double>();
-    SegnaleTemporale_v.at(index).reserve(2016);
-    SegnaleVoltico_v  .at(index).reserve(2016);
+    MappaTempoV  [index]   = new vector<double>;
+    MappaVolticaV[index] = new vector<double>;
+    MappaTempoV   -> at(index) -> reserve(2016);
+    MappaVolticaV -> at(index) -> reserve(2016);
   }
   if(DebugPrint) cout << " MAIN: allocated vectors for V " << endl;
 

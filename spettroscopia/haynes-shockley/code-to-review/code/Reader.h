@@ -35,13 +35,30 @@ void ReadShit(){
     istringstream StringToStream;
     float tmpDataStorage;
     
+    auto MappaTempoD   = (*SegnaleTemporale).at("d");
+    auto MappaVolticaD = (*SegnaleVoltico).at("d");
+    
+    auto MappaTempoV   = (*SegnaleTemporale).at("v");
+    auto MappaVolticaV = (*SegnaleVoltico).at("v");
+    if(DebugPrint) cout << " READ.h: inner maps extracted " << endl;
+    
 
   /* READING FOR DCONST ==================================================================== */
 
     for( auto index : FileName_dconst ){
     
       NameOfFile = PathToDCONST + index + ".CSV";
+      
       if(DebugPrint) cout << " READ.h: selecting D index = " << index << endl;
+      
+      auto VectorToFillTempo   = MappaTempoD  .at( index );
+      if(DebugPrint) cout << " READ.h: accessing tempo D for " << index << endl;
+      
+      auto VectorToFillVoltico = MappaVolticaD.at( index );
+      if(DebugPrint) cout << " READ.h: accessing tempo V for " << index << endl;
+      
+      
+      if(DebugPrint) cout << " READ.h: vector D extracted " << endl;
     
       //opening
         CSVFile_in.open(NameOfFile);
@@ -56,21 +73,15 @@ void ReadShit(){
     
     
       //reading of lines
-      int CounterOfLines = 0;
         while ( getline( CSVFile_in, LineToKeep ) ){
-          
-          CounterOfLines++;
-          if(LineToKeep.empty()) continue;
-          
-          StringToStream.clear();
+        
           StringToStream.str( LineToKeep );
           
             //firs column: tempo
             if( getline(StringToStream, LineToVector2, ',') ){
               tmpDataStorage = 0;
               tmpDataStorage = stod(LineToVector2);
-              SegnaleTemporale_d.at(index).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato tempo appena letto D: " << tmpDataStorage << endl;
+              VectorToFillTempo.push_back(tmpDataStorage);
             }
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl;
@@ -81,18 +92,13 @@ void ReadShit(){
             if( getline( StringToStream, LineToVector, ',' ) ){
               tmpDataStorage = 0;
               tmpDataStorage = stod(LineToVector);
-              SegnaleVoltico_d.at(index).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato volt appena letto D: " << tmpDataStorage << endl;
+              VectorToFillVoltico.push_back(tmpDataStorage);
             }
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl; 
             }
         
-          if(DebugPrint) cout << " READ.h: file D read line: " << CounterOfLines << endl;
-        
         }
-
-        CSVFile_in.close();
 
     }
     if(DebugPrint) cout << " READ.h: file D readed " << endl;
@@ -102,7 +108,10 @@ void ReadShit(){
     for( auto index : FileName_vconst ){
     
       NameOfFile = PathToVCONST + index + ".CSV";
-      if(DebugPrint) cout << " READ.h: selecting V index = " << index << endl;
+      
+      auto VectorToFillTempo   = MappaTempoV  .at( index );
+      auto VectorToFillVoltico = MappaVolticaV.at( index );
+      if(DebugPrint) cout << " READ.h: vector V extracted " << endl;
     
       //opening
         CSVFile_in.open(NameOfFile);
@@ -117,21 +126,15 @@ void ReadShit(){
     
     
       //reading of lines 
-      int CounterOfLines = 0;
         while ( getline( CSVFile_in, LineToKeep ) ){
         
-            CounterOfLines++;
-            if(LineToKeep.empty()) continue;
-        
-            StringToStream.clear();
             StringToStream.str( LineToKeep );
           
             //firs column: tempo
             if( getline(StringToStream, LineToVector2, ',') ){
               tmpDataStorage = 0;
               tmpDataStorage = stod(LineToVector2);
-              SegnaleTemporale_v.at(index).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato tempo appena letto V: " << tmpDataStorage << endl;
+              VectorToFillTempo.push_back(tmpDataStorage);
             }
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl;
@@ -142,18 +145,13 @@ void ReadShit(){
             if( getline( StringToStream, LineToVector, ',' ) ){
               tmpDataStorage = 0;
               tmpDataStorage = stod(LineToVector);
-              SegnaleVoltico_v.at(index).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato volt appena letto V: " << tmpDataStorage << endl;
+              VectorToFillVoltico.push_back(tmpDataStorage);
             }
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl; 
             }
-            
-          if(DebugPrint) cout << " READ.h: file D read line: " << CounterOfLines << endl;
         
         }
-        
-      CSVFile_in.close();
     
     }
     if(DebugPrint) cout << " READ.h: file V readed " << endl;
