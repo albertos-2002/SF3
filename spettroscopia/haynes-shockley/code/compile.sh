@@ -2,4 +2,5 @@
 
 g++ -Wall $(root-config --cflags --libs) *.cc -o main_exe
 
-./main_exe
+./main_exe > logs.txt
+

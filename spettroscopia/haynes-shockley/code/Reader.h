@@ -12,153 +12,124 @@
 #include <string>
 #include <sstream>
 #include <map>
+#include <cctype>    // for std::isspace and std::ispunct
+#include <algorithm> // for std::all_of
 #include "ExternalObjects.h"
 using namespace std;
 
+/* LOCAL GLOBAL VARIABLE =================================================================== */
 
+  static string NameOfFile;
+  static ifstream CSVFile_in;
+  static istringstream StringToStream;
+  
+  //path relativo dove sono locati i file da leggere
+  static string PathToDCONST = "data/dconst/";
+  static string PathToVCONST = "data/vconst/";
+  
+  static unsigned int NumberOfLinesToDiscard = 16;
+  
+  //variabili di appoggio per la lettura
+  static string LineToDiscard;
+  static string LineToKeep;
+  static string LineToVector;
+  static string LineToVector2;
+  static double tmpDataStorage;
+
+/* --------------------------------------------------------------------------------------- */
+
+void AvoidCodeDuplicationThetSaid( const string FileToReadIndex, string& ThePathOfFile, DataMap& SegnaleTempo, DataMap& SegnaleVolt );
 
 void ReadShit(){
 
-  /* VARIABILI ============================================================================= */
-  
-    string NameOfFile;
-    ifstream CSVFile_in;
-    
-    string PathToDCONST = "data/dconst/";
-    string PathToVCONST = "data/vconst/";
-    
-    string LineToDiscard;
-    string LineToKeep;
-    string LineToVector;
-    string LineToVector2;
-    
-    istringstream StringToStream;
-    float tmpDataStorage;
-    
-
   /* READING FOR DCONST ==================================================================== */
-
-    for( auto index : FileName_dconst ){
-    
-      NameOfFile = PathToDCONST + index + ".CSV";
-      if(DebugPrint) cout << " READ.h: selecting D index = " << index << endl;
-    
-      //opening
-        CSVFile_in.open(NameOfFile);
-        if ( !CSVFile_in.is_open() ) {
-          cout << "the fooking file is not opening !!! " << endl;
-        }
-    
-      //discard of lines
-        for( int j=0; j<16; j++ ){
-          getline( CSVFile_in, LineToDiscard );
-        }
-    
-    
-      //reading of lines
-      int CounterOfLines = 0;
-        while ( getline( CSVFile_in, LineToKeep ) ){
-          
-          CounterOfLines++;
-          if(LineToKeep.empty()) continue;
-          
-          StringToStream.clear();
-          StringToStream.str( LineToKeep );
-          
-            //firs column: tempo
-            if( getline(StringToStream, LineToVector2, ',') ){
-              tmpDataStorage = 0;
-              tmpDataStorage = stod(LineToVector2);
-              SegnaleTemporale_d.at(index).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato tempo appena letto D: " << tmpDataStorage << endl;
-            }
-            else{
-              cout << " !!!! ERROR reading data (sad moth stiker) " << endl;
-            }
-          
-          
-            //second column: voltage
-            if( getline( StringToStream, LineToVector, ',' ) ){
-              tmpDataStorage = 0;
-              tmpDataStorage = stod(LineToVector);
-              SegnaleVoltico_d.at(index).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato volt appena letto D: " << tmpDataStorage << endl;
-            }
-            else{
-              cout << " !!!! ERROR reading data (sad moth stiker) " << endl; 
-            }
-        
-          if(DebugPrint) cout << " READ.h: file D read line: " << CounterOfLines << endl;
-        
-        }
-
-        CSVFile_in.close();
-
+  
+    for( string FileToReadIndex : FileName_dconst ){
+      AvoidCodeDuplicationThetSaid( FileToReadIndex, &PathToDCONST, SegnaleTemporale_d, SegnaleVoltico_d );
     }
-    if(DebugPrint) cout << " READ.h: file D readed " << endl;
+  
+  /* --------------------------------------------------------------------------------------- */
 
   /* READING FOR VCONST ==================================================================== */
-
-    for( auto index : FileName_vconst ){
-    
-      NameOfFile = PathToVCONST + index + ".CSV";
-      if(DebugPrint) cout << " READ.h: selecting V index = " << index << endl;
-    
-      //opening
-        CSVFile_in.open(NameOfFile);
-        if ( !CSVFile_in.is_open() ) {
-          cout << "the fooking file is not opening !!! " << endl;
-        }
-      
-      //discard of lines
-        for( int j=0; j<16; j++ ){
-          getline( CSVFile_in, LineToDiscard );
-        }
-    
-    
-      //reading of lines 
-      int CounterOfLines = 0;
-        while ( getline( CSVFile_in, LineToKeep ) ){
-        
-            CounterOfLines++;
-            if(LineToKeep.empty()) continue;
-        
-            StringToStream.clear();
-            StringToStream.str( LineToKeep );
-          
-            //firs column: tempo
-            if( getline(StringToStream, LineToVector2, ',') ){
-              tmpDataStorage = 0;
-              tmpDataStorage = stod(LineToVector2);
-              SegnaleTemporale_v.at(index).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato tempo appena letto V: " << tmpDataStorage << endl;
-            }
-            else{
-              cout << " !!!! ERROR reading data (sad moth stiker) " << endl;
-            }
-          
-          
-            //second column: voltage
-            if( getline( StringToStream, LineToVector, ',' ) ){
-              tmpDataStorage = 0;
-              tmpDataStorage = stod(LineToVector);
-              SegnaleVoltico_v.at(index).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato volt appena letto V: " << tmpDataStorage << endl;
-            }
-            else{
-              cout << " !!!! ERROR reading data (sad moth stiker) " << endl; 
-            }
-            
-          if(DebugPrint) cout << " READ.h: file D read line: " << CounterOfLines << endl;
-        
-        }
-        
-      CSVFile_in.close();
-    
+  
+    for( string FileToReadIndex : FileName_vconst ){
+      AvoidCodeDuplicationThetSaid( FileToReadIndex, &PathToVCONST, SegnaleTemporale_v, SegnaleVoltico_v );
     }
-    if(DebugPrint) cout << " READ.h: file V readed " << endl;
+  
+  /* --------------------------------------------------------------------------------------- */
+
 
   return;
 };
+
+
+void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, string& ThePathOfFile, DataMap& SegnaleTempo, DataMap& SegnaleVolt ){
+
+      NameOfFile = ThePathOfFile + FileToReadIndex + ".CSV";
+      if(DebugPrint) cout << " READ.h: selecting index = " << FileToReadIndex << endl;
+      if(DebugPrint) cout << NameOfFile << endl;
+      
+      //opening
+        CSVFile_in.open( NameOfFile );
+        if ( !CSVFile_in.is_open() ) {
+          cout << "the fooking file is not opening !!! " << endl;
+        }
+        
+      //discard of lines
+        for( int j=0; j<NumberOfLinesToDiscard; j++ ){
+          getline( CSVFile_in, LineToDiscard );
+        }
+        if(DebugPrint) cout << " " << NumberOfLinesToDiscard << " lines discarde correctly (i hope) " << endl;  
+      
+      
+      //reading of lines
+        while ( getline( CSVFile_in, LineToKeep ) ){
+        
+          //controlli sulla qualità della line
+          if(LineToKeep.empty()) break;
+  
+          
+          StringToStream.clear();
+          StringToStream.str( LineToKeep );
+   
+          //firs column: tempo
+            if( getline(StringToStream, LineToVector2, ',') ){
+              tmpDataStorage = 0;             
+              tmpDataStorage = stod(LineToVector2);
+              SegnaleTempo.at(FileToReadIndex).push_back(tmpDataStorage);
+              if(DebugPrint) cout << "Dato tempo appena letto: " << tmpDataStorage << endl;
+            }
+            else{
+              cout << " !!!! ERROR reading data (sad moth stiker) " << endl;
+            }
+                    
+          //second column: voltage
+            if( getline( StringToStream, LineToVector, ',' ) ){
+              tmpDataStorage = 0;
+              tmpDataStorage = stod(LineToVector);
+              SegnaleVolt.at(FileToReadIndex).push_back(tmpDataStorage);
+              if(DebugPrint) cout << "Dato volt appena letto: " << tmpDataStorage << endl;
+            }
+            else{
+              cout << " !!!! ERROR reading data (sad moth stiker) " << endl; 
+            }
+        
+          if(DebugPrint) cout << " READ.h: file D read line: " << CounterOfLines << endl;
+        
+        }
+         
+  
+      //pulizia degli oggetti usati
+      NameOfFile.clear();
+      CSVFile_in.close();
+      LineToDiscard.clear();
+      LineToKeep.clear();
+      StringToStream.clear();
+      LineToVector.clear();
+      LineToVector2.clear();
+
+  return;
+};
+
 
 #endif
