@@ -45,7 +45,7 @@ void ReadShit(){
   /* READING FOR DCONST ==================================================================== */
   
     for( string FileToReadIndex : FileName_dconst ){
-      AvoidCodeDuplicationThetSaid( FileToReadIndex, &PathToDCONST, SegnaleTemporale_d, SegnaleVoltico_d );
+      AvoidCodeDuplicationThetSaid( FileToReadIndex, PathToDCONST, SegnaleTemporale_d, SegnaleVoltico_d );
     }
   
   /* --------------------------------------------------------------------------------------- */
@@ -53,7 +53,7 @@ void ReadShit(){
   /* READING FOR VCONST ==================================================================== */
   
     for( string FileToReadIndex : FileName_vconst ){
-      AvoidCodeDuplicationThetSaid( FileToReadIndex, &PathToVCONST, SegnaleTemporale_v, SegnaleVoltico_v );
+      AvoidCodeDuplicationThetSaid( FileToReadIndex, PathToVCONST, SegnaleTemporale_v, SegnaleVoltico_v );
     }
   
   /* --------------------------------------------------------------------------------------- */
@@ -113,8 +113,6 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, string& ThePath
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl; 
             }
-        
-          if(DebugPrint) cout << " READ.h: file D read line: " << CounterOfLines << endl;
         
         }
          
