@@ -38,8 +38,8 @@ void MakePreliminaryGraph(){
     
     AdaptedTitle = index + " D";
     PreliminaryGraph -> SetTitle( AdaptedTitle.c_str() );
-    PreliminaryGraph -> GetXaxis() -> SetTitle("Tempo [ ]");
-    PreliminaryGraph -> GetYaxis() -> SetTitle("Segnale [ ]");
+    PreliminaryGraph -> GetXaxis() -> SetTitle("Tempo [s]");
+    PreliminaryGraph -> GetYaxis() -> SetTitle("Segnale [V]");
     PreliminaryGraph -> SetLineColor(kBlue);  // Set the line color for the graph
     PreliminaryGraph -> SetMarkerStyle(6);   // Set the marker style for the graph
     PreliminaryGraph -> SetMarkerSize(2);
@@ -54,10 +54,10 @@ void MakePreliminaryGraph(){
     PreliminaryCanvas -> Update();
     gSystem->ProcessEvents();
     
-    cout << " Hai a disposizione 30 azioni per modificare la canvas prima del continue " << endl;
-    for(int i=0; i<30; i++){
+    cout << " Hai a disposizione 20 azioni per modificare la canvas prima del continue " << endl;
+    for(int i=0; i<20; i++){
       PreliminaryCanvas -> WaitPrimitive();
-      cout << "Iterazioni restanti " << 29-i << endl;
+      cout << "Iterazioni restanti " << 19-i << endl;
     }
     
    
@@ -81,8 +81,8 @@ void MakePreliminaryGraph(){
     
     AdaptedTitle = index + " V";
     PreliminaryGraph -> SetTitle( AdaptedTitle.c_str() );
-    PreliminaryGraph -> GetXaxis() -> SetTitle("Tempo [ ]");
-    PreliminaryGraph -> GetYaxis() -> SetTitle("Segnale [ ]");
+    PreliminaryGraph -> GetXaxis() -> SetTitle("Tempo [s]");
+    PreliminaryGraph -> GetYaxis() -> SetTitle("Segnale [V]");
     PreliminaryGraph -> SetLineColor(kBlue);  // Set the line color for the graph
     PreliminaryGraph -> SetMarkerStyle(6);   // Set the marker style for the graph
     PreliminaryGraph -> SetMarkerSize(2);
@@ -96,10 +96,10 @@ void MakePreliminaryGraph(){
     PreliminaryCanvas -> Update();
     gSystem->ProcessEvents();
     
-    cout << " Hai a disposizione 30 azioni per modificare la canvas prima del continue " << endl;
-    for(int i=0; i<30; i++){
+    cout << " Hai a disposizione 20 azioni per modificare la canvas prima del continue " << endl;
+    for(int i=0; i<20; i++){
       PreliminaryCanvas -> WaitPrimitive();
-      cout << "Iterazioni restanti " << 29-i << endl;
+      cout << "Iterazioni restanti " << 19-i << endl;
     }
     
    
