@@ -70,6 +70,7 @@ void MakeTemperatureGraph(){
     if(SaveThaGraph){
       SaveNameGraph = PathToSaveGraph + "temperatura/graph.png";
       CanvasTemperata -> SaveAs( SaveNameGraph.c_str() );
+      cout << " file saved succesfully " << endl;
     }  
     
   gSystem -> Sleep(100); //100ms giusto per stare sicuri  

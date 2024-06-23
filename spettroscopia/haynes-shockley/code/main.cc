@@ -37,7 +37,7 @@ int main (int argN, char* argL[]) {
         if( !logFile.is_open() ) cout << " Errore apertura file di log " << endl;
 
         //constrollo sul salvataggio dei grafici
-        cout << " Salvare i grafici prodotti (1=y, 0=n): " << endl;
+        cout << " Salvare i grafici prodotti (1=y, 0=n) (INSERT NUMBER): " << endl;
         cin >> InputForSaveTheGraph;
 
         if (InputForSaveTheGraph == 1) {
@@ -49,9 +49,20 @@ int main (int argN, char* argL[]) {
           SaveThaGraph = false;
         }
         
-        string FunctionActivator = "n";
+	
+/*        string FunctionActivator1 = "n";
+	string FunctionActivator2 = "n";
+	string FunctionActivator3 = "n";
+	if(DebugPrint) logFile << " MAIN: start process of activator calling " << endl;
         cout << " Select function to activate " << endl;
-
+	cout << " ReadShit " << endl;
+	cin >> FunctionActivator1;
+	cout << " MakePreliminaryGraph " << endl;
+        cin >> FunctionActivator2;
+	cout << " MakeTemperatureGraph " << endl;
+        cin >> FunctionActivator3;
+	if(DebugPrint) logFile << " MAIN: end process of activator calling " << endl;
+*/
 
         //allocazione della memoria a livello di mappe e vettori
         MapAndVectorMemoryAllocator();
@@ -59,25 +70,16 @@ int main (int argN, char* argL[]) {
         
         
         //lettura da file
-        cout << " ReadShit " << endl;
-        cin >> FunctionActivator;
-        
-        if(FunctionActivator == "y") ReadShit();
+//        ReadShit();
         if(DebugPrint) logFile << " MAIN: callED read file " << endl;
         
         //si occupa di creare i grafici dei dati appena letti
-        cout << " MakePreliminaryGraph " << endl;
-        cin >> FunctionActivator;
-        
-        if(FunctionActivator == "y") MakePreliminaryGraph();
+//        MakePreliminaryGraph();
         if(DebugPrint) logFile << " MAIN: callED preliminay graph " << endl;
         
         
         //costruisce il grafico che fa vedere la temperatura durante la presa dati
-        cout << " MakeTemperatureGraph " << endl;
-        cin >> FunctionActivator;
-        
-        if(FunctionActivator == "y") MakeTemperatureGraph();
+        MakeTemperatureGraph();
         if(DebugPrint) logFile << " MAIN: callED make temperature graph " << endl;
         
         
