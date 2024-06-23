@@ -5,6 +5,9 @@
 |                                                           |
 |  Le prime 16 righe sono da scartare                       |
 |                                                           |
+|  Il segnale voltico letto è sato ribaltato con una        |
+|  moltiplicazione per -1                                   |
+|                                                           |
 ========================================================== */
 
 #include <iostream>
@@ -38,14 +41,12 @@ using namespace std;
 
 /* --------------------------------------------------------------------------------------- */
 
-void AvoidCodeDuplicationThetSaid( const string FileToReadIndex, string& ThePathOfFile, DataMap& SegnaleTempo, DataMap& SegnaleVolt );
-
 void ReadShit(){
 
   /* READING FOR DCONST ==================================================================== */
   
     for( string FileToReadIndex : FileName_dconst ){
-      AvoidCodeDuplicationThetSaid( FileToReadIndex, PathToDCONST, SegnaleTemporale_d, SegnaleVoltico_d );
+      AvoidCodeDuplicationTheySaid( FileToReadIndex, PathToDCONST, SegnaleTemporale_d, SegnaleVoltico_d );
     }
   
   /* --------------------------------------------------------------------------------------- */
@@ -53,7 +54,7 @@ void ReadShit(){
   /* READING FOR VCONST ==================================================================== */
   
     for( string FileToReadIndex : FileName_vconst ){
-      AvoidCodeDuplicationThetSaid( FileToReadIndex, PathToVCONST, SegnaleTemporale_v, SegnaleVoltico_v );
+      AvoidCodeDuplicationTheySaid( FileToReadIndex, PathToVCONST, SegnaleTemporale_v, SegnaleVoltico_v );
     }
   
   /* --------------------------------------------------------------------------------------- */
@@ -63,7 +64,7 @@ void ReadShit(){
 };
 
 
-void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, string& ThePathOfFile, DataMap& SegnaleTempo, DataMap& SegnaleVolt ){
+void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& ThePathOfFile, DataMap& SegnaleTempo, DataMap& SegnaleVolt ){
 
       NameOfFile = ThePathOfFile + FileToReadIndex + ".CSV";
       if(DebugPrint) cout << " READ.h: selecting index = " << FileToReadIndex << endl;
@@ -107,7 +108,7 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, string& ThePath
             if( getline( StringToStream, LineToVector, ',' ) ){
               tmpDataStorage = 0;
               tmpDataStorage = stod(LineToVector);
-              SegnaleVolt.at(FileToReadIndex).push_back(tmpDataStorage);
+              SegnaleVolt.at(FileToReadIndex).push_back(-tmpDataStorage);
               if(DebugPrint) cout << "Dato volt appena letto: " << tmpDataStorage << endl;
             }
             else{

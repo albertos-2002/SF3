@@ -28,7 +28,7 @@ bool DebugPrint = true;
 /* FUNCTION DECLARATION ==================================================================== */
 void MapAndVectorMemoryAllocator();
 void ReadShit();
-void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, string& ThePathOfFile, DataMap& SegnaleTempo, DataMap& SegnaleVolt );
+void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& ThePathOfFile, DataMap& SegnaleTempo, DataMap& SegnaleVolt );
 void MakePreliminaryGraph();
 
 
