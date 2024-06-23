@@ -4,14 +4,8 @@
 #include <iostream>
 #include <string>
 
-#include <TGraphErrors.h>
-#include <TMultiGraph.h>
-#include <TLegend.h>
-#include <TFile.h>
+#include <TGraph.h>
 #include <TCanvas.h>
-#include <TF1.h>
-#include <TPad.h>
-#include <TLine.h>
 #include <TAxis.h>
 
 #include "ExternalObjects.h"
@@ -22,8 +16,9 @@ void MakePreliminaryGraph(){
 
   string AdaptedTitle;
   string FluxControl;
+  string SaveNameGraph;
 
-  TCanvas* PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas",1400,900);
+  TCanvas* PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas"/*,1400,900*/);
   TGraph* PreliminaryGraph;
   
   /* ------------------------------------------------------------------------------------------------ */  
@@ -54,10 +49,24 @@ void MakePreliminaryGraph(){
     PreliminaryCanvas -> Update();
     gSystem->ProcessEvents();
     
+    
+    //salvataggio di un grafico preliminare
+    if(SaveThaGraph){
+      SaveNameGraph = PathToSaveGraph + "raw-data/unzoom/D-" + index + ".png";
+      PreliminaryCanvas -> SaveAs( SaveNameGraph.c_str() );
+    }
+    
+    //azioni per la modifica del grafico
     cout << " Hai a disposizione 20 azioni per modificare la canvas prima del continue " << endl;
     for(int i=0; i<20; i++){
       PreliminaryCanvas -> WaitPrimitive();
       cout << "Iterazioni restanti " << 19-i << endl;
+    }
+    
+    //salvataggio del grafico modificato
+    if(SaveThaGraph){
+      SaveNameGraph = PathToSaveGraph + "raw-data/zoom/D-" + index + ".png";
+      PreliminaryCanvas -> SaveAs( SaveNameGraph.c_str() );
     }
     
    
@@ -96,12 +105,24 @@ void MakePreliminaryGraph(){
     PreliminaryCanvas -> Update();
     gSystem->ProcessEvents();
     
+    
+    //salvataggio di un grafico preliminare
+    if(SaveThaGraph){
+      SaveNameGraph = PathToSaveGraph + "raw-data/unzoom/V-" + index + ".png";
+      PreliminaryCanvas -> SaveAs( SaveNameGraph.c_str() );
+    }
+    
     cout << " Hai a disposizione 20 azioni per modificare la canvas prima del continue " << endl;
     for(int i=0; i<20; i++){
       PreliminaryCanvas -> WaitPrimitive();
       cout << "Iterazioni restanti " << 19-i << endl;
     }
     
+    //salvataggio del grafico modificato
+    if(SaveThaGraph){
+      SaveNameGraph = PathToSaveGraph + "raw-data/zoom/V-" + index + ".png";
+      PreliminaryCanvas -> SaveAs( SaveNameGraph.c_str() );
+    }
    
     //pulizia delle variabili usate
     FluxControl.clear();

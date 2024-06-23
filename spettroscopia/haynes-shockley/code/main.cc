@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -25,7 +24,6 @@
 #include "DisplayTemperatura.h"
 #include "ExternalObjects.h"
 #include "PreliminaryGraph.h"
-
 using namespace std;
 
 /* ========================================================================================= */
@@ -39,10 +37,7 @@ int main (int argN, char* argL[]) {
         if( !logFile.is_open() ) cout << " Errore apertura file di log " << endl;
 
         //constrollo sul salvataggio dei grafici
-	bool SaveThaGraph = false;
-        int InputForSaveTheGraph = 0;
-
-/*        cout << "Salvare i grafici prodotti (1=y, 0=n): " << std::endl;
+        cout << " Salvare i grafici prodotti (1=y, 0=n): " << endl;
         cin >> InputForSaveTheGraph;
 
         if (InputForSaveTheGraph == 1) {
@@ -50,21 +45,42 @@ int main (int argN, char* argL[]) {
         } else if (InputForSaveTheGraph == 0) {
           SaveThaGraph = false;
         } else {
-          cout << "Invalid input. Assuming 'no' (0)." << std::endl;
+          cout << "Invalid input. Assuming 'no' (0)" << endl;
           SaveThaGraph = false;
         }
-*/
+        
+        string FunctionActivator = "n";
+        cout << " Select function to activate " << endl;
+
+
         //allocazione della memoria a livello di mappe e vettori
         MapAndVectorMemoryAllocator();
         if(DebugPrint) logFile << " MAIN: callED the memory allocator " << endl;
         
+        
         //lettura da file
-        ReadShit();
+        cout << " ReadShit " << endl;
+        cin >> FunctionActivator;
+        
+        if(FunctionActivator == "y") ReadShit();
         if(DebugPrint) logFile << " MAIN: callED read file " << endl;
         
         //si occupa di creare i grafici dei dati appena letti
-        MakePreliminaryGraph();
+        cout << " MakePreliminaryGraph " << endl;
+        cin >> FunctionActivator;
+        
+        if(FunctionActivator == "y") MakePreliminaryGraph();
         if(DebugPrint) logFile << " MAIN: callED preliminay graph " << endl;
+        
+        
+        //costruisce il grafico che fa vedere la temperatura durante la presa dati
+        cout << " MakeTemperatureGraph " << endl;
+        cin >> FunctionActivator;
+        
+        if(FunctionActivator == "y") MakeTemperatureGraph();
+        if(DebugPrint) logFile << " MAIN: callED make temperature graph " << endl;
+        
+        
 
 
         logFile.close();

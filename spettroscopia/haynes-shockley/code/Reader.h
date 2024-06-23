@@ -15,8 +15,6 @@
 #include <string>
 #include <sstream>
 #include <map>
-#include <cctype>    // for std::isspace and std::ispunct
-#include <algorithm> // for std::all_of
 #include "ExternalObjects.h"
 using namespace std;
 
