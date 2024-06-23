@@ -17,7 +17,7 @@
 #include <TPad.h>
 #include <TLine.h>
 #include <TAxis.h>
-#include "TSystem.h"
+#include <TSystem.h>
 
 #include "Reader.h"
 #include "CalcolatoreVelocita.h"
@@ -34,6 +34,9 @@ int main (int argN, char* argL[]) {
 
 	auto AppWTF = new TApplication("MakeThaApppp", &argN, argL);
 
+        //file di log
+        logFile.open("logs.txt");
+        if( !logFile.is_open() ) cout << " Errore apertura file di log " << endl;
 
         //constrollo sul salvataggio dei grafici
 	bool SaveThaGraph = false;
@@ -53,16 +56,18 @@ int main (int argN, char* argL[]) {
 */
         //allocazione della memoria a livello di mappe e vettori
         MapAndVectorMemoryAllocator();
-        if(DebugPrint) cout << " MAIN: callED the memory allocator " << endl;
+        if(DebugPrint) logFile << " MAIN: callED the memory allocator " << endl;
         
         //lettura da file
         ReadShit();
-        if(DebugPrint) cout << " MAIN: callED read file " << endl;
+        if(DebugPrint) logFile << " MAIN: callED read file " << endl;
         
         //si occupa di creare i grafici dei dati appena letti
         MakePreliminaryGraph();
-        if(DebugPrint) cout << " MAIN: callED preliminay graph " << endl;
+        if(DebugPrint) logFile << " MAIN: callED preliminay graph " << endl;
 
+
+        logFile.close();
 
 	AppWTF -> Run(kTRUE);
 	return 0;
@@ -84,7 +89,7 @@ void MapAndVectorMemoryAllocator(){
     SegnaleTemporale_d.at(index).reserve(2002);
     SegnaleVoltico_d  .at(index).reserve(2002);    
   }
-  if(DebugPrint) cout << " MAIN: allocated vectors for D " << endl;
+  if(DebugPrint) logFile << " MAIN: allocated vectors for D " << endl;
 
   
   for( auto index : FileName_vconst ){
@@ -93,21 +98,21 @@ void MapAndVectorMemoryAllocator(){
     SegnaleTemporale_v.at(index).reserve(2002);
     SegnaleVoltico_v  .at(index).reserve(2002);
   }
-  if(DebugPrint) cout << " MAIN: allocated vectors for V " << endl;
+  if(DebugPrint) logFile << " MAIN: allocated vectors for V " << endl;
   
   if(DebugPrint){
-    cout << " prova di accesso ad ogni vettore nella mappa " << endl;
+    logFile << " prova di accesso ad ogni vettore nella mappa " << endl;
     for( auto index : FileName_dconst ){
       auto AssignmentTestT = SegnaleTemporale_d.at(index);
-      cout << "accessed to D: " << index << " for time " << endl;
+      logFile << "accessed to D: " << index << " for time " << endl;
       auto AssignmentTestV = SegnaleVoltico_d.at(index);
-      cout << "accessed to D: " << index << " for volt " << endl;
+      logFile << "accessed to D: " << index << " for volt " << endl;
     }
     for( auto index : FileName_vconst ){
       auto AssignmentTestT = SegnaleTemporale_v.at(index);
-      cout << "accessed to V: " << index << " for time " << endl;
+      logFile << "accessed to V: " << index << " for time " << endl;
       auto AssignmentTestV = SegnaleVoltico_v.at(index);
-      cout << "accessed to V: " << index << " for volt " << endl;
+      logFile << "accessed to V: " << index << " for volt " << endl;
     }
   }
 

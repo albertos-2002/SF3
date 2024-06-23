@@ -67,8 +67,8 @@ void ReadShit(){
 void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& ThePathOfFile, DataMap& SegnaleTempo, DataMap& SegnaleVolt ){
 
       NameOfFile = ThePathOfFile + FileToReadIndex + ".CSV";
-      if(DebugPrint) cout << " READ.h: selecting index = " << FileToReadIndex << endl;
-      if(DebugPrint) cout << NameOfFile << endl;
+      if(DebugPrint) logFile << " READ.h: selecting index = " << FileToReadIndex << endl;
+      if(DebugPrint) logFile << NameOfFile << endl;
       
       //opening
         CSVFile_in.open( NameOfFile );
@@ -80,7 +80,7 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& T
         for( int j=0; j<NumberOfLinesToDiscard; j++ ){
           getline( CSVFile_in, LineToDiscard );
         }
-        if(DebugPrint) cout << " " << NumberOfLinesToDiscard << " lines discarde correctly (i hope) " << endl;  
+        if(DebugPrint) logFile << " " << NumberOfLinesToDiscard << " lines discarde correctly (i hope) " << endl;  
       
       
       //reading of lines
@@ -98,7 +98,7 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& T
               tmpDataStorage = 0;             
               tmpDataStorage = stod(LineToVector2);
               SegnaleTempo.at(FileToReadIndex).push_back(tmpDataStorage);
-              if(DebugPrint) cout << "Dato tempo appena letto: " << tmpDataStorage << endl;
+              if(DebugPrint) logFile << "Dato tempo appena letto: " << tmpDataStorage << endl;
             }
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl;
@@ -109,7 +109,7 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& T
               tmpDataStorage = 0;
               tmpDataStorage = stod(LineToVector);
               SegnaleVolt.at(FileToReadIndex).push_back(-tmpDataStorage);
-              if(DebugPrint) cout << "Dato volt appena letto: " << tmpDataStorage << endl;
+              if(DebugPrint) logFile << "Dato volt appena letto: " << tmpDataStorage << endl;
             }
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl; 

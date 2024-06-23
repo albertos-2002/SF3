@@ -22,7 +22,7 @@ void MakePreliminaryGraph(){
 
   string AdaptedTitle;
 
-  auto PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas",1000,800);
+  auto PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas",1400,900);
   TGraph* PreliminaryGraph;
   
   /* ------------------------------------------------------------------------------------------------ */  
@@ -38,7 +38,8 @@ void MakePreliminaryGraph(){
     PreliminaryGraph -> GetXaxis() -> SetTitle("Tempo [ ]");
     PreliminaryGraph -> GetYaxis() -> SetTitle("Segnale [ ]");
     PreliminaryGraph -> SetLineColor(kBlue);  // Set the line color for the graph
-    PreliminaryGraph -> SetMarkerStyle(8);   // Set the marker style for the graph
+    PreliminaryGraph -> SetMarkerStyle(6);   // Set the marker style for the graph
+    PreliminaryGraph -> SetMarkerSize(2);
                                  
     PreliminaryGraph -> Draw("AP");                             
     PreliminaryCanvas -> SetGrid();
@@ -74,7 +75,8 @@ void MakePreliminaryGraph(){
     PreliminaryGraph -> GetXaxis() -> SetTitle("Tempo [ ]");
     PreliminaryGraph -> GetYaxis() -> SetTitle("Segnale [ ]");
     PreliminaryGraph -> SetLineColor(kBlue);  // Set the line color for the graph
-    PreliminaryGraph -> SetMarkerStyle(8);   // Set the marker style for the graph
+    PreliminaryGraph -> SetMarkerStyle(6);   // Set the marker style for the graph
+    PreliminaryGraph -> SetMarkerSize(2);
                                  
     PreliminaryGraph -> Draw("AP");                             
     PreliminaryCanvas -> SetGrid();

@@ -25,6 +25,8 @@ DataMap SegnaleVoltico_v;
 
 bool DebugPrint = true;
 
+ofstream logFile;
+
 /* FUNCTION DECLARATION ==================================================================== */
 void MapAndVectorMemoryAllocator();
 void ReadShit();
