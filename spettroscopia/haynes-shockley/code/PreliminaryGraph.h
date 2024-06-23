@@ -21,13 +21,16 @@ using namespace std;
 void MakePreliminaryGraph(){
 
   string AdaptedTitle;
+  string FluxControl;
 
-  auto PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas",1400,900);
+  TCanvas* PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas",1400,900);
   TGraph* PreliminaryGraph;
   
   /* ------------------------------------------------------------------------------------------------ */  
   
   for( auto index : FileName_dconst ){
+  
+    //PreliminaryCanvas -> cd();
   
     PreliminaryGraph = new TGraph( SegnaleTemporale_d.at(index).size(), 
                                    SegnaleTemporale_d.at(index).data(), 
@@ -41,6 +44,7 @@ void MakePreliminaryGraph(){
     PreliminaryGraph -> SetMarkerStyle(6);   // Set the marker style for the graph
     PreliminaryGraph -> SetMarkerSize(2);
                                  
+    //PreliminaryCanvas -> Draw();
     PreliminaryGraph -> Draw("AP");                             
     PreliminaryCanvas -> SetGrid();
     PreliminaryCanvas -> BuildLegend();
@@ -50,13 +54,16 @@ void MakePreliminaryGraph(){
     PreliminaryCanvas -> Update();
     gSystem->ProcessEvents();
     
-    cout << "Press Enter to continue to the next graph..." << endl;
-    cin.clear(); // Clear any error flags
-    cin.ignore();  // Ignore any leftover characters in the input buffer
-    cin.get();     // Wait for the user to press Enter
+    cout << " Hai a disposizione 30 azioni per modificare la canvas prima del continue " << endl;
+    for(int i=0; i<30; i++){
+      PreliminaryCanvas -> WaitPrimitive();
+      cout << "Iterazioni restanti " << 29-i << endl;
+    }
     
+   
     //pulizia delle variabili usate
-    PreliminaryCanvas->Clear();
+    FluxControl.clear();
+    PreliminaryCanvas -> Clear();
     delete PreliminaryGraph;
     AdaptedTitle.clear();    
   
@@ -65,6 +72,8 @@ void MakePreliminaryGraph(){
   /* ------------------------------------------------------------------------------------------------ */
   
   for( auto index : FileName_vconst ){
+  
+    auto PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas",1400,900);
   
     PreliminaryGraph = new TGraph( SegnaleTemporale_v.at(index).size(), 
                                    SegnaleTemporale_v.at(index).data(), 
@@ -87,13 +96,16 @@ void MakePreliminaryGraph(){
     PreliminaryCanvas -> Update();
     gSystem->ProcessEvents();
     
-    cout << "Press Enter to continue to the next graph..." << endl;
-    cin.clear(); // Clear any error flags
-    cin.ignore();  // Ignore any leftover characters in the input buffer
-    cin.get();     // Wait for the user to press Enter
+    cout << " Hai a disposizione 30 azioni per modificare la canvas prima del continue " << endl;
+    for(int i=0; i<30; i++){
+      PreliminaryCanvas -> WaitPrimitive();
+      cout << "Iterazioni restanti " << 29-i << endl;
+    }
     
+   
     //pulizia delle variabili usate
-    PreliminaryCanvas->Clear();
+    FluxControl.clear();
+    PreliminaryCanvas -> Clear();
     delete PreliminaryGraph;
     AdaptedTitle.clear();
   
@@ -106,6 +118,7 @@ void MakePreliminaryGraph(){
   cin.get();     // Wait for the user to press Enter
   
   PreliminaryCanvas -> Close();
+  delete PreliminaryCanvas;
 
   return;
 }
