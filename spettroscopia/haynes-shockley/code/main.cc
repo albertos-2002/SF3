@@ -24,6 +24,7 @@
 #include "DisplayTemperatura.h"
 #include "ExternalObjects.h"
 #include "PreliminaryGraph.h"
+#include "FitPreliminaryGraph.h"
 using namespace std;
 
 /* ========================================================================================= */
@@ -32,54 +33,34 @@ int main (int argN, char* argL[]) {
 
 	auto AppWTF = new TApplication("MakeThaApppp", &argN, argL);
 
-        //file di log
-        logFile.open("logs.txt");
-        if( !logFile.is_open() ) cout << " Errore apertura file di log " << endl;
+       
+        //flag setting
+		AnalysisInfo();
 
-        //constrollo sul salvataggio dei grafici
-        cout << " Salvare i grafici prodotti (1=y, 0=n) (INSERT NUMBER): " << endl;
-        cin >> InputForSaveTheGraph;
-
-        if (InputForSaveTheGraph == 1) {
-          SaveThaGraph = true;
-        } else if (InputForSaveTheGraph == 0) {
-          SaveThaGraph = false;
-        } else {
-          cout << "Invalid input. Assuming 'no' (0)" << endl;
-          SaveThaGraph = false;
-        }
         
-	
-/*        string FunctionActivator1 = "n";
-	string FunctionActivator2 = "n";
-	string FunctionActivator3 = "n";
-	if(DebugPrint) logFile << " MAIN: start process of activator calling " << endl;
-        cout << " Select function to activate " << endl;
-	cout << " ReadShit " << endl;
-	cin >> FunctionActivator1;
-	cout << " MakePreliminaryGraph " << endl;
-        cin >> FunctionActivator2;
-	cout << " MakeTemperatureGraph " << endl;
-        cin >> FunctionActivator3;
-	if(DebugPrint) logFile << " MAIN: end process of activator calling " << endl;
-*/
 
         //allocazione della memoria a livello di mappe e vettori
         MapAndVectorMemoryAllocator();
         if(DebugPrint) logFile << " MAIN: callED the memory allocator " << endl;
+
         
         
         //lettura da file
-//        ReadShit();
+        ReadShit();
         if(DebugPrint) logFile << " MAIN: callED read file " << endl;
         
         //si occupa di creare i grafici dei dati appena letti
-//        MakePreliminaryGraph();
-        if(DebugPrint) logFile << " MAIN: callED preliminay graph " << endl;
-        
+        MakePreliminaryGraph();
+        if(DebugPrint) logFile << " MAIN: callED preliminay graph " << endl;     
+
+        //fitting dei grafici preliminari per ottenerne i parametri
+//        FitPreliminaryGraph(); 
+        if(DebugPrint) logFile << " MAIN: callED fit preliminay graph " << endl;
+
+
         
         //costruisce il grafico che fa vedere la temperatura durante la presa dati
-        MakeTemperatureGraph();
+//        MakeTemperatureGraph();
         if(DebugPrint) logFile << " MAIN: callED make temperature graph " << endl;
         
         
@@ -93,6 +74,45 @@ int main (int argN, char* argL[]) {
 
 /* ========================================================================================= */
 
+void AnalysisInfo(){
+
+	//controllo sulla corretta apertura del file di logging
+	if( !logFile.is_open() ) cout << " Errore apertura file di log " << endl;
+
+	//constrollo sul salvataggio dei grafici
+	  cout << " Salvare i grafici prodotti [Y/N]: " << endl;
+	  cin >> InputForSaveTheGraph;
+	
+	  if (InputForSaveTheGraph == "y" || InputForSaveTheGraph == "Y" ) {
+	 	 SaveThaGraph = true;
+	  } else if (InputForSaveTheGraph == "n" || InputForSaveTheGraph == "N") {
+	     SaveThaGraph = false;
+	  } else {
+	     cout << "Invalid input. Assuming 'no' (0)" << endl;
+	     SaveThaGraph = false;
+	  }
+
+
+/*        string FunctionActivator1 = "n";
+	string FunctionActivator2 = "n";
+	string FunctionActivator3 = "n";
+	if(DebugPrint) logFile << " MAIN: start process of activator calling " << endl;
+        cout << " Select function to activate " << endl;
+	cout << " ReadShit " << endl;
+	cin >> FunctionActivator1;
+	cout << " MakePreliminaryGraph " << endl;
+        cin >> FunctionActivator2;
+	cout << " MakeTemperatureGraph " << endl;
+        cin >> FunctionActivator3;
+	if(DebugPrint) logFile << " MAIN: end process of activator calling " << endl;
+*/
+	
+
+	return;
+}
+
+/* ========================================================================================= */
+
 void MapAndVectorMemoryAllocator(){
 
   SegnaleTemporale_d = DataMap();
@@ -100,12 +120,17 @@ void MapAndVectorMemoryAllocator(){
   SegnaleVoltico_d = DataMap(); 
   SegnaleVoltico_v = DataMap();
 
+  FitUpperLevel_d = DataMap2();
+  FitUpperLevel_v = DataMap2();
+
   
   for( auto index : FileName_dconst ){
     SegnaleTemporale_d[index] = vector<double>();
     SegnaleVoltico_d  [index] = vector<double>();
     SegnaleTemporale_d.at(index).reserve(2002);
     SegnaleVoltico_d  .at(index).reserve(2002);    
+
+    FitUpperLevel_d[index] = 0.0; 
   }
   if(DebugPrint) logFile << " MAIN: allocated vectors for D " << endl;
 
@@ -115,8 +140,11 @@ void MapAndVectorMemoryAllocator(){
     SegnaleVoltico_v  [index] = vector<double>();
     SegnaleTemporale_v.at(index).reserve(2002);
     SegnaleVoltico_v  .at(index).reserve(2002);
+
+    FitUpperLevel_v[index] = 0.0;
   }
   if(DebugPrint) logFile << " MAIN: allocated vectors for V " << endl;
+
   
   if(DebugPrint){
     logFile << " prova di accesso ad ogni vettore nella mappa " << endl;
@@ -137,4 +165,8 @@ void MapAndVectorMemoryAllocator(){
   return;
 };
 
+/* ========================================================================================= */
 
+
+
+//logFile.open("logs.txt");

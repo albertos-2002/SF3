@@ -18,6 +18,9 @@ void MakePreliminaryGraph(){
   string FluxControl;
   string SaveNameGraph;
 
+  int HowManyPrimitiveIteration = 20;
+  double HolderUpperBoundFit = 0.0;
+
   TCanvas* PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas"/*,1400,900*/);
   TGraph* PreliminaryGraph;
   
@@ -54,19 +57,30 @@ void MakePreliminaryGraph(){
     if(SaveThaGraph){
       SaveNameGraph = PathToSaveGraph + "raw-data/unzoom/D-" + index + ".png";
       PreliminaryCanvas -> SaveAs( SaveNameGraph.c_str() );
+      cout << " file saved succesfully " << endl;
     }
     
     //azioni per la modifica del grafico
-    cout << " Hai a disposizione 20 azioni per modificare la canvas prima del continue " << endl;
-    for(int i=0; i<20; i++){
+    cout << " Hai a disposizione " << HowManyPrimitiveIteration << " azioni per modificare la canvas prima del continue " << endl;
+    for(int i=0; i<HowManyPrimitiveIteration; i++){
       PreliminaryCanvas -> WaitPrimitive();
-      cout << "Iterazioni restanti " << 19-i << endl;
+      cout << "Iterazioni restanti " << HowManyPrimitiveIteration-1-i << endl;
     }
+
+	//inserimento del bound superiore per il successivo fit
+	cout << endl;
+	cout << " Inserici il valore numerico, con scala, per l'upper boud del fit " << endl;
+	cin >> HolderUpperBoundFit;
+	FitUpperLevel_d.at(index) = HolderUpperBoundFit;
+	if(DebugPrint) logFile << " PRELIMINARYGRAPH: upper boud d inseted " << endl;
+	cout << endl;	
+
     
     //salvataggio del grafico modificato
     if(SaveThaGraph){
       SaveNameGraph = PathToSaveGraph + "raw-data/zoom/D-" + index + ".png";
       PreliminaryCanvas -> SaveAs( SaveNameGraph.c_str() );
+      cout << " file saved succesfully " << endl;
     }
     
    
@@ -75,6 +89,7 @@ void MakePreliminaryGraph(){
     PreliminaryCanvas -> Clear();
     delete PreliminaryGraph;
     AdaptedTitle.clear();    
+    HolderUpperBoundFit = 0.0;
   
   }
   
@@ -110,18 +125,29 @@ void MakePreliminaryGraph(){
     if(SaveThaGraph){
       SaveNameGraph = PathToSaveGraph + "raw-data/unzoom/V-" + index + ".png";
       PreliminaryCanvas -> SaveAs( SaveNameGraph.c_str() );
+      cout << " file saved succesfully " << endl;
     }
     
-    cout << " Hai a disposizione 20 azioni per modificare la canvas prima del continue " << endl;
-    for(int i=0; i<20; i++){
+    cout << " Hai a disposizione " << HowManyPrimitiveIteration <<  " azioni per modificare la canvas prima del continue " << endl;
+    for(int i=0; i<HowManyPrimitiveIteration; i++){
       PreliminaryCanvas -> WaitPrimitive();
-      cout << "Iterazioni restanti " << 19-i << endl;
+      cout << "Iterazioni restanti " << HowManyPrimitiveIteration-1-i << endl;
     }
+
+	//inserimento del bound superiore per il successivo fit
+	cout << endl;
+	cout << " Inserici il valore numerico, con scala, per l'upper boud del fit " << endl;
+	cin >> HolderUpperBoundFit;
+	FitUpperLevel_v.at(index) = HolderUpperBoundFit;
+	if(DebugPrint) logFile << " PRELIMINARYGRAPH: upper boud v inseted " << endl;
+	cout << endl;
+	    
     
     //salvataggio del grafico modificato
     if(SaveThaGraph){
       SaveNameGraph = PathToSaveGraph + "raw-data/zoom/V-" + index + ".png";
       PreliminaryCanvas -> SaveAs( SaveNameGraph.c_str() );
+      cout << " file saved succesfully " << endl;
     }
    
     //pulizia delle variabili usate
@@ -129,6 +155,7 @@ void MakePreliminaryGraph(){
     PreliminaryCanvas -> Clear();
     delete PreliminaryGraph;
     AdaptedTitle.clear();
+    HolderUpperBoundFit = 0.0;
   
   }
   
