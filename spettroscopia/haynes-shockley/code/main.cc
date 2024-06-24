@@ -46,21 +46,21 @@ int main (int argN, char* argL[]) {
         
         
         //lettura da file
-        ReadShit();
+        if(FunctionActivator.at("ReadShit") == "y")              ReadShit();
         if(DebugPrint) logFile << " MAIN: callED read file " << endl;
         
         //si occupa di creare i grafici dei dati appena letti
-        MakePreliminaryGraph();
+        if(FunctionActivator.at("MakePreliminaryGraph") == "y")  MakePreliminaryGraph();
         if(DebugPrint) logFile << " MAIN: callED preliminay graph " << endl;     
 
         //fitting dei grafici preliminari per ottenerne i parametri
-//        FitPreliminaryGraph(); 
+        if(FunctionActivator.at("FitPreliminaryGraph") == "y")   FitPreliminaryGraph(); 
         if(DebugPrint) logFile << " MAIN: callED fit preliminay graph " << endl;
 
 
         
         //costruisce il grafico che fa vedere la temperatura durante la presa dati
-//        MakeTemperatureGraph();
+        if(FunctionActivator.at("MakeTemperatureGraph") == "y")  MakeTemperatureGraph();
         if(DebugPrint) logFile << " MAIN: callED make temperature graph " << endl;
         
         
@@ -93,20 +93,31 @@ void AnalysisInfo(){
 	  }
 
 
-/*        string FunctionActivator1 = "n";
-	string FunctionActivator2 = "n";
-	string FunctionActivator3 = "n";
-	if(DebugPrint) logFile << " MAIN: start process of activator calling " << endl;
-        cout << " Select function to activate " << endl;
+	//attivazione/disattivazione chiamata funzioni
+	string FunctionActivatorFlag = "";
+	FunctionActivator = map<string,string>();
+    if(DebugPrint) logFile << " MAIN: start process of activator calling " << endl;
+
+    cout << " Select function to activate [Y/N] " << endl;
+    
 	cout << " ReadShit " << endl;
-	cin >> FunctionActivator1;
+	cin >> FunctionActivatorFlag;
+	FunctionActivator["ReadShit"] = FunctionActivatorFlag;
+
 	cout << " MakePreliminaryGraph " << endl;
-        cin >> FunctionActivator2;
+    cin >> FunctionActivatorFlag;
+    FunctionActivator["MakePreliminaryGraph"] = FunctionActivatorFlag;
+
+    cout << " FitPreliminaryGraph " << endl;
+    cin >> FunctionActivatorFlag;
+    FunctionActivator["FitPreliminaryGraph"] = FunctionActivatorFlag;
+
 	cout << " MakeTemperatureGraph " << endl;
-        cin >> FunctionActivator3;
+    cin >> FunctionActivatorFlag;
+    FunctionActivator["MakeTemperatureGraph"] = FunctionActivatorFlag;
+    
 	if(DebugPrint) logFile << " MAIN: end process of activator calling " << endl;
-*/
-	
+		
 
 	return;
 }

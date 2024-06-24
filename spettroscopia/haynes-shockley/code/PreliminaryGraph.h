@@ -70,6 +70,7 @@ void MakePreliminaryGraph(){
 	//inserimento del bound superiore per il successivo fit
 	cout << endl;
 	cout << " Inserici il valore numerico, con scala, per l'upper boud del fit " << endl;
+	cout << " WARNING: inserting a letter will break the flux " << endl;
 	cin >> HolderUpperBoundFit;
 	FitUpperLevel_d.at(index) = HolderUpperBoundFit;
 	if(DebugPrint) logFile << " PRELIMINARYGRAPH: upper boud d inseted " << endl;
@@ -96,8 +97,6 @@ void MakePreliminaryGraph(){
   /* ------------------------------------------------------------------------------------------------ */
   
   for( auto index : FileName_vconst ){
-  
-    auto PreliminaryCanvas = new TCanvas("PreliminaryCanvas","PreliminaryCanvas",1400,900);
   
     PreliminaryGraph = new TGraph( SegnaleTemporale_v.at(index).size(), 
                                    SegnaleTemporale_v.at(index).data(), 
@@ -137,6 +136,7 @@ void MakePreliminaryGraph(){
 	//inserimento del bound superiore per il successivo fit
 	cout << endl;
 	cout << " Inserici il valore numerico, con scala, per l'upper boud del fit " << endl;
+	cout << " WARNING: inserting a letter will break the flux " << endl;
 	cin >> HolderUpperBoundFit;
 	FitUpperLevel_v.at(index) = HolderUpperBoundFit;
 	if(DebugPrint) logFile << " PRELIMINARYGRAPH: upper boud v inseted " << endl;

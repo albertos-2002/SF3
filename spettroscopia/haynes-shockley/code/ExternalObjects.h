@@ -39,6 +39,10 @@ bool SaveThaGraph = false;
 string InputForSaveTheGraph;
 
 
+//flags analysisinfo
+map<string, string> FunctionActivator;
+
+
 //log / dedug
 bool DebugPrint = true;
 ofstream logFile("logs.txt");
