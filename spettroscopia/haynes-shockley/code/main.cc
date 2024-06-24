@@ -134,6 +134,9 @@ void MapAndVectorMemoryAllocator(){
   FitUpperLevel_d = DataMap2();
   FitUpperLevel_v = DataMap2();
 
+  FitParameters_d = DataMap3();
+  FitParameters_v = DataMap3();
+
   
   for( auto index : FileName_dconst ){
     SegnaleTemporale_d[index] = vector<double>();
@@ -141,7 +144,9 @@ void MapAndVectorMemoryAllocator(){
     SegnaleTemporale_d.at(index).reserve(2002);
     SegnaleVoltico_d  .at(index).reserve(2002);    
 
-    FitUpperLevel_d[index] = 0.0; 
+    FitUpperLevel_d[index] = 0.0;
+
+    FitParameters_d[index] = FitParameterHolder(); 
   }
   if(DebugPrint) logFile << " MAIN: allocated vectors for D " << endl;
 
@@ -153,31 +158,36 @@ void MapAndVectorMemoryAllocator(){
     SegnaleVoltico_v  .at(index).reserve(2002);
 
     FitUpperLevel_v[index] = 0.0;
+
+    FitParameters_v[index] = FitParameterHolder();
   }
   if(DebugPrint) logFile << " MAIN: allocated vectors for V " << endl;
 
   
   if(DebugPrint){
+  
     logFile << " prova di accesso ad ogni vettore nella mappa " << endl;
+    logFile << " test di accesso ad ogni struct " << endl;
     for( auto index : FileName_dconst ){
       auto AssignmentTestT = SegnaleTemporale_d.at(index);
       logFile << "accessed to D: " << index << " for time " << endl;
       auto AssignmentTestV = SegnaleVoltico_d.at(index);
       logFile << "accessed to D: " << index << " for volt " << endl;
+      auto AccessTestStructD = FitParameters_d.at(index);
+      logFile << "accessed to D: " << index << " for fit struct " << endl;
     }
     for( auto index : FileName_vconst ){
       auto AssignmentTestT = SegnaleTemporale_v.at(index);
       logFile << "accessed to V: " << index << " for time " << endl;
       auto AssignmentTestV = SegnaleVoltico_v.at(index);
       logFile << "accessed to V: " << index << " for volt " << endl;
-    }
+      auto AccessTestStructV = FitParameters_v.at(index);
+      logFile << "accessed to V: " << index << " for fit struct " << endl;
+	}
+	
   }
 
   return;
 };
 
 /* ========================================================================================= */
-
-
-
-//logFile.open("logs.txt");

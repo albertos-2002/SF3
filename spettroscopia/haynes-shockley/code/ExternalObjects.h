@@ -29,6 +29,18 @@ typedef map< string, double > DataMap2;
 DataMap2 FitUpperLevel_d;
 DataMap2 FitUpperLevel_v;
 
+struct FitParameterHolder{
+	double ConstGauss   ;
+	double MediaGauss   ;
+	double SigmaGauss   ;
+	double ConstExp     ;
+	double ScaleExp     ;
+	double ConstFunction;
+};
+typedef map<string, FitParameterHolder> DataMap3;
+DataMap3 FitParameters_d;
+DataMap3 FitParameters_v;
+
 
 //gestione dei path
 string PathToSaveGraph = "../risultati/grafici/";  //relative from execution folder
@@ -56,6 +68,9 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& T
 void MakePreliminaryGraph();
 void MakeTemperatureGraph();
 void FitPreliminaryGraph();
+void FunctionCaller_PreliminaryFit( const vector<string>& NameContainer, string SelectorFlag );
+void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata );
+void FitAndGraphCreator( const string& index, string& SelectorFlag );
 
 
 /* FUNCTION DEFINITION ===================================================================== */
