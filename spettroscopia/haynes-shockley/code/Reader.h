@@ -96,7 +96,7 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& T
               tmpDataStorage = 0;             
               tmpDataStorage = stod(LineToVector2);
               SegnaleTempo.at(FileToReadIndex).push_back(tmpDataStorage);
-              if(DebugPrint) logFile << "Dato tempo appena letto: " << tmpDataStorage << endl;
+              if(DebugPrintVerbose) logFile << "Dato tempo appena letto: " << tmpDataStorage << endl;
             }
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl;
@@ -107,7 +107,7 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& T
               tmpDataStorage = 0;
               tmpDataStorage = stod(LineToVector);
               SegnaleVolt.at(FileToReadIndex).push_back(-tmpDataStorage);
-              if(DebugPrint) logFile << "Dato volt appena letto: " << tmpDataStorage << endl;
+              if(DebugPrintVerbose) logFile << "Dato volt appena letto: " << tmpDataStorage << endl;
             }
             else{
               cout << " !!!! ERROR reading data (sad moth stiker) " << endl; 

@@ -57,6 +57,7 @@ map<string, string> FunctionActivator;
 
 //log / dedug
 bool DebugPrint = true;
+bool DebugPrintVerbose = false;
 ofstream logFile("logs.txt");
 
 

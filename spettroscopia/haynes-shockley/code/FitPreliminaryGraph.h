@@ -37,32 +37,62 @@ using namespace std;
 
 vector<double> SlicedX;
 vector<double> SlicedY;
-
-int MargineGrafico = 50; 
-double FitLowerBound = 0.0;
-double FitUpperBound;
-int GraphLowerIndex = 0;
-int GraphUpperIndex = 0;
 int HowManyPrimitiveIteration = 20;
 
-auto PreliminaryFittingCanvas = new TCanvas( "PreliminaryFittingCanvas", "PreliminaryFittingCanvas", 1200, 800 );
+int MargineGraficoLower = 50;
+int MargineGraficoUpper = 50;
+
+//margini numerici per il fit 
+double FitLowerBound = 2e-6;
+double FitUpperBound;
+
+//indici per printare un grafico leggermente più largo rispetto al solo range di fit
+int GraphLowerIndex = 0;
+int GraphUpperIndex = 0;
 
 
 
 void FitPreliminaryGraph(){
 
 /* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */
-	bool FakeDataBuilder = false;
+	bool FakeDataBuilder = true;
 	if(FakeDataBuilder){
-		for(auto i : FileName_dconst){
-			FitUpperLevel_d.at(i) = 1995;
-		}
-	
-		for(auto i : FileName_vconst){
-			FitUpperLevel_v.at(i) = 1995;
-		}
+		//d section
+			FitUpperLevel_d.at("run0") = 0.04e-3 ;
+			FitUpperLevel_d.at("run1") = 0.04e-3 ;
+			FitUpperLevel_d.at("run2") = 0.04e-3 ;
+			FitUpperLevel_d.at("run3") = 0.03e-3 ;
+			FitUpperLevel_d.at("run4") = 0.03e-3 ;
+			FitUpperLevel_d.at("run5") = 0.03e-3 ;
+			FitUpperLevel_d.at("run6") = 0.03e-3 ;
+			FitUpperLevel_d.at("run7") = 0.028e-3 ;
+			FitUpperLevel_d.at("run8") = 0.028e-3 ;
+			FitUpperLevel_d.at("run9") = 25e-6 ;
+			FitUpperLevel_d.at("run10") = 0.025e-3 ;
+		//v section
+			FitUpperLevel_v.at("run0") = 14e-6 ;
+			FitUpperLevel_v.at("run1") = 16e-6 ;
+			FitUpperLevel_v.at("run2") = 18e-6 ;
+			FitUpperLevel_v.at("run3") = 20e-6 ;
+			FitUpperLevel_v.at("run4") = 25e-6 ;
+			FitUpperLevel_v.at("run5") = 28e-6 ;
+			FitUpperLevel_v.at("run6") = 30e-6 ;
+			FitUpperLevel_v.at("run7") = 32e-6 ;
+			FitUpperLevel_v.at("run8") = 35e-6 ;
+			FitUpperLevel_v.at("run9") = 38e-6 ;
+			FitUpperLevel_v.at("run10") = 40e-6 ;
+			FitUpperLevel_v.at("run11") = 45e-6 ;
+			FitUpperLevel_v.at("run12") = 45e-6 ;
+			FitUpperLevel_v.at("run13") = 47e-6 ;
+			FitUpperLevel_v.at("run14") = 50e-6 ;
+			FitUpperLevel_v.at("run15") = 52e-6 ;
+			FitUpperLevel_v.at("run16") = 53e-6 ;
+			FitUpperLevel_v.at("run17") = 54e-6 ;
+			FitUpperLevel_v.at("run18") = 57e-6 ;
+			FitUpperLevel_v.at("run19") = 60e-6 ;
 	}
-/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */
+	if(FakeDataBuilder == true && DebugPrint == true) logFile << " PRELIMINATY FIT: Fake data raange builded " << endl;
+/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */ 
 
 
 	//non sappiamo quanti punti ci saranno manteniamo quindi 2k
@@ -71,8 +101,10 @@ void FitPreliminaryGraph(){
 	
 
 	FunctionCaller_PreliminaryFit( FileName_dconst, "d" );
+	if(DebugPrint) logFile << " PRELIMINARY FIT: processed D data " << endl;
 
 	FunctionCaller_PreliminaryFit( FileName_vconst, "v" );
+	if(DebugPrint) logFile << " PRELIMINARY FIT: processed V data " << endl;
 
 	//pulizia degli oggetti
 
@@ -151,33 +183,55 @@ void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata )
 	VectorOfDifference_U.reserve(2000);
 
 	int ElementIndex;
+	if(DebugPrint) logFile << " PRELIMINARY FIT: SLICE DATA: oggetti locali creati " << endl;
+	
 
 
 	//vettori delle differenze
 	for( auto element : Xdata ){
 		VectorOfDifference_L.push_back( abs( element-FitLowerBound ) );
-		VectorOfDifference_L.push_back( abs( element-FitUpperBound ) );
+		VectorOfDifference_U.push_back( abs( element-FitUpperBound ) );
 	}
 
 	//estrazione dell'indice inferiore
 	auto SmallestElement_L = min_element( VectorOfDifference_L.begin(), VectorOfDifference_L.end() );
 	ElementIndex    = distance( VectorOfDifference_L.begin(), SmallestElement_L ); 	
-	GraphLowerIndex = ElementIndex - MargineGrafico;
+	GraphLowerIndex = ElementIndex - MargineGraficoLower;
 	if( GraphLowerIndex < 0 ) GraphLowerIndex = 0;
 
 	//estrazione dell'indice superiore
-	auto SmallestElement_D = min_element( VectorOfDifference_U.begin(), VectorOfDifference_U.end() );
-	ElementIndex    = distance( VectorOfDifference_U.begin(), SmallestElement_D ); 	
-	GraphUpperIndex = ElementIndex + MargineGrafico;
-	if( GraphUpperIndex > 2000 ) GraphUpperIndex = 2000;
+	auto SmallestElement_U = min_element( VectorOfDifference_U.begin(), VectorOfDifference_U.end() );
+	ElementIndex    = distance( VectorOfDifference_U.begin(), SmallestElement_U ); 	
+	GraphUpperIndex = ElementIndex + MargineGraficoUpper;
+	if( GraphUpperIndex > Xdata.size() ) GraphUpperIndex = Xdata.size()-1;
 
 
 	//slicing dei vettori
+	if( Xdata.empty() ){
+		if(DebugPrint) logFile << " PRELIMINARY FIT: SLICE DATA: la reference del vettore dei dati X è vuoto!! " << endl;
+	}
+	if( Ydata.empty() ){
+		if(DebugPrint) logFile << " PRELIMINARY FIT: SLICE DATA: la reference del vettore dei dati Y è vuoto!! " << endl;
+		}
+
+	
 	for( int i=GraphLowerIndex; i<=GraphUpperIndex; i++ ){
 		SlicedX.push_back( Xdata.at(i) );	
-		SlicedY.push_back( Ydata.at(i) );
+		SlicedY.push_back( Ydata.at(i) ); 
 	}
 	
+
+	if( SlicedX.empty() ){
+		if(DebugPrint) logFile << " PRELIMINARY FIT: SLICE DATA: vettore dei dati X slice è vuoto!! " << endl;
+	}
+	if( SlicedY.empty() ){
+		if(DebugPrint) logFile << " PRELIMINARY FIT: SLICE DATA: vettore dei dati Y slice è vuoto!! " << endl;
+		}
+	if(DebugPrintVerbose) logFile << " PRELIMINARY FIT: SLICE DATA: print control degli sliced vectors " << endl;
+	if(DebugPrintVerbose){
+		for(auto el : SlicedX) logFile << el << endl; 
+		for(auto el : SlicedY) logFile << el << endl;
+	}
 
 
 	return;
@@ -188,14 +242,21 @@ void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata )
 void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 
 	//variabili locali per assicurarne la validità
-	TPad *pad1 = new TPad("pad1", "Pad 1", 0.0, 0.25, 1.0, 1.0); // Upper pad
-		  pad1 -> Draw();
-		  pad1 -> SetGrid();
-	TPad *pad2 = new TPad("pad2", "Pad 2", 0.0, 0.0, 1.0, 0.25); // Lower pad
-		  pad2 -> Draw();
-		  pad2 -> SetGrid();
-
 	string NomeGrafico = index + SelectorFlag;
+
+	if(DebugPrint) logFile << " grafico per " << NomeGrafico << endl;
+
+	auto PreliminaryFittingCanvas = new TCanvas( "PreliminaryFittingCanvas", "PreliminaryFittingCanvas", 1920, 1080 );
+	TPad *pad1 = new TPad("pad1", "Pad 1", 0.0, 0.28, 1.0, 1.0); // Upper pad
+	TPad *pad2 = new TPad("pad2", "Pad 2", 0.0, 0.0, 1.0, 0.28); // Lower pad
+
+	pad1 -> Draw();
+	pad2 -> Draw();
+
+	pad1 -> SetGrid();
+	pad2 -> SetGrid();
+
+	if(DebugPrint) logFile << " FITANDGRAPHCREATOR: canvas & pad 1&2 set up done " << endl;
 
 	//---------------------------------------------------------------------------------
 
@@ -203,29 +264,44 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	pad1 -> cd();
 
 	auto DataGraph = new TGraphErrors( SlicedX.size(), SlicedX.data(), SlicedY.data(), 0/*xerr*/, 0/*yerr*/ );
-		 DataGraph -> SetTitle( "data" );
-	     DataGraph -> SetMarkerStyle(8);
-	     DataGraph -> SetMarkerColor(kOrange+8);
+		 DataGraph -> SetTitle( NomeGrafico.c_str() );
+	     DataGraph -> SetMarkerStyle(7);
+	     DataGraph -> SetMarkerColor(kOrange+7);
 	
-	TF1* FitGaussoEsponenzialico = new TF1("FitGaussoEsponenzialico", GaussianExponentialFunction, FitLowerBound, FitUpperBound, 6);  
+	TF1* FitGaussoEsponenzialico = new TF1("FitGaussoEsponenzialico", "gaus"/*GaussianExponentialFunction*/, FitLowerBound, FitUpperBound/*, 6*/);  
 	     FitGaussoEsponenzialico -> SetLineColor(kGreen+3);
 	     FitGaussoEsponenzialico -> SetLineStyle(2); //dashed line for the fit line
 
-	//inserire redirect dell output
-	DataGraph -> Fit( FitGaussoEsponenzialico, "RV" );
-
-	FitGaussoEsponenzialico -> Draw();
 	DataGraph -> Draw("AP");
+	//update della GUI del grafico
+	 	pad1 -> Modified();
+		pad1 -> Update();
+
+	//inserire redirect dell output
+	cout << endl;
+	cout << " FITTING PRINTING --------------------------------------------------- " << endl;
+	cout << endl;
+	DataGraph -> Fit( FitGaussoEsponenzialico, "RV" );
+	cout << endl;
+
+
+	FitGaussoEsponenzialico -> Draw("same");
+	//update della GUI del grafico
+	 	pad1 -> Modified();
+		pad1 -> Update();
 
 	auto legend = new TLegend();
 	     legend -> AddEntry( DataGraph, "data", "lpe");
 	     legend -> AddEntry( FitGaussoEsponenzialico, "fit", "lpe" );
 	     legend -> Draw();
+	//update della GUI del grafico
+		 	pad1 -> Modified();
+			pad1 -> Update();
 
 
-	//salvataggio dei parametri di fit
+/*	//salvataggio dei parametri di fit
 	if( SelectorFlag == "d" ){
-		auto structure = FitParameters_d.at(index);
+		auto& structure = FitParameters_d.at(index);
 		structure.ConstGauss    = FitGaussoEsponenzialico -> GetParameter(0);
 		structure.MediaGauss    = FitGaussoEsponenzialico -> GetParameter(1);
 		structure.SigmaGauss    = FitGaussoEsponenzialico -> GetParameter(2);
@@ -235,7 +311,7 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	}
 
 	if( SelectorFlag == "v" ){
-		auto structure = FitParameters_d.at(index);
+		auto& structure = FitParameters_d.at(index);
 		structure.ConstGauss    = FitGaussoEsponenzialico -> GetParameter(0);
 		structure.MediaGauss    = FitGaussoEsponenzialico -> GetParameter(1);
 		structure.SigmaGauss    = FitGaussoEsponenzialico -> GetParameter(2);
@@ -244,7 +320,7 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 		structure.ConstFunction = FitGaussoEsponenzialico -> GetParameter(5);		
 	}
 	cout << " parametri di fit estratti " << endl;     
-	  
+*/	  
 
 	//pad residui
 	pad2 -> cd();
@@ -254,51 +330,60 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	     ResidualGraph -> SetTitle("Residui Fit");
 		 ResidualGraph -> SetMarkerStyle(20);
 		 ResidualGraph -> SetMarkerSize(1);
-		 ResidualGraph -> SetMarkerColor(kOrange+8);
-	
-	  for (int i = 0; i < DataGraph->GetN(); ++i) {
-	  	double x, y;
-	    DataGraph->GetPoint(i, x, y);
-	    double fittedValue = FitGaussoEsponenzialico->Eval(x);
-	    double residual = y - fittedValue;
-	    ResidualGraph -> SetPoint(i, x, residual);
-//	    ResidualGraph -> SetPointError(i, 0, DataGraph->GetErrorY(i)); // Assuming no error in x-direction, only y-direction
-	  }
+		 ResidualGraph -> SetMarkerColor(kGreen+3);
 
-	  ResidualGraph -> Draw("AP");
 
-	  auto legend2 = new TLegend();
-      	   legend2 -> AddEntry(ResidualGraph, "Residui", "lpe");
-           legend2 -> Draw(); 
+	//in teoria prende punti di troppo - dargli un vettore sliced direttamente
+	for (int i = 0; i < DataGraph->GetN(); ++i) {
+		double x, y;
+		DataGraph->GetPoint(i, x, y);
+	  	double fittedValue = FitGaussoEsponenzialico->Eval(x);
+	   	double residual = y - fittedValue;
+	  	ResidualGraph -> SetPoint(i, x, residual);
+//	  	ResidualGraph -> SetPointError(i, 0, DataGraph->GetErrorY(i)); // Assuming no error in x-direction, only y-direction
+			
+    }
+
+	ResidualGraph -> Draw("AP");
+
+	auto legend2 = new TLegend();
+         legend2 -> AddEntry(ResidualGraph, "Residui", "lpe");
+         legend2 -> Draw(); 
   
 
-	  cout << " Hai a disposizione " << HowManyPrimitiveIteration <<  " azioni per modificare la canvas prima del continue " << endl;
-	  for(int i=0; i<HowManyPrimitiveIteration; i++){
-	  	PreliminaryFittingCanvas -> WaitPrimitive();
-	    cout << "Iterazioni restanti " << HowManyPrimitiveIteration-1-i << endl;
-	  }
-
-	  //salvataggio del grafico modificato
-      if(SaveThaGraph){
-     	 string SaveNameGraph = PathToSaveGraph + "fitting/" + NomeGrafico + ".png";
-     	 PreliminaryFittingCanvas -> SaveAs( SaveNameGraph.c_str() );
-      	cout << " file saved succesfully " << endl;
-      }
-
+    //update della GUI del grafico
+ 	pad1 -> Modified();
+	pad1 -> Update();
+	pad2 -> Modified();
+	pad2 -> Update();
+	gSystem -> ProcessEvents();
+	//la canvas non vuole updaitarsis
 	
 
+	cout << " Hai a disposizione " << HowManyPrimitiveIteration <<  " azioni per modificare la canvas prima del continue " << endl;
+	for(int i=0; i<HowManyPrimitiveIteration; i++){
+	  	PreliminaryFittingCanvas -> WaitPrimitive();
+	    cout << "Iterazioni restanti " << HowManyPrimitiveIteration-1-i << endl;
+	}
 
-	PreliminaryFittingCanvas -> Update();
+	//salvataggio del grafico modificato
+    if(SaveThaGraph){
+     	 string SaveNameGraph = PathToSaveGraph + "fitting/" + NomeGrafico + ".png";
+     	 PreliminaryFittingCanvas -> SaveAs( SaveNameGraph.c_str() );
+         cout << " file saved succesfully " << endl;
+    }
+    
 
 	//---------------------------------------------------------------------------------
 
-	cout << "Next Enter will close the canvas" << endl;
+	cout << "Next Enter will go to next iteration" << endl;
 	cin.clear(); // Clear any error flags
 	cin.ignore();  // Ignore any leftover characters in the input buffer
 	cin.get();     // Wait for the user to press Enter
 
 	//pulizia delle variabili
-	PreliminaryFittingCanvas -> Close();
+	pad1 -> Clear();
+	pad2 -> Clear();
 	PreliminaryFittingCanvas -> Clear();
 
 	return;

@@ -46,23 +46,30 @@ int main (int argN, char* argL[]) {
         
         
         //lettura da file
-        if(FunctionActivator.at("ReadShit") == "y")              ReadShit();
-        if(DebugPrint) logFile << " MAIN: callED read file " << endl;
+        if(FunctionActivator.at("ReadShit") == "y"){
+          ReadShit();
+          if(DebugPrint) logFile << " MAIN: callED read file " << endl;
+        }
         
         //si occupa di creare i grafici dei dati appena letti
-        if(FunctionActivator.at("MakePreliminaryGraph") == "y")  MakePreliminaryGraph();
-        if(DebugPrint) logFile << " MAIN: callED preliminay graph " << endl;     
+        if(FunctionActivator.at("MakePreliminaryGraph") == "y"){  
+          MakePreliminaryGraph();
+          if(DebugPrint) logFile << " MAIN: callED preliminay graph " << endl;     
+        }
 
         //fitting dei grafici preliminari per ottenerne i parametri
-        if(FunctionActivator.at("FitPreliminaryGraph") == "y")   FitPreliminaryGraph(); 
-        if(DebugPrint) logFile << " MAIN: callED fit preliminay graph " << endl;
+        if(FunctionActivator.at("FitPreliminaryGraph") == "y"){
+          FitPreliminaryGraph(); 
+          if(DebugPrint) logFile << " MAIN: callED fit preliminay graph " << endl;
+        }
 
 
         
         //costruisce il grafico che fa vedere la temperatura durante la presa dati
-        if(FunctionActivator.at("MakeTemperatureGraph") == "y")  MakeTemperatureGraph();
-        if(DebugPrint) logFile << " MAIN: callED make temperature graph " << endl;
-        
+        if(FunctionActivator.at("MakeTemperatureGraph") == "y"){
+          MakeTemperatureGraph();
+          if(DebugPrint) logFile << " MAIN: callED make temperature graph " << endl;
+        }
         
 
 
