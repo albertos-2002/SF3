@@ -193,9 +193,34 @@ data/vconst/run19.CSV
  16 lines discarde correctly (i hope) 
  MAIN: callED read file 
  PRELIMINATY FIT: Fake data raange builded 
- PRELIMINARY FIT: SLICE DATA: oggetti locali creati 
  grafico per run0d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- PRELIMINARY FIT: SLICE DATA: oggetti locali creati 
  grafico per run1d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run2d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run3d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run4d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run5d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run6d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run7d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run8d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run9d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run10d
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ PRELIMINARY FIT: processed D data 
+ grafico per run0v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run1v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run2v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run3v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 

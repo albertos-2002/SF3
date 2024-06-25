@@ -24,7 +24,7 @@
 #include "DisplayTemperatura.h"
 #include "ExternalObjects.h"
 #include "PreliminaryGraph.h"
-#include "FitPreliminaryGraph.h"
+#include "FitPreliminaryGraph2.h"
 using namespace std;
 
 /* ========================================================================================= */
