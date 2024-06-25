@@ -1,18 +1,18 @@
 /* ==================================================================
-|																	|
+|								    |
 | Viene fatto uno slice del grafico in modo da rendelo più usabile  |
 | Lo starting point per il fit è dallo zero                         |
-|																	|
+|								    |
 | I parametri sono associati ai seguenti numeri                     |
 | Nella struct vengono salvati con il loro nome                     |
 |                                                                   |
-| 0 - ConstGauss													|
-| 1 - MediaGauss													|
-| 2 - SigmaGauss 													|
-| 3 - ConstExp  													|
-| 4 - ScaleExp  													|
-| 5 - ConstFunction 												|
-|																	|
+| 0 - ConstGauss						    |
+| 1 - MediaGauss						    |
+| 2 - SigmaGauss 						    |
+| 3 - ConstExp  						    |
+| 4 - ScaleExp  						    |
+| 5 - ConstFunction 						    |
+|								    |
 ================================================================== */
 
 #include <iostream>
@@ -35,6 +35,7 @@
 using namespace std;
 
 
+//definite come variabili globali le funzioni possono lavorarci senza bisogno di passarli per reference
 vector<double> SlicedX;
 vector<double> SlicedY;
 vector<double> MoreSlicedX;
@@ -42,8 +43,7 @@ vector<double> MoreSlicedY;
 int HowManyPrimitiveIteration = 20;
 vector<int> IndiciDaSalvare;
 
-int MargineGraficoLower = 50;
-int MargineGraficoUpper = 50;
+int MargineGrafico = 50;
 
 //margini numerici per il fit 
 double FitLowerBound = 2e-6;
@@ -65,7 +65,8 @@ bool isWithinRange(double value, double lower_bound, double upper_bound) {
 
 void FitPreliminaryGraph(){
 
-/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */
+/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */
+// non sono fakedata sono gli upper range determinati precedentemente (riduce il tempo di testing)
 	bool FakeDataBuilder = true;
 	if(FakeDataBuilder){
 		//d section
@@ -103,7 +104,7 @@ void FitPreliminaryGraph(){
 			FitUpperLevel_v.at("run19") = 60e-6 ;
 	}
 	if(FakeDataBuilder == true && DebugPrint == true) logFile << " PRELIMINATY FIT: Fake data raange builded " << endl;
-/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */ 
+/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */ 
 
 
 	//non sappiamo quanti punti ci saranno manteniamo quindi 2k
@@ -153,9 +154,6 @@ void FunctionCaller_PreliminaryFit( const vector<string>& NameContainer, string 
 			 //creazione del grafico
 			 FitAndGraphCreator( index, SelectorFlag );
 
-			 //pulizia vettori
-			 SlicedX.clear();
-			 SlicedX.clear();
 		}
 			 
 		if( SelectorFlag == "v" ){ 
@@ -167,9 +165,6 @@ void FunctionCaller_PreliminaryFit( const vector<string>& NameContainer, string 
 			 //creazione del grafico
 			 FitAndGraphCreator( index, SelectorFlag );
 
-			 //pulizia vettori
-			 SlicedX.clear();
-			 SlicedY.clear();
 		}
 
 
@@ -201,8 +196,8 @@ void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata )
 	}
 
 	//allargiamo i dati da estrarre in modo da non avere un fit che copre tutto il grafico
-	IndiceInferiore = IndiciDaSalvare.at(0) - 50 ; 			                //andiamo indietro di 50 punti
-	IndiceSuperiore = IndiciDaSalvare.at( IndiciDaSalvare.size()-1 ) + 50;  //andiamo avanti di 50 punti
+	IndiceInferiore = IndiciDaSalvare.at(0) - MargineGrafico ; 			    //andiamo indietro di 50 punti
+	IndiceSuperiore = IndiciDaSalvare.at( IndiciDaSalvare.size()-1 ) + MargineGrafico;  //andiamo avanti di 50 punti
 
 	//controlliamo di essere ancora dentro il range dei dati che abbiamo
 	if( IndiceInferiore < 0 ) IndiceInferiore = 0;
@@ -232,8 +227,8 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	if(DebugPrint) logFile << " grafico per " << NomeGrafico << endl;
 
 	auto PreliminaryFittingCanvas = new TCanvas( "PreliminaryFittingCanvas", "PreliminaryFittingCanvas", 1920, 1080 );
-	TPad *pad1 = new TPad("pad1", "Pad 1", 0.0, 0.28, 1.0, 1.0); // Upper pad
-	TPad *pad2 = new TPad("pad2", "Pad 2", 0.0, 0.0, 1.0, 0.28); // Lower pad
+	TPad *pad1 = new TPad("pad1", "Pad 1", 0.0, 0.30, 1.0, 1.0); // Upper pad
+	TPad *pad2 = new TPad("pad2", "Pad 2", 0.0, 0.0, 1.0, 0.30); // Lower pad
 
 	pad1 -> Draw();
 	pad2 -> Draw();
@@ -255,10 +250,7 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 
 	auto DummyDataGraph = new TGraphErrors( MoreSlicedX.size(), MoreSlicedX.data(), MoreSlicedY.data(), 0/*xerr*/, 0/*yerr*/ );
 	
-//	TF1* FitGaussoEsponenzialico = new TF1("FitGaussoEsponenzialico", "gaus", FitLowerBound, FitUpperBound);  
-//	TF1* FitGaussoEsponenzialico = new TF1("FitGaussoEsponenzialico", "[0]*exp(-0.5*((x-[1])/[2])^2) + [3]*exp(-x/[4]) + [5]", FitLowerBound, FitUpperBound);
 	TF1* FitGaussoEsponenzialico = new TF1("FitGaussoEsponenzialico", GaussianExponentialFunction, FitLowerBound, FitUpperBound, 6);
-//	TF1* FitGaussoEsponenzialico = new TF1("FitGaussoEsponenzialico", GaussianExponentialFunction);
 	     FitGaussoEsponenzialico -> SetLineColor(kGreen+3);
 	     FitGaussoEsponenzialico -> SetLineStyle(2); //dashed line for the fit line
 
@@ -271,20 +263,22 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 
 	//consiglio di chatgpt - limiti e range presi da stroili
 	// Set initial parameter guesses and limits
+	//senza questo il fit non converge e da risultati assurdi o ineistenti
+	//i residui (quando vengono calcolati) sono orrendi
 
 	//determiniamo la posizione del massimo della y
 	auto it = max_element( SlicedY.begin(), SlicedY.end() );
 	int posmax = it - SlicedY.begin();	
 	
 	FitGaussoEsponenzialico->SetParameters(0.001, SlicedY.at(posmax), SlicedX.at(posmax), 0.0005, -SlicedX.at(posmax)*0.5, 0.0); // Initial guesses
-	FitGaussoEsponenzialico->SetParLimits(0, 0, 10000); 							  											 // ConstGauss
-	FitGaussoEsponenzialico->SetParLimits(1, SlicedX.at(posmax) * 0.8, SlicedX.at(posmax) * 1.5 ); 			  					 // MediaGauss
-	FitGaussoEsponenzialico->SetParLimits(2, FitLowerBound, FitUpperBound); 				  									 // SigmaGauss
-	FitGaussoEsponenzialico->SetParLimits(3, 0.0, 1);   						  												 // ConstExp
-	FitGaussoEsponenzialico->SetParLimits(4, -SlicedX.at(posmax+10), 0.0); 						  								 // ScaleExp
+	FitGaussoEsponenzialico->SetParLimits(0,0,10000);           							             // ConstGauss
+	FitGaussoEsponenzialico->SetParLimits(1, SlicedX.at(posmax) * 0.8, SlicedX.at(posmax) * 1.5 ); 			  	     // MediaGauss
+	FitGaussoEsponenzialico->SetParLimits(2, FitLowerBound, FitUpperBound); 				  		     // SigmaGauss
+	FitGaussoEsponenzialico->SetParLimits(3, 0.0, 1);   						  	     		     // ConstExp
+	FitGaussoEsponenzialico->SetParLimits(4, -SlicedX.at(posmax+10), 0.0); 						  	     // ScaleExp
                                                         //il prof mette 100 ma noi
                                                         //non abbiamo tutto il vettore
-	FitGaussoEsponenzialico->SetParLimits(5, -1.0, 1.0); 																	     // ConstFunction
+	FitGaussoEsponenzialico->SetParLimits(5, -1.0, 1.0); 									     // ConstFunction
 
   
 
@@ -294,7 +288,6 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	cout << " FITTING PRINTING --------------------------------------------------- " << endl;
 	cout << endl;
 	DataGraph -> Fit( FitGaussoEsponenzialico, "RV" );
-//	DummyDataGraph -> Fit( FitGaussoEsponenzialico, "V" );
 	cout << endl;
 
 
@@ -342,9 +335,9 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	// Create a TGraphErrors for the residuals
 	auto ResidualGraph = new TGraphErrors();
 	     ResidualGraph -> SetTitle("Residui Fit");
-		 ResidualGraph -> SetMarkerStyle(20);
-		 ResidualGraph -> SetMarkerSize(1);
-		 ResidualGraph -> SetMarkerColor(kGreen+3);
+	     ResidualGraph -> SetMarkerStyle(7);
+	     ResidualGraph -> SetMarkerSize(1);
+	     ResidualGraph -> SetMarkerColor(kGreen+3);
 
 
 	//in teoria prende punti di troppo - dargli un vettore sliced direttamente
@@ -361,8 +354,8 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	ResidualGraph -> Draw("AP");
 
 	auto legend2 = new TLegend();
-         legend2 -> AddEntry(ResidualGraph, "Residui", "lpe");
-         legend2 -> Draw(); 
+             legend2 -> AddEntry(ResidualGraph, "Residui", "lpe");
+             legend2 -> Draw(); 
   
 
     //update della GUI del grafico
@@ -371,21 +364,21 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	pad2 -> Modified();
 	pad2 -> Update();
 	gSystem -> ProcessEvents();
-	//la canvas non vuole updaitarsis
+	//la canvas non vuole updaitarsi così ho usato i pad
 	
 
 	cout << " Hai a disposizione " << HowManyPrimitiveIteration <<  " azioni per modificare la canvas prima del continue " << endl;
 	for(int i=0; i<HowManyPrimitiveIteration; i++){
 	  	PreliminaryFittingCanvas -> WaitPrimitive();
-	    cout << "Iterazioni restanti " << HowManyPrimitiveIteration-1-i << endl;
+	        cout << "Iterazioni restanti " << HowManyPrimitiveIteration-1-i << endl;
 	}
 
 	//salvataggio del grafico modificato
-    if(SaveThaGraph){
-     	 string SaveNameGraph = PathToSaveGraph + "fitting/" + NomeGrafico + ".png";
-     	 PreliminaryFittingCanvas -> SaveAs( SaveNameGraph.c_str() );
-         cout << " file saved succesfully " << endl;
-    }
+        if(SaveThaGraph){
+     	    string SaveNameGraph = PathToSaveGraph + "fitting/" + NomeGrafico + ".png";
+     	    PreliminaryFittingCanvas -> SaveAs( SaveNameGraph.c_str() );
+            cout << " file saved succesfully " << endl;
+        }
     
 
 	//---------------------------------------------------------------------------------

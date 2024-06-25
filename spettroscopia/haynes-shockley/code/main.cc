@@ -107,11 +107,11 @@ void AnalysisInfo(){
 
     cout << " Select function to activate [Y/N] " << endl;
     
-	cout << " ReadShit " << endl;
-	cin >> FunctionActivatorFlag;
-	FunctionActivator["ReadShit"] = FunctionActivatorFlag;
+    cout << " ReadShit " << endl;
+    cin >> FunctionActivatorFlag;
+    FunctionActivator["ReadShit"] = FunctionActivatorFlag;
 
-	cout << " MakePreliminaryGraph " << endl;
+    cout << " MakePreliminaryGraph " << endl;
     cin >> FunctionActivatorFlag;
     FunctionActivator["MakePreliminaryGraph"] = FunctionActivatorFlag;
 
@@ -119,7 +119,7 @@ void AnalysisInfo(){
     cin >> FunctionActivatorFlag;
     FunctionActivator["FitPreliminaryGraph"] = FunctionActivatorFlag;
 
-	cout << " MakeTemperatureGraph " << endl;
+    cout << " MakeTemperatureGraph " << endl;
     cin >> FunctionActivatorFlag;
     FunctionActivator["MakeTemperatureGraph"] = FunctionActivatorFlag;
     

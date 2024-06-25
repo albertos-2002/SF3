@@ -1,3 +1,5 @@
+//prima versione ci sono cose complicate per nulla
+//con alcuni aggiornamenti dovrebbe comunque essere funzionante / corretta
 /* ==================================================================
 |																	|
 | Viene fatto uno slice del grafico in modo da rendelo più usabile  |
