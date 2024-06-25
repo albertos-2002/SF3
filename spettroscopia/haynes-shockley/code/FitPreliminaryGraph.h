@@ -35,21 +35,37 @@
 using namespace std;
 
 
-//non sappiamo quanti punti ci saranno manteniamo quindi 2k
 vector<double> SlicedX;
 vector<double> SlicedY;
 
-int MargineGrafico = 25; 
+int MargineGrafico = 50; 
 double FitLowerBound = 0.0;
 double FitUpperBound;
 int GraphLowerIndex = 0;
 int GraphUpperIndex = 0;
 int HowManyPrimitiveIteration = 20;
 
-auto PreliminaryFittingCanvas = new TCanvas( "PreliminaryFittingCanvas","PreliminaryFittingCanvas",1200,800 );
+auto PreliminaryFittingCanvas = new TCanvas( "PreliminaryFittingCanvas", "PreliminaryFittingCanvas", 1200, 800 );
+
+
 
 void FitPreliminaryGraph(){
 
+/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */
+	bool FakeDataBuilder = false;
+	if(FakeDataBuilder){
+		for(auto i : FileName_dconst){
+			FitUpperLevel_d.at(i) = 1995;
+		}
+	
+		for(auto i : FileName_vconst){
+			FitUpperLevel_v.at(i) = 1995;
+		}
+	}
+/* /\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\/\ */
+
+
+	//non sappiamo quanti punti ci saranno manteniamo quindi 2k
 	SlicedX.reserve(2000);
 	SlicedY.reserve(2000);
 	
@@ -69,6 +85,17 @@ void FitPreliminaryGraph(){
 void FunctionCaller_PreliminaryFit( const vector<string>& NameContainer, string SelectorFlag ){
 
 //un minimo di code duplication per la distinzione dei dati
+
+	if( NameContainer.empty() ){
+		if(DebugPrint) logFile << " PRELIMINARY FIT: FUNCTION CALLER: la reference del vettore dei nomi è vuoto!! " << endl;
+	}
+	if( FitUpperLevel_d.empty() ){
+		if(DebugPrint) logFile << " PRELIMINARY FIT: FUNCTION CALLER: vettore dei upper level fit bound D è vuoto!! " << endl;
+	}
+	if( FitUpperLevel_v.empty() ){
+		if(DebugPrint) logFile << " PRELIMINARY FIT: FUNCTION CALLER: vettore dei upper level fit bound V è vuoto!! " << endl;
+	}
+
 
 	for( auto index : NameContainer ){
 
@@ -134,15 +161,15 @@ void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata )
 
 	//estrazione dell'indice inferiore
 	auto SmallestElement_L = min_element( VectorOfDifference_L.begin(), VectorOfDifference_L.end() );
-	//auto   it_L     = find( VectorOfDifference_L.begin(), VectorOfDifference_L.end(), SmallestElement );
 	ElementIndex    = distance( VectorOfDifference_L.begin(), SmallestElement_L ); 	
 	GraphLowerIndex = ElementIndex - MargineGrafico;
+	if( GraphLowerIndex < 0 ) GraphLowerIndex = 0;
 
 	//estrazione dell'indice superiore
 	auto SmallestElement_D = min_element( VectorOfDifference_U.begin(), VectorOfDifference_U.end() );
-	//auto   it_U     = find( VectorOfDifference_U.begin(), VectorOfDifference_U.end(), SmallestElement );
 	ElementIndex    = distance( VectorOfDifference_U.begin(), SmallestElement_D ); 	
 	GraphUpperIndex = ElementIndex + MargineGrafico;
+	if( GraphUpperIndex > 2000 ) GraphUpperIndex = 2000;
 
 
 	//slicing dei vettori
