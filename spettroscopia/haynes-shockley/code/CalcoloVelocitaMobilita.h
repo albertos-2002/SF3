@@ -373,6 +373,50 @@ void CalcoloVelocitaMobilita(){
 	/* COEFFICIENTE DI DIFFUSIONE | SET 1 ----------------------------------------------------------------------------------------------------------------------- */	
 
 	//facciamo un fit lineare quindi in x i tempi saranno al cubo
+	vector<double> VettoreOrdinato;
+	vector<double> VettoreAscissato;
+	vector<double> ErroreOrdinato;
+	double ConstForFWHM = 2 * sqrt( 2*log(2) );
+
+	VettoreAscissato.reserve(11);
+	VettoreOrdinato.reserve(11);
+	ErroreOrdinato.reserve(11);
+
+	RedirectOutToFile( AnalResultsFile );
+
+	cout << " ORDINATA CON ERRORE ----------------------------------------------------------------- " << endl;
+
+	for( size_t i=0; i<FileName_dconst.size(); i++ ){
+	
+		string MapKey = FileName_dconst.at(i);
+		auto Salvatore = FitParameters_d.at(MapKey);
+
+		VettoreAscissato.push_back( pow( Salvatore.MediaGauss, 3) );
+		
+		//pessima nomenclatura
+		double fwhm = ConstForFWHM * Salvatore.SigmaGauss;
+		double Argomento = DistanzaCostante * fwhm;
+		double ordinata = pow( Argomento ,2) /11.09;
+		VettoreOrdinato.push_back( ordinata );
+
+		double sigma_FWHM = ConstForFWHM*Salvatore.ErrorSigmaGauss;
+		double sigma_Argomento = Argomento*sqrt( FattoreErroreDistanza + pow( sigma_FWHM/fwhm ,2) );
+		double sigma_ordinata = ordinata*2*sigma_Argomento;
+		ErroreOrdinato.push_back(sigma_ordinata);
+
+		cout << ordinata << " \\pm " << sigma_ordinata << endl;
+	}
+
+	DeRedirectOutToFile();
+
+	
+
+
+	 
+
+
+
+
 
 	return;
 }
