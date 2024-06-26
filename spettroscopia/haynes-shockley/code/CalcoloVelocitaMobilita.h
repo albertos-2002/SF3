@@ -372,5 +372,7 @@ void CalcoloVelocitaMobilita(){
 
 	/* COEFFICIENTE DI DIFFUSIONE | SET 1 ----------------------------------------------------------------------------------------------------------------------- */	
 
+	//facciamo un fit lineare quindi in x i tempi saranno al cubo
+
 	return;
 }
