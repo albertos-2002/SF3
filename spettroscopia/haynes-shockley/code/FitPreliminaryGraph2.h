@@ -30,8 +30,9 @@
 #include <TPad.h>
 #include <TLine.h>
 #include <TAxis.h>
-#include "TFitResultPtr.h"
-#include "TFitResult.h"
+#include <TFitResultPtr.h>
+#include <TFitResult.h>
+#include <TMath.h>
 
 #include "ExternalObjects.h"
 using namespace std;
@@ -50,10 +51,6 @@ int MargineGrafico = 50;
 //margini numerici per il fit 
 double FitLowerBound = 2e-6;
 double FitUpperBound;
-
-//indici per printare un grafico leggermente più largo rispetto al solo range di fit
-int GraphLowerIndex = 0;
-int GraphUpperIndex = 0;
 
 
 // definiamo una funzione per il controllo sullo slicing --------------------------------------------
@@ -147,17 +144,23 @@ void FunctionCaller_PreliminaryFit( const vector<string>& NameContainer, string 
 	for( auto index : NameContainer ){
 
 		if( SelectorFlag == "d" ){ 
-			 FitUpperBound = FitUpperLevel_d.at(index);
 
-			 //slicing del vettore e salvataggio
-			 SliceTheData_PreliminaryFit( SegnaleTemporale_d.at(index), SegnaleVoltico_d.at(index) );
+			if(DebugPrint) logFile << " FUNCTION CALLER: -------- Calling: " << index << SelectorFlag << " -------- " << endl;
 
-			 //creazione del grafico
-			 FitAndGraphCreator( index, SelectorFlag );
+			FitUpperBound = FitUpperLevel_d.at(index);
 
-		}
+			//slicing del vettore e salvataggio
+			SliceTheData_PreliminaryFit( SegnaleTemporale_d.at(index), SegnaleVoltico_d.at(index) );
+
+			//creazione del grafico
+			FitAndGraphCreator( index, SelectorFlag );
+
+			}
 			 
 		if( SelectorFlag == "v" ){ 
+
+			if(DebugPrint) logFile << " FUNCTION CALLER: -------- Calling: " << index << SelectorFlag << " -------- " << endl;
+		
 			 FitUpperBound = FitUpperLevel_v.at(index); 
 
 			 //slicing del vettore e salvataggio
@@ -184,9 +187,10 @@ void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata )
 	SlicedY.clear();
 	MoreSlicedX.clear();
 	MoreSlicedY.clear();
+	IndiciDaSalvare.clear();
 
-	size_t IndiceInferiore;
-	size_t IndiceSuperiore;
+	size_t IndiceInferiore = 0;
+	size_t IndiceSuperiore = 0;
 
 
 	//usiamo una funzione per estarre quali indice del vettore dei dati appartengono alla selezione che abbiamo fatto
@@ -201,7 +205,14 @@ void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata )
 	IndiceSuperiore = IndiciDaSalvare.at( IndiciDaSalvare.size()-1 ) + MargineGrafico;  //andiamo avanti di 50 punti
 
 	//controlliamo di essere ancora dentro il range dei dati che abbiamo
-	if( IndiceInferiore < 0 ) IndiceInferiore = 0;
+	//IPOTESI SU COSA CAZZO STA SUCCEDENDO AIUTO !!!
+	//dato che l'indice probabilemnte è un numero senza segno questo tornare indietro
+	//mi da un numero positivo a 20 cifre che quindi invalida il controllo for per lo sliced
+	//ottenendo un vettore vuoto
+	//aggiungiamo quindi un controllo per vedere se superiamo la size del grafico
+	//che dovrebbe risolvere il problema (ulteriori spiegazioni sul perchè funzioana non le posso dare sto andando a caso)
+	if( IndiceInferiore < 0 || IndiceInferiore > Xdata.size() ) IndiceInferiore = 0;
+	
 	if( IndiceSuperiore > ( Xdata.size()-1 ) ) IndiceSuperiore = ( Xdata.size()-1 ); 
 
 	//estraiamo i dati
@@ -215,6 +226,66 @@ void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata )
 	}
 
 
+
+	if(DebugPrint){
+			if( SlicedX.empty() ) logFile << " VECTORSLICER: vettore sliced X vuoto " << endl;
+			if( SlicedY.empty() ) logFile << " VECTORSLICER: vettore sliced Y vuoto " << endl;
+			if( MoreSlicedX.empty() ) logFile << " VECTORSLICER: vettore more sliced X vuoto " << endl;
+			if( MoreSlicedY.empty() ) logFile << " VECTORSLICER: vettore more sliced Y vuoto " << endl;
+			if( IndiciDaSalvare.empty() ) logFile << " VECTORSLICER: indici da salvare vuoto " << endl;
+
+			logFile << " VECTORSLICER: indice inferiore " << IndiceInferiore << endl;
+			logFile << " VECTORSLICER: indice superiore " << IndiceSuperiore << endl;
+	}		
+
+	if(DebugPrintVerbose){
+		for( auto i : IndiciDaSalvare ){
+			logFile << i << endl;
+		}
+	}
+
+	if(DebugPrintVerbose){
+
+		auto canvastmp = new TCanvas("canvastmp","canvastmp",1000,800);
+
+		auto graph0 = new TGraph( Xdata.size(), Xdata.data(), Ydata.data() );
+		 	graph0 -> SetTitle("DATA");
+		 	graph0 -> Draw("AP");
+		 	graph0 -> SetMarkerStyle(7);
+	  	 	canvastmp -> Modified();
+		 	canvastmp -> Update();
+		 	gSystem -> ProcessEvents();
+		cout << "Next Enter will go to next iteration" << endl;
+		cin.clear();   // Clear any error flags
+		cin.ignore();  // Ignore any leftover characters in the input buffer
+		cin.get();     // Wait for the user to press Enter
+
+		auto graph1 = new TGraph( SlicedX.size(), SlicedX.data(), SlicedY.data() );
+		 	graph1 -> SetTitle("SLICED");
+		 	graph1 -> Draw("AP");
+		 	graph1 -> SetMarkerStyle(7);
+		 	canvastmp -> Modified();
+ 		 	canvastmp -> Update();
+ 		 	gSystem -> ProcessEvents();
+		cout << "Next Enter will go to next iteration" << endl;
+		cin.clear();   // Clear any error flags
+		cin.ignore();  // Ignore any leftover characters in the input buffer
+		cin.get();     // Wait for the user to press Enter
+
+		auto graph2 = new TGraph( MoreSlicedX.size(), MoreSlicedX.data(), MoreSlicedY.data() );
+		 	graph2 -> SetTitle("MORE SLICED");
+		 	graph2 -> Draw("AP");
+		 	graph2 -> SetMarkerStyle(7);
+		 	canvastmp -> Modified();
+ 		 	canvastmp -> Update();
+ 		 	gSystem -> ProcessEvents();
+		cout << "Next Enter will go to next iteration" << endl;
+		cin.clear();   // Clear any error flags
+		cin.ignore();  // Ignore any leftover characters in the input buffer
+		cin.get();     // Wait for the user to press Enter
+
+	}
+
 	return;
 }
 
@@ -225,7 +296,7 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	//variabili locali per assicurarne la validità
 	string NomeGrafico = index + SelectorFlag;
 
-	if(DebugPrint) logFile << " grafico per " << NomeGrafico << endl;
+	if(DebugPrint) logFile << " FITANDGRAPHCREATOR: grafico per " << NomeGrafico << endl;
 
 	auto PreliminaryFittingCanvas = new TCanvas( "PreliminaryFittingCanvas", "PreliminaryFittingCanvas", 1920, 1080 );
 	TPad *pad1 = new TPad("pad1", "Pad 1", 0.0, 0.30, 1.0, 1.0); // Upper pad
@@ -250,16 +321,28 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	     DataGraph -> SetMarkerColor(kOrange+7);
 
 	auto DummyDataGraph = new TGraphErrors( MoreSlicedX.size(), MoreSlicedX.data(), MoreSlicedY.data(), 0/*xerr*/, 0/*yerr*/ );
+
+	double temporaryBound = FitLowerBound;
+	if( FitLowerBound < MoreSlicedX.at(0) ) temporaryBound = MoreSlicedX.at(0);
+
 	
-	TF1* FitGaussoEsponenzialico = new TF1("FitGaussoEsponenzialico", GaussianExponentialFunction, FitLowerBound, FitUpperBound, 6);
+	TF1* FitGaussoEsponenzialico = new TF1("FitGaussoEsponenzialico", GaussianExponentialFunction, temporaryBound, FitUpperBound, 6);
 	     FitGaussoEsponenzialico -> SetLineColor(kGreen+3);
 	     FitGaussoEsponenzialico -> SetLineStyle(2); //dashed line for the fit line
 
+	if(DebugPrint){
+		if( SlicedX.empty() ) logFile << NomeGrafico << " FITANDGRAPHCREATOR: vettore sliced X vuoto " << endl;
+		if( SlicedY.empty() ) logFile << NomeGrafico << " FITANDGRAPHCREATOR: vettore sliced Y vuoto " << endl;
+		if( MoreSlicedX.empty() ) logFile << NomeGrafico << " FITANDGRAPHCREATOR: vettore more sliced X vuoto " << endl;
+		if( MoreSlicedY.empty() ) logFile << NomeGrafico << " FITANDGRAPHCREATOR: vettore more sliced Y vuoto " << endl;
+		if( DataGraph -> GetN() == 0 ) logFile << NomeGrafico << " FITANDGRAPHCREATOR: datagraph empry " << endl;
+	}
+
 	DataGraph -> Draw("AP");
 	//update della GUI del grafico
-	 	pad1 -> Modified();
-		pad1 -> Update();
-		gSystem -> ProcessEvents();
+	pad1 -> Modified();
+	pad1 -> Update();
+	gSystem -> ProcessEvents();
 
 
 	//consiglio di chatgpt - limiti e range presi da stroili
@@ -268,71 +351,79 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	//i residui (quando vengono calcolati) sono orrendi
 
 	//determiniamo la posizione del massimo della y
-	auto it = max_element( SlicedY.begin(), SlicedY.end() );
-	int posmax = it - SlicedY.begin();	
-	
-	FitGaussoEsponenzialico->SetParameters(0.001, SlicedY.at(posmax), SlicedX.at(posmax), 0.0005, -SlicedX.at(posmax)*0.5, 0.0); // Initial guesses
-	FitGaussoEsponenzialico->SetParLimits(0,0,10000);           							                                     // ConstGauss
-	FitGaussoEsponenzialico->SetParLimits(1, SlicedX.at(posmax) * 0.8, SlicedX.at(posmax) * 1.5 ); 			  	                 // MediaGauss
-	FitGaussoEsponenzialico->SetParLimits(2, FitLowerBound, FitUpperBound); 				  		                             // SigmaGauss
-	FitGaussoEsponenzialico->SetParLimits(3, 0.0, 1);   						  	     		                                 // ConstExp
-	FitGaussoEsponenzialico->SetParLimits(4, -SlicedX.at(posmax+10), 0.0); 						  	                             // ScaleExp
+	auto it = max_element( MoreSlicedY.begin(), MoreSlicedY.end() );
+	int posmax = it - MoreSlicedY.begin();
+	//sbagliata ma funzioannate BHO
+	double GuessForTheSigmaValue = MoreSlicedX.at(posmax)*34.1/100;	
+
+	FitGaussoEsponenzialico->SetParameters(0.001, MoreSlicedX.at(posmax), GuessForTheSigmaValue, 0.0005, -MoreSlicedX.at(posmax)*0.5, 0.0); // Initial guesses
+	FitGaussoEsponenzialico->SetParLimits(0,0,10000);           							               // ConstGauss
+	FitGaussoEsponenzialico->SetParLimits(1, MoreSlicedX.at(posmax) * 0.8, MoreSlicedX.at(posmax) * 1.5 ); // MediaGauss
+	FitGaussoEsponenzialico->SetParLimits(2, FitLowerBound, FitUpperBound); 			  		           // SigmaGauss 
+	FitGaussoEsponenzialico->SetParLimits(3, 0.0, 1);   						  	     		           // ConstExp
+	FitGaussoEsponenzialico->SetParLimits(4, -MoreSlicedX.at(posmax+10), 0.0); 						  	   // ScaleExp
                                                         //il prof mette 100 ma noi
                                                         //non abbiamo tutto il vettore
-	FitGaussoEsponenzialico->SetParLimits(5, -1.0, 1.0); 									                                     // ConstFunction
-  
+	if(DebugPrint) logFile << NomeGrafico << " FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault " << endl;                                                       
+	FitGaussoEsponenzialico->SetParLimits(5, -1.0, 1.0); 									               // ConstFunction
 
-	//eseguiamo un quiet fit
-	TFitResultPtr RisultatiFit = DataGraph -> Fit( FitGaussoEsponenzialico, "RQS" );
+  	FitGaussoEsponenzialico->SetParName(0, "GaussNorm");
+  	FitGaussoEsponenzialico->SetParName(1, "Media");
+  	FitGaussoEsponenzialico->SetParName(2, "Sigma");
+  	FitGaussoEsponenzialico->SetParName(3, "ExpNorm");
+  	FitGaussoEsponenzialico->SetParName(4, "Decay");
+  	FitGaussoEsponenzialico->SetParName(5, "Offset");
 
-	//procediamo a stampare i risultati su un file
-	if( RisultatiFit -> IsValid() ){
-
-		RedirectOutToFile( FitResultsFile );
+	//procediamo a stampare i risultati su un file e a quanto pare anche sul terminale
+	RedirectOutToFile( FitResultsFile );
 	
-		cout << endl;
-		cout << " ``` " << endl;
-		cout << " FIT RESULT for " << NomeGrafico << " ---------------------------------------- " << endl;
-		RisultatiFit -> Print( "V" );
-		cout << " ``` " << endl;
-		cout << "---" << endl;
-		cout << endl;
+	cout << endl;
+	cout << " ``` " << endl;
+	cout << " FIT RESULT for " << NomeGrafico << " ---------------------------------------- " << endl;
+	DataGraph -> Fit( FitGaussoEsponenzialico, "RV" );
+	cout << " ``` " << endl;
+	cout << "---" << endl;
+	cout << endl;
 
-		DeRedirectOutToFile();
-	}
-	else{
-		cout << " Il puntatore ai risultati di fit ha avuto problemi " << endl;
-		DataGraph -> Fit( FitGaussoEsponenzialico, "RV" );
-	}
+	DeRedirectOutToFile();
+
 
 
 	FitGaussoEsponenzialico -> Draw("same");
 	//update della GUI del grafico
-	 	 pad1 -> Modified();
-		 pad1 -> Update();
-		 gSystem -> ProcessEvents();
+	pad1 -> Modified();
+	pad1 -> Update();
+	gSystem -> ProcessEvents();
 
 	auto legend = new TLegend();
 	     legend -> AddEntry( DataGraph, "data", "lpe");
 	     legend -> AddEntry( FitGaussoEsponenzialico, "fit", "lpe" );
 	     legend -> Draw();
 	//update della GUI del grafico
-		 pad1 -> Modified();
-		 pad1 -> Update();
-		 gSystem -> ProcessEvents();
+	pad1 -> Modified();
+	pad1 -> Update();
+	gSystem -> ProcessEvents();
 
 	//salvataggio dei parametri di fit
 	if( SelectorFlag == "d" ){
 		auto& structure = FitParameters_d.at(index);
 		structure.MediaGauss      = FitGaussoEsponenzialico -> GetParameter(1);
 		structure.ErrorMediaGauss = FitGaussoEsponenzialico -> GetParError(1);
+		structure.SigmaGauss      = FitGaussoEsponenzialico -> GetParameter(2);
+		structure.ErrorSigmaGauss = FitGaussoEsponenzialico -> GetParError(2);		
+		if(DebugPrint) logFile << NomeGrafico << " FITANDGRAPHCREATOR: accessed point for fit results (d) " << endl;
 	}
+	
 
 	if( SelectorFlag == "v" ){
-		auto& structure = FitParameters_d.at(index);
+		auto& structure = FitParameters_v.at(index);
 		structure.MediaGauss      = FitGaussoEsponenzialico -> GetParameter(1);
 		structure.ErrorMediaGauss = FitGaussoEsponenzialico -> GetParError(1);
+		structure.SigmaGauss      = FitGaussoEsponenzialico -> GetParameter(2);
+		structure.ErrorSigmaGauss = FitGaussoEsponenzialico -> GetParError(2);		
+		if(DebugPrint) logFile << NomeGrafico << " FITANDGRAPHCREATOR: accessed point for fit results (v) " << endl;
 	}
+	
 	cout << " parametri di fit estratti " << endl;     
 	  
 

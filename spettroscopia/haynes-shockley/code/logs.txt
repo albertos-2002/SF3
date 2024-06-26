@@ -192,83 +192,224 @@ data/vconst/run18.CSV
 data/vconst/run19.CSV
  16 lines discarde correctly (i hope) 
  MAIN: callED read file 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud d inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- PRELIMINARYGRAPH: upper boud v inseted 
- MAIN: callED preliminay graph 
  PRELIMINATY FIT: Fake data raange builded 
- grafico per run0d
+ FUNCTION CALLER: -------- Calling: run0d -------- 
+ VECTORSLICER: indice inferiore 977
+ VECTORSLICER: indice superiore 1195
+ FITANDGRAPHCREATOR: grafico per run0d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run1d
+run0d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run0d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run1d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1340
+ FITANDGRAPHCREATOR: grafico per run1d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run2d
+run1d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run1d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run2d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1340
+ FITANDGRAPHCREATOR: grafico per run2d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run3d
+run2d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run2d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run3d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1277
+ FITANDGRAPHCREATOR: grafico per run3d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run4d
+run3d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run3d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run4d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1277
+ FITANDGRAPHCREATOR: grafico per run4d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run5d
+run4d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run4d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run5d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1277
+ FITANDGRAPHCREATOR: grafico per run5d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run6d
+run5d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run5d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run6d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1277
+ FITANDGRAPHCREATOR: grafico per run6d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run7d
+run6d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run6d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run7d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1265
+ FITANDGRAPHCREATOR: grafico per run7d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run8d
+run7d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run7d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run8d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1265
+ FITANDGRAPHCREATOR: grafico per run8d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run9d
+run8d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run8d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run9d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1246
+ FITANDGRAPHCREATOR: grafico per run9d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run10d
+run9d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run9d FITANDGRAPHCREATOR: accessed point for fit results (d) 
+ FUNCTION CALLER: -------- Calling: run10d -------- 
+ VECTORSLICER: indice inferiore 1003
+ VECTORSLICER: indice superiore 1246
+ FITANDGRAPHCREATOR: grafico per run10d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run10d FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run10d FITANDGRAPHCREATOR: accessed point for fit results (d) 
  PRELIMINARY FIT: processed D data 
- grafico per run0v
+ FUNCTION CALLER: -------- Calling: run0v -------- 
+ VECTORSLICER: indice inferiore 1019
+ VECTORSLICER: indice superiore 1493
+ FITANDGRAPHCREATOR: grafico per run0v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run1v
+run0v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run0v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run1v -------- 
+ VECTORSLICER: indice inferiore 1019
+ VECTORSLICER: indice superiore 1556
+ FITANDGRAPHCREATOR: grafico per run1v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run2v
+run1v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run1v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run2v -------- 
+ VECTORSLICER: indice inferiore 1019
+ VECTORSLICER: indice superiore 1618
+ FITANDGRAPHCREATOR: grafico per run2v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run3v
+run2v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run2v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run3v -------- 
+ VECTORSLICER: indice inferiore 1019
+ VECTORSLICER: indice superiore 1681
+ FITANDGRAPHCREATOR: grafico per run3v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run4v
+run3v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run3v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run4v -------- 
+ VECTORSLICER: indice inferiore 750
+ VECTORSLICER: indice superiore 1568
+ FITANDGRAPHCREATOR: grafico per run4v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run5v
+run4v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run4v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run5v -------- 
+ VECTORSLICER: indice inferiore 750
+ VECTORSLICER: indice superiore 1662
+ FITANDGRAPHCREATOR: grafico per run5v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run6v
+run5v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run5v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run6v -------- 
+ VECTORSLICER: indice inferiore 750
+ VECTORSLICER: indice superiore 1724
+ FITANDGRAPHCREATOR: grafico per run6v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run7v
+run6v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run6v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run7v -------- 
+ VECTORSLICER: indice inferiore 750
+ VECTORSLICER: indice superiore 1787
+ FITANDGRAPHCREATOR: grafico per run7v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run8v
+run7v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run7v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run8v -------- 
+ VECTORSLICER: indice inferiore 307
+ VECTORSLICER: indice superiore 1437
+ FITANDGRAPHCREATOR: grafico per run8v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run9v
+run8v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run8v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run9v -------- 
+ VECTORSLICER: indice inferiore 221
+ VECTORSLICER: indice superiore 1445
+ FITANDGRAPHCREATOR: grafico per run9v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run10v
+run9v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run9v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run10v -------- 
+ VECTORSLICER: indice inferiore 146
+ VECTORSLICER: indice superiore 1433
+ FITANDGRAPHCREATOR: grafico per run10v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
- grafico per run11v
+run10v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run10v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run11v -------- 
+ VECTORSLICER: indice inferiore 74
+ VECTORSLICER: indice superiore 1517
+ FITANDGRAPHCREATOR: grafico per run11v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run11v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run11v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run12v -------- 
+ VECTORSLICER: indice inferiore 0
+ VECTORSLICER: indice superiore 1868
+ FITANDGRAPHCREATOR: grafico per run12v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run12v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run12v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run13v -------- 
+ VECTORSLICER: indice inferiore 0
+ VECTORSLICER: indice superiore 1806
+ FITANDGRAPHCREATOR: grafico per run13v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run13v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run13v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run14v -------- 
+ VECTORSLICER: indice inferiore 0
+ VECTORSLICER: indice superiore 1843
+ FITANDGRAPHCREATOR: grafico per run14v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run14v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run14v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run15v -------- 
+ VECTORSLICER: indice inferiore 0
+ VECTORSLICER: indice superiore 1840
+ FITANDGRAPHCREATOR: grafico per run15v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run15v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run15v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run16v -------- 
+ VECTORSLICER: indice inferiore 0
+ VECTORSLICER: indice superiore 1749
+ FITANDGRAPHCREATOR: grafico per run16v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run16v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run16v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run17v -------- 
+ VECTORSLICER: indice inferiore 0
+ VECTORSLICER: indice superiore 1653
+ FITANDGRAPHCREATOR: grafico per run17v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run17v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run17v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run18v -------- 
+ VECTORSLICER: indice inferiore 0
+ VECTORSLICER: indice superiore 1757
+ FITANDGRAPHCREATOR: grafico per run18v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run18v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run18v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ FUNCTION CALLER: -------- Calling: run19v -------- 
+ VECTORSLICER: indice inferiore 0
+ VECTORSLICER: indice superiore 1832
+ FITANDGRAPHCREATOR: grafico per run19v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+run19v FITANDGRAPHCREATOR: posmax+10 is not the segmentation fault 
+run19v FITANDGRAPHCREATOR: accessed point for fit results (v) 
+ PRELIMINARY FIT: processed V data 
+ MAIN: callED fit preliminay graph 

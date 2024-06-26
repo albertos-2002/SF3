@@ -33,6 +33,8 @@ DataMap2 FitUpperLevel_v;
 struct FitParameterHolder{
 	double MediaGauss     ;
 	double ErrorMediaGauss;
+	double SigmaGauss     ;
+	double ErrorSigmaGauss;
 };
 typedef map<string, FitParameterHolder> DataMap3;
 DataMap3 FitParameters_d;
