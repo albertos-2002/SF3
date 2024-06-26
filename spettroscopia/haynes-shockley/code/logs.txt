@@ -192,6 +192,38 @@ data/vconst/run18.CSV
 data/vconst/run19.CSV
  16 lines discarde correctly (i hope) 
  MAIN: callED read file 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud d inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ PRELIMINARYGRAPH: upper boud v inseted 
+ MAIN: callED preliminay graph 
  PRELIMINATY FIT: Fake data raange builded 
  grafico per run0d
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
@@ -223,4 +255,20 @@ data/vconst/run19.CSV
  grafico per run2v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
  grafico per run3v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run4v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run5v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run6v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run7v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run8v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run9v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run10v
+ FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 
+ grafico per run11v
  FITANDGRAPHCREATOR: canvas & pad 1&2 set up done 

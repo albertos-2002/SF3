@@ -19,12 +19,11 @@
 #include <TSystem.h>
 
 #include "Reader.h"
-#include "CalcolatoreVelocita.h"
-#include "CalcolatoreMobilita.h"
 #include "DisplayTemperatura.h"
 #include "ExternalObjects.h"
 #include "PreliminaryGraph.h"
 #include "FitPreliminaryGraph2.h"
+#include "CalcoloVelocitaMobilita.h"
 using namespace std;
 
 /* ========================================================================================= */
@@ -34,7 +33,7 @@ int main (int argN, char* argL[]) {
 	auto AppWTF = new TApplication("MakeThaApppp", &argN, argL);
 
        
-        //flag setting
+    //flag setting
 		AnalysisInfo();
 
         
@@ -64,6 +63,12 @@ int main (int argN, char* argL[]) {
         }
 
 
+        //calclo e produzione di grafici per i risultati finali
+        if(FunctionActivator.at("CalcoloVelocitaMobilita") == "y"){
+          CalcoloVelocitaMobilita(); 
+          if(DebugPrint) logFile << " MAIN: callED calcolo mobilita velocita " << endl;
+        }
+
         
         //costruisce il grafico che fa vedere la temperatura durante la presa dati
         if(FunctionActivator.at("MakeTemperatureGraph") == "y"){
@@ -74,6 +79,7 @@ int main (int argN, char* argL[]) {
 
 
         logFile.close();
+        FitResultsFile.close();
 
 	AppWTF -> Run(kTRUE);
 	return 0;
@@ -118,6 +124,10 @@ void AnalysisInfo(){
     cout << " FitPreliminaryGraph " << endl;
     cin >> FunctionActivatorFlag;
     FunctionActivator["FitPreliminaryGraph"] = FunctionActivatorFlag;
+
+    cout << " CalcoloVelocitaMobilita " << endl;
+    cin >> FunctionActivatorFlag;
+    FunctionActivator["CalcoloVelocitaMobilita"] = FunctionActivatorFlag;
 
     cout << " MakeTemperatureGraph " << endl;
     cin >> FunctionActivatorFlag;

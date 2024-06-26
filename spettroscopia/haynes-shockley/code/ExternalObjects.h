@@ -5,6 +5,7 @@
 #include <vector>
 #include <map>
 #include <cmath>
+#include <streambuf>
 using namespace std;
 
 /* GLOBAL SCOPE ============================================================================ */
@@ -30,16 +31,13 @@ DataMap2 FitUpperLevel_d;
 DataMap2 FitUpperLevel_v;
 
 struct FitParameterHolder{
-	double ConstGauss   ;
-	double MediaGauss   ;
-	double SigmaGauss   ;
-	double ConstExp     ;
-	double ScaleExp     ;
-	double ConstFunction;
+	double MediaGauss     ;
+	double ErrorMediaGauss;
 };
 typedef map<string, FitParameterHolder> DataMap3;
 DataMap3 FitParameters_d;
 DataMap3 FitParameters_v;
+ofstream FitResultsFile("FitResults.md");
 
 
 //gestione dei path
@@ -95,7 +93,35 @@ double GaussianExponentialFunction( double*x, double* par ){
 	double Result = GaussSection + ExpSection - ConstFunction;
 	
 	return Result;
-};
+}
+
+
+
+//chatgpt provided fucntion to redirect cout to a file
+
+// Variable to store the original buffer of cout
+streambuf* originalCoutBuffer = nullptr;
+
+// Function to redirect cout to a file
+void RedirectOutToFile( ofstream& outFile ) {
+    if ( outFile.is_open() ) {
+    	// Save the current buffer of cout
+    	originalCoutBuffer = std::cout.rdbuf();
+        // Redirect cout to the file
+        cout.rdbuf( outFile.rdbuf() );
+    } else {
+        cerr << "Error: Output file is not open." << std::endl;
+    }
+    return;
+}
+// Function to reset cout to the standard output
+void DeRedirectOutToFile() {
+    if ( originalCoutBuffer ) {
+    	// Reset cout to its original buffer (standard output)
+        cout.rdbuf( originalCoutBuffer );
+        originalCoutBuffer = nullptr;
+    }
+}
 
 
 #endif

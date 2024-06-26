@@ -1,18 +1,18 @@
 /* ==================================================================
-|								    |
+|								                                    |
 | Viene fatto uno slice del grafico in modo da rendelo più usabile  |
 | Lo starting point per il fit è dallo zero                         |
-|								    |
+|								                                    |
 | I parametri sono associati ai seguenti numeri                     |
 | Nella struct vengono salvati con il loro nome                     |
 |                                                                   |
-| 0 - ConstGauss						    |
-| 1 - MediaGauss						    |
-| 2 - SigmaGauss 						    |
-| 3 - ConstExp  						    |
-| 4 - ScaleExp  						    |
-| 5 - ConstFunction 						    |
-|								    |
+| 0 - ConstGauss						                            |
+| 1 - MediaGauss						                            |
+| 2 - SigmaGauss 						                            |
+| 3 - ConstExp  						                            |
+| 4 - ScaleExp  						                            |
+| 5 - ConstFunction 						                        |
+|								                                    |
 ================================================================== */
 
 #include <iostream>
@@ -30,6 +30,8 @@
 #include <TPad.h>
 #include <TLine.h>
 #include <TAxis.h>
+#include "TFitResultPtr.h"
+#include "TFitResult.h"
 
 #include "ExternalObjects.h"
 using namespace std;
@@ -120,7 +122,6 @@ void FitPreliminaryGraph(){
 	FunctionCaller_PreliminaryFit( FileName_vconst, "v" );
 	if(DebugPrint) logFile << " PRELIMINARY FIT: processed V data " << endl;
 
-	//pulizia degli oggetti
 
 	return;
 }
@@ -196,7 +197,7 @@ void SliceTheData_PreliminaryFit( vector<double>& Xdata, vector<double>& Ydata )
 	}
 
 	//allargiamo i dati da estrarre in modo da non avere un fit che copre tutto il grafico
-	IndiceInferiore = IndiciDaSalvare.at(0) - MargineGrafico ; 			    //andiamo indietro di 50 punti
+	IndiceInferiore = IndiciDaSalvare.at(0) - MargineGrafico ; 			                //andiamo indietro di 50 punti
 	IndiceSuperiore = IndiciDaSalvare.at( IndiciDaSalvare.size()-1 ) + MargineGrafico;  //andiamo avanti di 50 punti
 
 	//controlliamo di essere ancora dentro il range dei dati che abbiamo
@@ -271,24 +272,38 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	int posmax = it - SlicedY.begin();	
 	
 	FitGaussoEsponenzialico->SetParameters(0.001, SlicedY.at(posmax), SlicedX.at(posmax), 0.0005, -SlicedX.at(posmax)*0.5, 0.0); // Initial guesses
-	FitGaussoEsponenzialico->SetParLimits(0,0,10000);           							             // ConstGauss
-	FitGaussoEsponenzialico->SetParLimits(1, SlicedX.at(posmax) * 0.8, SlicedX.at(posmax) * 1.5 ); 			  	     // MediaGauss
-	FitGaussoEsponenzialico->SetParLimits(2, FitLowerBound, FitUpperBound); 				  		     // SigmaGauss
-	FitGaussoEsponenzialico->SetParLimits(3, 0.0, 1);   						  	     		     // ConstExp
-	FitGaussoEsponenzialico->SetParLimits(4, -SlicedX.at(posmax+10), 0.0); 						  	     // ScaleExp
+	FitGaussoEsponenzialico->SetParLimits(0,0,10000);           							                                     // ConstGauss
+	FitGaussoEsponenzialico->SetParLimits(1, SlicedX.at(posmax) * 0.8, SlicedX.at(posmax) * 1.5 ); 			  	                 // MediaGauss
+	FitGaussoEsponenzialico->SetParLimits(2, FitLowerBound, FitUpperBound); 				  		                             // SigmaGauss
+	FitGaussoEsponenzialico->SetParLimits(3, 0.0, 1);   						  	     		                                 // ConstExp
+	FitGaussoEsponenzialico->SetParLimits(4, -SlicedX.at(posmax+10), 0.0); 						  	                             // ScaleExp
                                                         //il prof mette 100 ma noi
                                                         //non abbiamo tutto il vettore
-	FitGaussoEsponenzialico->SetParLimits(5, -1.0, 1.0); 									     // ConstFunction
-
+	FitGaussoEsponenzialico->SetParLimits(5, -1.0, 1.0); 									                                     // ConstFunction
   
 
+	//eseguiamo un quiet fit
+	TFitResultPtr RisultatiFit = DataGraph -> Fit( FitGaussoEsponenzialico, "RQS" );
 
-	//inserire redirect dell output
-	cout << endl;
-	cout << " FITTING PRINTING --------------------------------------------------- " << endl;
-	cout << endl;
-	DataGraph -> Fit( FitGaussoEsponenzialico, "RV" );
-	cout << endl;
+	//procediamo a stampare i risultati su un file
+	if( RisultatiFit -> IsValid() ){
+
+		RedirectOutToFile( FitResultsFile );
+	
+		cout << endl;
+		cout << " ``` " << endl;
+		cout << " FIT RESULT for " << NomeGrafico << " ---------------------------------------- " << endl;
+		RisultatiFit -> Print( "V" );
+		cout << " ``` " << endl;
+		cout << "---" << endl;
+		cout << endl;
+
+		DeRedirectOutToFile();
+	}
+	else{
+		cout << " Il puntatore ai risultati di fit ha avuto problemi " << endl;
+		DataGraph -> Fit( FitGaussoEsponenzialico, "RV" );
+	}
 
 
 	FitGaussoEsponenzialico -> Draw("same");
@@ -309,22 +324,14 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	//salvataggio dei parametri di fit
 	if( SelectorFlag == "d" ){
 		auto& structure = FitParameters_d.at(index);
-		structure.ConstGauss    = FitGaussoEsponenzialico -> GetParameter(0);
-		structure.MediaGauss    = FitGaussoEsponenzialico -> GetParameter(1);
-		structure.SigmaGauss    = FitGaussoEsponenzialico -> GetParameter(2);
-		structure.ConstExp      = FitGaussoEsponenzialico -> GetParameter(3);
-		structure.ScaleExp      = FitGaussoEsponenzialico -> GetParameter(4);
-		structure.ConstFunction = FitGaussoEsponenzialico -> GetParameter(5);
+		structure.MediaGauss      = FitGaussoEsponenzialico -> GetParameter(1);
+		structure.ErrorMediaGauss = FitGaussoEsponenzialico -> GetParError(1);
 	}
 
 	if( SelectorFlag == "v" ){
 		auto& structure = FitParameters_d.at(index);
-		structure.ConstGauss    = FitGaussoEsponenzialico -> GetParameter(0);
-		structure.MediaGauss    = FitGaussoEsponenzialico -> GetParameter(1);
-		structure.SigmaGauss    = FitGaussoEsponenzialico -> GetParameter(2);
-		structure.ConstExp      = FitGaussoEsponenzialico -> GetParameter(3);
-		structure.ScaleExp      = FitGaussoEsponenzialico -> GetParameter(4);
-		structure.ConstFunction = FitGaussoEsponenzialico -> GetParameter(5);		
+		structure.MediaGauss      = FitGaussoEsponenzialico -> GetParameter(1);
+		structure.ErrorMediaGauss = FitGaussoEsponenzialico -> GetParError(1);
 	}
 	cout << " parametri di fit estratti " << endl;     
 	  
@@ -341,7 +348,7 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 
 
 	//in teoria prende punti di troppo - dargli un vettore sliced direttamente
-	for (int i = 0; i < DataGraph->GetN(); ++i) {
+	for (int i = 0; i < DummyDataGraph->GetN(); ++i) {
 		double x, y;
 		DummyDataGraph->GetPoint(i, x, y);
 	  	double fittedValue = FitGaussoEsponenzialico->Eval(x);
@@ -354,9 +361,22 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	ResidualGraph -> Draw("AP");
 
 	auto legend2 = new TLegend();
-             legend2 -> AddEntry(ResidualGraph, "Residui", "lpe");
-             legend2 -> Draw(); 
-  
+         legend2 -> AddEntry(ResidualGraph, "Residui", "lpe");
+         legend2 -> Draw(); 
+
+    //update della GUI del grafico
+    pad2 -> Modified();
+    pad2 -> Update();
+    gSystem -> ProcessEvents();     
+
+  	//linea sullo zero per i residui
+  	double xmin = pad2 -> GetUxmin();
+  	double xmax = pad2 -> GetUxmax();
+  	TLine* line = new TLine(xmin, 0, xmax, 0);
+  	       line -> SetLineColor(kViolet-3); 
+  	       line -> SetLineStyle(9);    
+  	       line -> SetLineWidth(1);
+  	       line -> Draw();
 
     //update della GUI del grafico
  	pad1 -> Modified();

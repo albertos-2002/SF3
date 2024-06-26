@@ -47,14 +47,14 @@ void MakeTemperatureGraph(){
        MultiTemperato -> GetXaxis() -> SetTitle("Numero Misura [#]");
        MultiTemperato -> GetYaxis() -> SetTitle("Temperatura [°C]");
        
-       MultiTemperato -> Draw("APL");
+       MultiTemperato -> Draw("AP");
 
   
   //costruzione della legenda
   auto legend = new TLegend();
       
-  legend -> AddEntry( TemperaturaVoltica    , "V costante", "lp");
-  legend -> AddEntry( TemperaturaDistantica , "D costante", "lp" );
+  legend -> AddEntry( TemperaturaVoltica    , "V costante", "p");
+  legend -> AddEntry( TemperaturaDistantica , "D costante", "p" );
 
   legend -> Draw();
   
