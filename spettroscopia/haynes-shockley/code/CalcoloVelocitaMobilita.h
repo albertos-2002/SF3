@@ -368,7 +368,9 @@ void CalcoloVelocitaMobilita(){
 	//pulizia oggetti
 	pad1 -> Clear();
 	pad2 -> Clear();
-	
+
+
+	/* COEFFICIENTE DI DIFFUSIONE | SET 1 ----------------------------------------------------------------------------------------------------------------------- */	
 
 	return;
 }
