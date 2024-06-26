@@ -40,6 +40,7 @@ typedef map<string, FitParameterHolder> DataMap3;
 DataMap3 FitParameters_d;
 DataMap3 FitParameters_v;
 ofstream FitResultsFile("FitResults.md");
+ofstream AnalResultsFile("AnalysisResults.md");
 
 
 //gestione dei path

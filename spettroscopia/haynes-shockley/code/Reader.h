@@ -75,7 +75,7 @@ void AvoidCodeDuplicationTheySaid( const string FileToReadIndex, const string& T
         }
         
       //discard of lines
-        for( int j=0; j<NumberOfLinesToDiscard; j++ ){
+        for( size_t j=0; j<NumberOfLinesToDiscard; j++ ){
           getline( CSVFile_in, LineToDiscard );
         }
         if(DebugPrint) logFile << " " << NumberOfLinesToDiscard << " lines discarde correctly (i hope) " << endl;  

@@ -45,7 +45,7 @@ vector<double> SlicedY;
 vector<double> MoreSlicedX;
 vector<double> MoreSlicedY;
 //int HowManyPrimitiveIteration = 20;
-int HowManyPrimitiveIteration = 0;
+int HowManyPrimitiveIteration = -1;
 vector<int> IndiciDaSalvare;
 
 int MargineGrafico = 50;
@@ -120,7 +120,6 @@ void FitPreliminaryGraph(){
 
 	FunctionCaller_PreliminaryFit( FileName_vconst, "v" );
 	if(DebugPrint) logFile << " PRELIMINARY FIT: processed V data " << endl;
-
 
 	return;
 }
@@ -480,10 +479,12 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	//la canvas non vuole updaitarsi così ho usato i pad
 	
 
+	if(ControlloSalvataggioPerRunConGraficiGiaFattiMaServonoIRisultatiDiFit){
 	cout << " Hai a disposizione " << HowManyPrimitiveIteration <<  " azioni per modificare la canvas prima del continue " << endl;
-	for(int i=0; i<HowManyPrimitiveIteration; i++){
-	  	PreliminaryFittingCanvas -> WaitPrimitive();
+		for(int i=0; i<HowManyPrimitiveIteration; i++){
+	  		PreliminaryFittingCanvas -> WaitPrimitive();
 	        cout << "Iterazioni restanti " << HowManyPrimitiveIteration-1-i << endl;
+		}
 	}
 
 	//salvataggio del grafico modificato
@@ -496,10 +497,12 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 
 	//---------------------------------------------------------------------------------
 
-	cout << "Next Enter will go to next iteration" << endl;
-	cin.clear(); // Clear any error flags
-	cin.ignore();  // Ignore any leftover characters in the input buffer
-	cin.get();     // Wait for the user to press Enter
+	if(ControlloSalvataggioPerRunConGraficiGiaFattiMaServonoIRisultatiDiFit){
+		cout << "Next Enter will go to next iteration" << endl;
+		cin.clear(); // Clear any error flags
+		cin.ignore();  // Ignore any leftover characters in the input buffer
+		cin.get();     // Wait for the user to press Enter
+	}
 
 	//pulizia delle variabili
 	pad1 -> Clear();
