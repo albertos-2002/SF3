@@ -37,13 +37,15 @@
 #include "ExternalObjects.h"
 using namespace std;
 
+bool ControlloSalvataggioPerRunConGraficiGiaFattiMaServonoIRisultatiDiFit = false;
 
 //definite come variabili globali le funzioni possono lavorarci senza bisogno di passarli per reference
 vector<double> SlicedX;
 vector<double> SlicedY;
 vector<double> MoreSlicedX;
 vector<double> MoreSlicedY;
-int HowManyPrimitiveIteration = 20;
+//int HowManyPrimitiveIteration = 20;
+int HowManyPrimitiveIteration = 0;
 vector<int> IndiciDaSalvare;
 
 int MargineGrafico = 50;
@@ -485,7 +487,7 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	}
 
 	//salvataggio del grafico modificato
-        if(SaveThaGraph){
+        if(SaveThaGraph && ControlloSalvataggioPerRunConGraficiGiaFattiMaServonoIRisultatiDiFit){
      	    string SaveNameGraph = PathToSaveGraph + "fitting/" + NomeGrafico + ".png";
      	    PreliminaryFittingCanvas -> SaveAs( SaveNameGraph.c_str() );
             cout << " file saved succesfully " << endl;
