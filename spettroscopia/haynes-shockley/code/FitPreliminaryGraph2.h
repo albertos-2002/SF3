@@ -412,6 +412,7 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 		structure.ErrorMediaGauss = FitGaussoEsponenzialico -> GetParError(1);
 		structure.SigmaGauss      = FitGaussoEsponenzialico -> GetParameter(2);
 		structure.ErrorSigmaGauss = FitGaussoEsponenzialico -> GetParError(2);		
+		structure.AreaUnderTheCurve = FitGaussoEsponenzialico -> Integral( MoreSlicedX.at(0), MoreSlicedX.at( MoreSlicedX.size()-1 )); 
 		if(DebugPrint) logFile << NomeGrafico << " FITANDGRAPHCREATOR: accessed point for fit results (d) " << endl;
 	}
 	
@@ -422,6 +423,7 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 		structure.ErrorMediaGauss = FitGaussoEsponenzialico -> GetParError(1);
 		structure.SigmaGauss      = FitGaussoEsponenzialico -> GetParameter(2);
 		structure.ErrorSigmaGauss = FitGaussoEsponenzialico -> GetParError(2);		
+		structure.AreaUnderTheCurve = FitGaussoEsponenzialico -> Integral( MoreSlicedX.at(0), MoreSlicedX.at( MoreSlicedX.size()-1 ));
 		if(DebugPrint) logFile << NomeGrafico << " FITANDGRAPHCREATOR: accessed point for fit results (v) " << endl;
 	}
 	
@@ -508,6 +510,8 @@ void FitAndGraphCreator( const string& index, string& SelectorFlag ){
 	pad1 -> Clear();
 	pad2 -> Clear();
 	PreliminaryFittingCanvas -> Clear();
+
+	if(index == "run19") PreliminaryFittingCanvas->Close();
 
 	return;
 }

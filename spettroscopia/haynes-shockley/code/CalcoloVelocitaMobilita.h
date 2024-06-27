@@ -289,12 +289,8 @@ void CalcoloVelocitaMobilita(){
 	   		cout << "---" << endl;
 	   		cout << endl;
 	   	DeRedirectOutToFile();
-
+	   	
 	   	FitMobilita2 -> Draw("same");
-	   	//update della GUI del grafico
-	   	// pad1 -> Modified();
-	   	// pad1 -> Update();
-	    // gSystem -> ProcessEvents();
 
 	   	auto MobilitaLegend2 = new TLegend();
 	   		 MobilitaLegend2 -> AddEntry( GraphMobilita2, "data", "lpe");
@@ -393,15 +389,14 @@ void CalcoloVelocitaMobilita(){
 
 		VettoreAscissato.push_back( pow( Salvatore.MediaGauss, 3) );
 		
-		//pessima nomenclatura
 		double fwhm = ConstForFWHM * Salvatore.SigmaGauss;
-		double Argomento = DistanzaCostante * fwhm;
-		double ordinata = pow( Argomento ,2) /11.09;
+		double d_fwhm = DistanzaCostante * fwhm;
+		double ordinata = pow( d_fwhm ,2) /11.09;
 		VettoreOrdinato.push_back( ordinata );
 
 		double sigma_FWHM = ConstForFWHM*Salvatore.ErrorSigmaGauss;
-		double sigma_Argomento = Argomento*sqrt( FattoreErroreDistanza + pow( sigma_FWHM/fwhm ,2) );
-		double sigma_ordinata = ordinata*2*sigma_Argomento;
+		double sigma_d_fwhm = d_fwhm*sqrt( FattoreErroreDistanza + pow( sigma_FWHM/fwhm ,2) );
+		double sigma_ordinata = ordinata*2*sigma_d_fwhm;
 		ErroreOrdinato.push_back(sigma_ordinata);
 
 		cout << ordinata << " \\pm " << sigma_ordinata << endl;
@@ -410,13 +405,259 @@ void CalcoloVelocitaMobilita(){
 	DeRedirectOutToFile();
 
 	
+	//creazione del grafico
+	pad1 -> cd();
 
+		auto GraphDiffusione = new TGraphErrors( VettoreAscissato.size(), VettoreAscissato.data(), VettoreOrdinato.data(), 0/*xerr*/, ErroreOrdinato.data()/*yerr*/ );
+			 GraphDiffusione -> SetTitle( "Coefficiente di diffusione (d const)" );
+	     	 GraphDiffusione -> SetMarkerStyle(8);
+	     	 GraphDiffusione -> SetMarkerColor(kOrange+7);
+	     	 GraphDiffusione -> GetYaxis() -> SetTitle("Distanza [mm]^2");
+	     	 GraphDiffusione -> GetXaxis() -> SetTitle("Tempo [s]^3");
+
+	    GraphDiffusione -> Draw("AP");
+	   	//update della GUI del grafico
+	   	pad1 -> Modified();
+	   	pad1 -> Update();
+	   	gSystem -> ProcessEvents();
+
+	   	TF1* FitDiffusione = new TF1("FitDiffusione", "pol1", VettoreAscissato.at(0), VettoreAscissato.at( VettoreAscissato.size()-1 ) );
+	   		 FitDiffusione -> SetParName(0, "q");
+	   		 FitDiffusione -> SetParName(1, "m");
+	   		 FitDiffusione -> SetLineColor(kGreen+2);
+	   		 FitDiffusione -> SetLineStyle(2); //dashed line for the fit line	   		 
+
+		TFitResultPtr RisultatiDiffusione = GraphDiffusione -> Fit( FitDiffusione, "RVS" );
+
+	   	RedirectOutToFile( AnalResultsFile );
+	   		cout << endl;
+	   		cout << " ``` " << endl;
+	   		cout << " FIT RESULT for Diffusione Set 1--------------------------------------- " << endl;
+	   		if( !RisultatiDiffusione->IsValid() ) cout << "puntatore ai fit results non valido" << endl;
+	   		RisultatiDiffusione -> Print("V");
+//	   		GraphDiffusione -> Fit( FitDiffusione, "RV" );
+	   		cout << " ``` " << endl;
+	   		cout << "---" << endl;
+	   		cout << endl;
+	   	DeRedirectOutToFile();
+
+	   	FitDiffusione -> Draw("same");
+
+	   	auto DiffusioneLegend = new TLegend();
+	   		 DiffusioneLegend -> AddEntry( GraphDiffusione, "data", "lpe");
+	   		 DiffusioneLegend -> AddEntry( FitDiffusione, "fit: q + mx", "lpe" );
+	   		 DiffusioneLegend -> Draw();
+
+	   	//update della GUI del grafico
+	   	pad1 -> Modified();
+	   	pad1 -> Update();
+	    gSystem -> ProcessEvents();	 
+
+	//residui
+	pad2 -> cd();
+
+		auto DiffusioneResidualGraph = new TGraphErrors();
+	     	 DiffusioneResidualGraph -> SetTitle("Residui Fit");
+	     	 DiffusioneResidualGraph -> SetMarkerStyle(8);
+	     	 DiffusioneResidualGraph -> SetMarkerSize(1);
+	     	 DiffusioneResidualGraph -> SetMarkerColor(kGreen+3);
+
+		for (int i = 0; i < GraphDiffusione->GetN(); ++i) {
+			double x, y;
+			GraphDiffusione->GetPoint(i, x, y);
+	  		double fittedValue = FitDiffusione->Eval(x);
+	   		double residual = y - fittedValue;
+	  		DiffusioneResidualGraph -> SetPoint(i, x, residual);
+	  		DiffusioneResidualGraph -> SetPointError(i, 0, GraphDiffusione->GetErrorY(i)); // Assuming no error in x-direction, only y-direction	
+    	}
+
+		DiffusioneResidualGraph -> Draw("AP");
+
+		auto DiffusioneLegend2 = new TLegend();
+         	 DiffusioneLegend2 -> AddEntry(DiffusioneResidualGraph, "Residui", "lpe");
+         	 DiffusioneLegend2 -> Draw(); 
+
+  		//linea sullo zero per i residui
+  		double DiffusioneXmin = VettoreAscissato.at(0);								//pad2 -> GetUxmin();
+  		double DiffusioneXmax = VettoreAscissato.at( VettoreAscissato.size()-1 );	//pad2 -> GetUxmax();
+  		TLine* DiffusioneLine = new TLine(DiffusioneXmin, 0, DiffusioneXmax, 0);
+  	       	   DiffusioneLine -> SetLineColor(kViolet-3); 
+  	           DiffusioneLine -> SetLineStyle(9);    
+  	           DiffusioneLine -> SetLineWidth(1);
+  	           DiffusioneLine -> Draw();
+
+    //update della GUI del grafico
+ 	pad1 -> Modified();
+	pad1 -> Update();
+	pad2 -> Modified();
+	pad2 -> Update();
+	gSystem -> ProcessEvents();
+
+
+	cout << " Hai a disposizione " << HowManyPrimitiveIteration_CVM <<  " azioni per modificare la canvas prima del continue " << endl;
+	for(size_t i=0; i<HowManyPrimitiveIteration_CVM; i++){
+	  	TheOnlyFansCanvas -> WaitPrimitive();
+	    cout << "Iterazioni restanti " << HowManyPrimitiveIteration_CVM-1-i << endl;
+	}
+
+	//salvataggio del grafico modificato
+    if(SaveThaGraph){
+    	string SaveNameGraph = PathToSaveGraph + "finali/Diffusione.png";
+     	TheOnlyFansCanvas -> SaveAs( SaveNameGraph.c_str() );
+        cout << " file saved succesfully " << endl;
+    }
+
+	cout << "Next Enter will go to next iteration" << endl;
+	cin.clear(); // Clear any error flags
+	cin.ignore();  // Ignore any leftover characters in the input buffer
+	cin.get();     // Wait for the user to press Enter
+
+	//pulizia oggetti
+	pad1 -> Clear();
+	pad2 -> Clear();
 
 	 
+	/* TEMPO DI VITA MEDIO | SET 2 ------------------------------------------------------------------------------------------------------------ */
+
+	vector<double> TimeHolder;
+	vector<double> AreaHolder;
+	vector<double> LNAreaHolder;
+
+	TimeHolder.reserve(20);
+	AreaHolder.reserve(20);
+	LNAreaHolder.reserve(20);
+
+	RedirectOutToFile( AnalResultsFile );
+	
+	cout << " AREA | ln(AREA) --------------------------------------------------------------- " << endl;
+
+	for(auto index : FileName_vconst){
+		
+		auto& Salvatore = FitParameters_v.at(index);
+
+		TimeHolder.push_back( Salvatore.MediaGauss );
+		AreaHolder.push_back( Salvatore.AreaUnderTheCurve);
+		LNAreaHolder.push_back( log( Salvatore.AreaUnderTheCurve ) );
+
+		cout << index << endl;
+		cout << Salvatore.AreaUnderTheCurve << " | " << log( Salvatore.AreaUnderTheCurve ) << endl;
+	}
+
+	DeRedirectOutToFile();
+
+	//creazione del grafico
+	pad1 -> cd();
+
+		auto GraphTVM = new TGraphErrors( TimeHolder.size(), TimeHolder.data(), LNAreaHolder.data(), 0/*xerr*/, 0/*yerr*/ );
+			 GraphTVM -> SetTitle( "Tempo di vita medio (v const)" );
+	     	 GraphTVM -> SetMarkerStyle(8);
+	     	 GraphTVM -> SetMarkerColor(kOrange+7);
+	     	 GraphTVM -> GetYaxis() -> SetTitle("ln(Area)");
+	     	 GraphTVM -> GetXaxis() -> SetTitle("Tempo [s]");
+
+	    GraphTVM -> Draw("AP");
+	   	//update della GUI del grafico
+	   	pad1 -> Modified();
+	   	pad1 -> Update();
+	   	gSystem -> ProcessEvents();
+
+	   	TF1* FitTVM = new TF1("FitTVM", "pol1", TimeHolder.at(0), TimeHolder.at( TimeHolder.size()-1 ) );
+	   		 FitTVM -> SetParName(0, "q");
+	   		 FitTVM -> SetParName(1, "m");
+	   		 FitTVM -> SetLineColor(kGreen+2);
+	   		 FitTVM -> SetLineStyle(2); //dashed line for the fit line	   		 
+
+		TFitResultPtr RisultatiTVM = GraphTVM -> Fit( FitTVM, "RVS" );
+
+	   	RedirectOutToFile( AnalResultsFile );
+	   		cout << endl;
+	   		cout << " ``` " << endl;
+	   		cout << " FIT RESULT for Tempo di vita medio Set 2 --------------------------------------- " << endl;
+	   		if( !RisultatiTVM->IsValid() ) cout << "puntatore ai fit results non valido" << endl;
+	   		RisultatiTVM -> Print("V");
+//	   		GraphTVM -> Fit( FitTVM, "RV" );
+	   		cout << " ``` " << endl;
+	   		cout << " il tao e 1/m " << endl;
+	   		cout << "---" << endl;
+	   		cout << endl;
+	   	DeRedirectOutToFile();
+
+	   	FitTVM -> Draw("same");
+
+	   	auto TVMLegend = new TLegend();
+	   		 TVMLegend -> AddEntry( GraphTVM, "data", "lpe");
+	   		 TVMLegend -> AddEntry( FitTVM, "fit: q + mx", "lpe" );
+	   		 TVMLegend -> Draw();
+
+	   	//update della GUI del grafico
+	   	pad1 -> Modified();
+	   	pad1 -> Update();
+	    gSystem -> ProcessEvents();	 
+
+	//residui
+	pad2 -> cd();
+
+		auto TVMResidualGraph = new TGraphErrors();
+	     	 TVMResidualGraph -> SetTitle("Residui Fit");
+	     	 TVMResidualGraph -> SetMarkerStyle(8);
+	     	 TVMResidualGraph -> SetMarkerSize(1);
+	     	 TVMResidualGraph -> SetMarkerColor(kGreen+3);
+
+		for (int i = 0; i < GraphTVM->GetN(); ++i) {
+			double x, y;
+			GraphTVM->GetPoint(i, x, y);
+	  		double fittedValue = FitTVM->Eval(x);
+	   		double residual = y - fittedValue;
+	  		TVMResidualGraph -> SetPoint(i, x, residual);
+//	  		TVMResidualGraph -> SetPointError(i, 0, GraphTVM->GetErrorY(i)); // Assuming no error in x-direction, only y-direction	
+    	}
+
+		TVMResidualGraph -> Draw("AP");
+
+		auto TVMLegend2 = new TLegend();
+         	 TVMLegend2 -> AddEntry(TVMResidualGraph, "Residui", "lpe");
+         	 TVMLegend2 -> Draw(); 
+
+  		//linea sullo zero per i residui
+  		double TVMXmin = TimeHolder.at(0);						//pad2 -> GetUxmin();
+  		double TVMXmax = TimeHolder.at( TimeHolder.size()-1 );	//pad2 -> GetUxmax();
+  		TLine* TVMLine = new TLine(TVMXmin, 0, TVMXmax, 0);
+  	       	   TVMLine -> SetLineColor(kViolet-3); 
+  	           TVMLine -> SetLineStyle(9);    
+  	           TVMLine -> SetLineWidth(1);
+  	           TVMLine -> Draw();
+
+    //update della GUI del grafico
+ 	pad1 -> Modified();
+	pad1 -> Update();
+	pad2 -> Modified();
+	pad2 -> Update();
+	gSystem -> ProcessEvents();
 
 
+	cout << " Hai a disposizione " << HowManyPrimitiveIteration_CVM <<  " azioni per modificare la canvas prima del continue " << endl;
+	for(size_t i=0; i<HowManyPrimitiveIteration_CVM; i++){
+	  	TheOnlyFansCanvas -> WaitPrimitive();
+	    cout << "Iterazioni restanti " << HowManyPrimitiveIteration_CVM-1-i << endl;
+	}
 
+	//salvataggio del grafico modificato
+    if(SaveThaGraph){
+    	string SaveNameGraph = PathToSaveGraph + "finali/TempoVitaMedio.png";
+     	TheOnlyFansCanvas -> SaveAs( SaveNameGraph.c_str() );
+        cout << " file saved succesfully " << endl;
+    }
 
+	cout << "Next Enter will go to next iteration" << endl;
+	cin.clear(); // Clear any error flags
+	cin.ignore();  // Ignore any leftover characters in the input buffer
+	cin.get();     // Wait for the user to press Enter
+
+	//pulizia oggetti
+	pad1 -> Clear();
+	pad2 -> Clear();	
+
+	TheOnlyFansCanvas -> Close();
 
 	return;
 }

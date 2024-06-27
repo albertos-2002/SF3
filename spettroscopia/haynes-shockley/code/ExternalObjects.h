@@ -35,6 +35,7 @@ struct FitParameterHolder{
 	double ErrorMediaGauss;
 	double SigmaGauss     ;
 	double ErrorSigmaGauss;
+	double AreaUnderTheCurve;
 };
 typedef map<string, FitParameterHolder> DataMap3;
 DataMap3 FitParameters_d;
