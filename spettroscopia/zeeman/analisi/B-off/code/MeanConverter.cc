@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <iomanip>
 using namespace std;
 
 /* Global variable definition */
@@ -22,18 +23,41 @@ double EFinalResolution;
 vector<double> RCompatibility;
 vector<double> DistanzeNM;
 
+vector<double> FWHMHolder;
+vector<double> ErrFWHMHolder;
+vector<double> TheRealResolution;
+vector<double> ErrTheRealResolution;
+
 
 /* Hard coded values (fit results) */
 
 double c1sx = 3879.18, c2sx = 4117.65, c3sx = 4359.83;
 double Ec1sx = 0.0707239, Ec2sx = 0.109531, Ec3sx = 0.0671669;
-
+double s1sx = 18.69,
+       s2sx = 19.3448,
+       s3sx = 19.2034;
+double Es1sx = 0.122921,
+       Es2sx = 0.188266,
+       Es3sx = 0.12032;
+       
 double c1cx = 4605.6, c2cx = 4855.34, c3cx = 5109.5;
 double Ec1cx = 0.127313, Ec2cx = 0.0993444, Ec3cx = 0.0612584;
+double s1cx = 20.3284,
+       s2cx = 20.3696,
+       s3cx = 19.8276;
+double Es1cx = 0.206466,
+       Es2cx = 0.153422,
+       Es3cx = 0.112936;
 
 double c1dx = 5367.82, c2dx = 5630.81, c3dx = 5898.61;
 double Ec1dx = 0.159843, Ec2dx = 0.0763267, Ec3dx = 0.0716108; 
-
+double s1dx = 21.5938,
+       s2dx = 20.5895,
+       s3dx = 20.4032;
+double Es1dx = 0.248684,
+       Es2dx = 0.145794,
+       Es3dx = 0.133533;
+       
 
 void DistanceCalculator(double (&arr)[4], const double var1, const double var2, const double var3, const double err1, const double err2, const double err3){
   
@@ -100,6 +124,40 @@ void ResolutionCalcolator( double (&arr)[4] ){
   EResolution.push_back( Eval2 );
   DistanzeNM.push_back(val2);
 
+}
+
+void TheRealResolutionCalculator(){
+
+  double CostanteMoltiplicativaFWHM = 2*sqrt( 2*log(2) );
+
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s1sx*TheRealConversionFactor );
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s2sx*TheRealConversionFactor );
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s3sx*TheRealConversionFactor );
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s1cx*TheRealConversionFactor );
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s2cx*TheRealConversionFactor );
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s3cx*TheRealConversionFactor );
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s1dx*TheRealConversionFactor );
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s2dx*TheRealConversionFactor );
+  FWHMHolder.push_back( CostanteMoltiplicativaFWHM*s3dx*TheRealConversionFactor );
+
+  //trascurando errore su conversione 
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es1sx*TheRealConversionFactor );
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es2sx*TheRealConversionFactor );
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es3sx*TheRealConversionFactor );
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es1cx*TheRealConversionFactor );
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es2cx*TheRealConversionFactor );
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es3cx*TheRealConversionFactor );
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es1dx*TheRealConversionFactor );
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es2dx*TheRealConversionFactor );
+  ErrFWHMHolder.push_back( CostanteMoltiplicativaFWHM*Es3dx*TheRealConversionFactor );
+
+  for( auto element : FWHMHolder ){
+    TheRealResolution.push_back( lambda / element );
+  }
+  for( size_t i=0; i<TheRealResolution.size(); i++){
+    ErrTheRealResolution.push_back( TheRealResolution.at(i)*ErrFWHMHolder.at(i)/FWHMHolder.at(i) );
+  }
+  
 }
 
 void MeanResolutionCalculator(){
@@ -200,7 +258,7 @@ int main(){
   
   cout << " ------------------------------------------------------------------------------------------- " << endl;
   
-  cout << "\n Risoluzioni (qualsiasi cosa siano): \n" << endl;
+  cout << "\n Risoluzioni SBAGLIATE (qualsiasi cosa siano): \n" << endl;
   cout << " zona sinistra: " << endl;
   cout << " (1)            " << Resolution.at(0) << " \\pm " << EResolution.at(0) << " nm " << endl;
   cout << " (2)            " << Resolution.at(1) << " \\pm " << EResolution.at(1) << " nm " <<  endl;
@@ -252,7 +310,27 @@ int main(){
   cout << " (5)            " << DistanzeNM.at(4) << " nm " << endl;
   cout << " (6)            " << DistanzeNM.at(5) << " nm " << endl;
   cout << endl;
+
+  TheRealResolutionCalculator();
+
+  cout << setprecision(15) << " ------------------------------------------------------------------------------------------- " << endl;
   
+  cout << "\n THE REAL FOOKING RESOLUTIONS: " << endl; 
+  cout << "                | FWHM  \\pm SigmaFWHM   | Risoluzione \\pm SigmaRisoluzione " << endl;
+  cout << " zona sinistra: " << endl;
+  cout << " (1)            " << FWHMHolder.at(0) << " \\pm " << ErrFWHMHolder.at(0) << " | " << TheRealResolution.at(0) << " \\pm " << ErrTheRealResolution.at(0) << endl;
+  cout << " (2)            " << FWHMHolder.at(1) << " \\pm " << ErrFWHMHolder.at(1) << " | " << TheRealResolution.at(1) << " \\pm " << ErrTheRealResolution.at(1) << endl;
+  cout << " (3)            " << FWHMHolder.at(2) << " \\pm " << ErrFWHMHolder.at(2) << " | " << TheRealResolution.at(2) << " \\pm " << ErrTheRealResolution.at(2) << endl;
+  cout << " zona centrale: " << endl;
+  cout << " (1)            " << FWHMHolder.at(3) << " \\pm " << ErrFWHMHolder.at(3) << " | " << TheRealResolution.at(3) << " \\pm " << ErrTheRealResolution.at(3) << endl;
+  cout << " (2)            " << FWHMHolder.at(4) << " \\pm " << ErrFWHMHolder.at(4) << " | " << TheRealResolution.at(4) << " \\pm " << ErrTheRealResolution.at(4) << endl;
+  cout << " (3)            " << FWHMHolder.at(5) << " \\pm " << ErrFWHMHolder.at(5) << " | " << TheRealResolution.at(5) << " \\pm " << ErrTheRealResolution.at(5) << endl;
+  cout << " zona destra:   " << endl;
+  cout << " (1)            " << FWHMHolder.at(6) << " \\pm " << ErrFWHMHolder.at(6) << " | " << TheRealResolution.at(6) << " \\pm " << ErrTheRealResolution.at(6) << endl;
+  cout << " (2)            " << FWHMHolder.at(7) << " \\pm " << ErrFWHMHolder.at(7) << " | " << TheRealResolution.at(7) << " \\pm " << ErrTheRealResolution.at(7) << endl; 
+  cout << " (3)            " << FWHMHolder.at(8) << " \\pm " << ErrFWHMHolder.at(8) << " | " << TheRealResolution.at(8) << " \\pm " << ErrTheRealResolution.at(8) << endl;
+
+
   return 0;
 
 }
