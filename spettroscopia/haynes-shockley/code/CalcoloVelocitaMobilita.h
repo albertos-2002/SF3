@@ -14,6 +14,7 @@
 #include <cmath>
 #include <map>
 #include <algorithm>
+#include <iomanip>
 
 #include <TGraphErrors.h>
 #include <TMultiGraph.h>
@@ -51,6 +52,7 @@ double TensioneCostante = 45.0; //[V]
 vector<double> Distanza = {3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22}; //[mm]
 //⤴ il suo errore e quello dell'ipotesi triangolare
 
+bool FedericoRompeIlCazzoConIGraficiOverruleControllo = true;
 
 /* ==================================== */
 
@@ -399,7 +401,7 @@ void CalcoloVelocitaMobilita(){
 		double sigma_ordinata = ordinata*2*sigma_d_fwhm;
 		ErroreOrdinato.push_back(sigma_ordinata);
 
-		cout << ordinata << " \\pm " << sigma_ordinata << endl;
+		cout << setprecision(15) << ordinata << " \\pm " << sigma_ordinata << endl;
 	}
 
 	DeRedirectOutToFile();
@@ -412,7 +414,7 @@ void CalcoloVelocitaMobilita(){
 			 GraphDiffusione -> SetTitle( "Coefficiente di diffusione (d const)" );
 	     	 GraphDiffusione -> SetMarkerStyle(8);
 	     	 GraphDiffusione -> SetMarkerColor(kOrange+7);
-	     	 GraphDiffusione -> GetYaxis() -> SetTitle("Distanza [mm]^2");
+	     	 GraphDiffusione -> GetYaxis() -> SetTitle("(Distanza*FWHM)^2/11.09 [mm*s]^2");
 	     	 GraphDiffusione -> GetXaxis() -> SetTitle("Tempo [s]^3");
 
 	    GraphDiffusione -> Draw("AP");
@@ -501,7 +503,7 @@ void CalcoloVelocitaMobilita(){
 	}
 
 	//salvataggio del grafico modificato
-    if(SaveThaGraph){
+    if(SaveThaGraph || FedericoRompeIlCazzoConIGraficiOverruleControllo){
     	string SaveNameGraph = PathToSaveGraph + "finali/Diffusione.png";
      	TheOnlyFansCanvas -> SaveAs( SaveNameGraph.c_str() );
         cout << " file saved succesfully " << endl;
